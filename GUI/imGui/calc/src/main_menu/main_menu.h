@@ -1,0 +1,10 @@
+
+
+
+
+void ShowExampleAppMainMenuBar();
+
+
+
+
+void ShowHelpWindow();
