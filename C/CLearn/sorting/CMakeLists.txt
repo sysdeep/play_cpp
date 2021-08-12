@@ -16,3 +16,7 @@ add_executable(selection
 add_executable(merging
 ./merging.c
 )
+
+add_executable(std_qsort
+./std_qsort.c
+)
