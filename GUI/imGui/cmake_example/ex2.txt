@@ -1,0 +1,20 @@
+# Author: Yongkie Wiyogo
+
+cmake_minimum_required(VERSION 3.10)
+
+set(project imguiapp)
+project(${project} VERSION 0.1)
+
+# configure_file(src/include/config.h.in src/include/config.h)
+
+set(IMGUI_PATH ${CMAKE_SOURCE_DIR}/vendors/imgui)
+
+add_subdirectory(src)
+add_subdirectory(vendors)
+
+target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
+
+
+
+
+
