@@ -3,6 +3,8 @@
 #include <iostream>
 // #include <stdlib>
 
+using namespace UI;
+
 DSensorView::DSensorView(DSensorVM *model) {
     this->model = model;
     this->is_visible = true;
@@ -58,7 +60,9 @@ void DSensorView::draw() {
             const int circle_segments = circle_segments_override ? circle_segments_override_v : 0;
             const int curve_segments = curve_segments_override ? curve_segments_override_v : 0;
             float x = p.x + 4.0f;
+            float ix = x; // initial x
             float y = p.y + 4.0f;
+            float iy = y; // initial y
             for (int n = 0; n < 2; n++) {
                 // First line uses a thickness of 1.0f, second line uses the
                 // configurable thickness
@@ -135,6 +139,20 @@ void DSensorView::draw() {
             draw_list->AddRectFilledMultiColor(ImVec2(x, y), ImVec2(x + sz, y + sz), IM_COL32(0, 0, 0, 255),
                                                IM_COL32(255, 0, 0, 255), IM_COL32(255, 255, 0, 255),
                                                IM_COL32(0, 255, 0, 255));
+
+            y += 40;
+            std::cout << "-----------------" << std::endl;
+            std::cout << "y: " << y << std::endl;   // 554
+            std::cout << "x: " << x << std::endl;   // 484
+            std::cout << "sz: " << sz << std::endl; // 36
+            draw_list->AddNgonFilled(ImVec2(x + sz * 0.5f, y + sz * 0.5f), sz * 0.5f, col, ngon_sides);
+
+            /* интересно, он появляется по абсолютным координатам и не привязан к окну */
+            /* понятно, x является относительным этого окна, при перерисовки он меняется */
+            draw_list->AddNgonFilled(ImVec2(510.0f, 510.0f), sz * 0.5f, col, 4);
+
+            /* позиция относительно окна */
+            draw_list->AddNgonFilled(ImVec2(ix + 20.0f, iy + 20.0f), sz * 0.5f, col, 5);
 
             ImGui::PopItemWidth();
             ImGui::EndTabItem();

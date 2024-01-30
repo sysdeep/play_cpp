@@ -15,7 +15,9 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 set(SOURCES
     src/main.cpp
-    src/units/dsensor/dsensor_view.cpp
+    src/application/application.cpp
+    src/ui/main_window.cpp
+    src/ui/units/dsensor/dsensor_view.cpp
 )
 
 set(IMGUI_SOURCES
@@ -50,6 +52,7 @@ target_link_libraries(${APP_TARGET} imgui backend)
 
 # можно и так...
 # add_executable(${APP_TARGET} ${SOURCES} ${IMGUI_SOURCES} ${BACKEND_SOURCES})
+target_include_directories(${APP_TARGET} PRIVATE src)  
 target_include_directories(${APP_TARGET} PRIVATE vendors/imgui)  # Include the IMGUI headers
 target_include_directories(${APP_TARGET} PRIVATE vendors/imgui/backends)  # Include the IMGUI headers
 
