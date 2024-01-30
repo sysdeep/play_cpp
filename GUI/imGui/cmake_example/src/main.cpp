@@ -39,7 +39,6 @@
 
 #include "./units/dsensor/dsensor_view.h"
 
-
 static void glfw_error_callback(int error, const char *description) {
   fprintf(stderr, "GLFW Error %d: %s\n", error, description);
 }
@@ -90,6 +89,13 @@ int main(int, char **) {
       ImGuiConfigFlags_NavEnableKeyboard; // Enable Keyboard Controls
   io.ConfigFlags |=
       ImGuiConfigFlags_NavEnableGamepad; // Enable Gamepad Controls
+
+  // io.Fonts->AddFontFromFileTTF("../fira.ttf", 16.0f, NULL,
+  //                              io.Fonts->GetGlyphRangesCyrillic());
+  // io.Fonts->AddFontFromFileTTF("../hemi_head_bd_it.ttf", 16.0f, NULL,
+  //                              io.Fonts->GetGlyphRangesCyrillic());
+  io.Fonts->AddFontFromFileTTF("../vendors/imgui/misc/fonts/Roboto-Medium.ttf",
+                               16.0f, NULL, io.Fonts->GetGlyphRangesCyrillic());
 
   // Setup Dear ImGui style
   ImGui::StyleColorsDark();
@@ -181,6 +187,8 @@ int main(int, char **) {
       ImGui::Begin("Hello, world!"); // Create a window called "Hello, world!"
                                      // and append into it.
 
+      ImGui::Text(u8"Привет мир.");
+
       ImGui::Text("This is some useful text."); // Display some text (you can
                                                 // use a format strings too)
       ImGui::Checkbox(
@@ -217,7 +225,6 @@ int main(int, char **) {
         show_another_window = false;
       ImGui::End();
     }
-
 
     // my
     sensor.draw();
