@@ -38,6 +38,7 @@
 
 //--- my ---
 #include "application/application.hpp"
+#include "ui/main_menu.hpp"
 #include "ui/units/dsensor/dsensor_view.h"
 
 static void glfw_error_callback(int error, const char *description) {
@@ -134,6 +135,8 @@ int main(int, char **) {
     auto app = new Application();
     app->run();
 
+    auto main_menu = new UI::MainMenu();
+
     // Our state
     bool show_demo_window = true;
     bool show_another_window = false;
@@ -213,6 +216,7 @@ int main(int, char **) {
 
         // my
         sensor.draw();
+        main_menu->draw();
 
         // Rendering
         ImGui::Render();
