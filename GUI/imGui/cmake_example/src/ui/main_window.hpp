@@ -2,6 +2,7 @@
 #define MAIN_WINDOW
 
 #include "./main_menu.hpp"
+#include "./scene.hpp"
 #include "imgui.h"
 #include <GLFW/glfw3.h>
 
@@ -17,6 +18,8 @@ class MainWindow {
     GLFWwindow *window;
     ImGuiIO *io;
     MainMenu *_main_menu;
+    Scene *_scene;
+
     void initGLFW();
     void initImGui();
 

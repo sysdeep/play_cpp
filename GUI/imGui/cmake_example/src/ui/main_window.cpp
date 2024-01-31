@@ -1,10 +1,12 @@
 #include "./main_window.hpp"
 #include "./main_menu.hpp"
+#include "./scene.hpp"
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
-#include "ui/units/dsensor/dsensor_view.h"
-#include "ui/units/dsensor/dsensor_vm.h"
+#include "ui/gmodals/modals/dsensor_gmodal.hpp"
+#include "ui/units/dsensor/dsensor_view_ex.hpp"
+#include "ui/units/dsensor/dsensor_vm.hpp"
 #include <GLFW/glfw3.h>
 #include <iostream>
 
@@ -30,6 +32,7 @@ MainWindow::MainWindow() {
 
     std::cout << "MainWindow start creating" << std::endl;
     this->_main_menu = new MainMenu();
+    this->_scene = new Scene();
     std::cout << "MainWindow crated" << std::endl;
 }
 
@@ -44,8 +47,10 @@ void MainWindow::loop() {
 
     UI::DSensorVM *model = new UI::DSensorVM();
     model->state = false;
-    UI::DSensorView sensor = UI::DSensorView(model);
+    UI::DSensorViewEx sensor = UI::DSensorViewEx(model);
     //
+
+    auto dsensor_gmodal = new UI::GMODALS::DSensorGmodal();
 
     // Main loop
     while (!glfwWindowShouldClose(window)) {
@@ -64,6 +69,10 @@ void MainWindow::loop() {
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
+
+        _scene->draw();
+
+        dsensor_gmodal->draw();
 
         // 1. Show the big demo window (Most of the sample code is in
         // ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear

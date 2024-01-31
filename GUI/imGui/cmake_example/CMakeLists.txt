@@ -13,8 +13,17 @@ set(APP_TARGET app)
 # including(https://stackoverflow.com/questions/61206703/is-there-includepath-option-in-clangd)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-set(SOURCES src/main.cpp src/application/application.cpp src/ui/main_window.cpp
-            src/ui/main_menu.cpp src/ui/units/dsensor/dsensor_view.cpp)
+set(SOURCES
+    src/main.cpp
+    src/application/application.cpp
+    src/ui/main_window.cpp
+    src/ui/scene.cpp
+    src/ui/main_menu.cpp
+    src/ui/gmodals/modals/base_gmodal.cpp
+    src/ui/gmodals/modals/dsensor_gmodal.cpp
+    src/ui/gmodals/frames/dsensor.cpp
+    src/ui/units/dsensor/dsensor_view.cpp
+    src/ui/units/dsensor/dsensor_view_ex.cpp)
 
 set(IMGUI_SOURCES
     vendors/imgui/imgui.cpp vendors/imgui/imgui_demo.cpp
