@@ -1,23 +1,36 @@
-Aggrh...
+# ImGui cmake application template
 
-2024.01.28
+```cpp
+// Dear ImGui: standalone example application for GLFW + OpenGL 3, using
+// programmable pipeline (GLFW is a cross-platform general purpose library for
+// handling windows, inputs, OpenGL/Vulkan/Metal graphics context creation,
+// etc.)
 
-как это завести..?
+// Learn about Dear ImGui:
+// - FAQ                  https://dearimgui.com/faq
+// - Getting Started      https://dearimgui.com/getting-started
+// - Documentation        https://dearimgui.com/docs (same as your local docs/
+// folder).
+// - Introduction, links and more at the top of imgui.cpp
 
-попробовал уже 3 конфигурации и всё не успешно
 
-последняя - https://github.com/morizotter/imgui-opengl-glfw-glew-cmake-demo/tree/master
+```
 
-может её надо склонировать и собрать? пока только скопировал makefile но есть ошибки при создании, у меня пути другие
-
-## 2024.01.29
-
-удалось завести сборку - тек. файл в корне
-
-но появилась новая проблема - lsp в упор не видит стандартных хедеров...
+https://github.com/morizotter/imgui-opengl-glfw-glew-cmake-demo/tree/master
 
 ## Install dev
 
 ```bash
 libglfw3-dev
+```
+
+## Настройка среды
+
+**iostream** - на com не видны стандартные либы, хотя на kasper всё хорошо
+
+добавление этой строки перед запуском nvim решает проблему
+
+```bash
+export CPLUS_INCLUDE_PATH=/usr/include/c++/11:/usr/include/x86_64-linux-gnu/c++/11
+
 ```

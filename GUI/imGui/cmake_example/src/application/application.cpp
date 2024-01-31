@@ -3,9 +3,15 @@
 #include <iostream>
 
 Application::Application() {
-    std::cout << "Application created" << std::endl;
 
     this->_main_window = new UI::MainWindow();
+    std::cout << "Application created" << std::endl;
 }
 
-void Application::run() { std::cout << "application run" << std::endl; }
+void Application::run() {
+    std::cout << "application run" << std::endl;
+
+    _main_window->loop();
+
+    std::cout << "application finish" << std::endl;
+}
