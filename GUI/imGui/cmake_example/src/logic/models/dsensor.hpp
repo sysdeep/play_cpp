@@ -1,7 +1,7 @@
 #ifndef LOGIC_DSENSOR_MODEL
 #define LOGIC_DSENSOR_MODEL
 
-#include "./base_model.hpp"
+#include "logic/core/base_model.hpp"
 
 namespace LOGIC {
 class DSensor : public BaseModel {

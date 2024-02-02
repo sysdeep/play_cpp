@@ -3,12 +3,16 @@
 
 using namespace UI;
 
-DSensorView::DSensorView(DSensorVM *model) {
-    this->model = model;
+DSensorView::DSensorView() {
+    // this->model = model;
     this->is_visible = true;
 }
 
+void DSensorView::set_light_state(bool st) { is_visible = st; }
+
 void DSensorView::draw(ImDrawList *draw_list) {
+    if (!is_visible)
+        return;
 
     static float sz = 36.0f;
     static float thickness = 3.0f;

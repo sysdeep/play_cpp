@@ -45,9 +45,8 @@ void MainWindow::loop() {
     bool show_another_window = false;
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
-    UI::DSensorVM *model = new UI::DSensorVM();
-    model->state = false;
-    UI::DSensorViewEx sensor = UI::DSensorViewEx(model);
+    // UI::DSensorVM *model = new UI::DSensorVM();
+    // UI::DSensorViewEx sensor = UI::DSensorViewEx(model);
     //
 
     auto dsensor_gmodal = new UI::GMODALS::DSensorGmodal();
@@ -125,7 +124,7 @@ void MainWindow::loop() {
         }
 
         // my
-        sensor.draw();
+        // sensor.draw();
         _main_menu->draw();
 
         // Rendering

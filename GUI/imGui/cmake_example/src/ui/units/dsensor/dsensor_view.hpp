@@ -6,13 +6,13 @@
 
 namespace UI {
 
-class DSensorView : public GraphItem {
+class DSensorView : public GraphItem, public DSensorVM {
   public:
-    DSensorView(DSensorVM *model);
+    DSensorView();
     void draw(ImDrawList *) override;
+    void set_light_state(bool) override;
 
   private:
-    DSensorVM *model;
     bool is_visible;
 };
 

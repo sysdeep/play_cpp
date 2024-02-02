@@ -2,8 +2,10 @@
 #define DSENSOR_VM
 namespace UI {
 
-struct DSensorVM {
-    bool state;
+class DSensorVM {
+  public:
+    virtual void set_light_state(bool) = 0;
+    // bool state;
     // bool visible;
 };
 } // namespace UI
