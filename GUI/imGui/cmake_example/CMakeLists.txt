@@ -21,6 +21,7 @@ set(SOURCES
     src/logic/core/base_model.cpp
     src/logic/core/model_publisher.cpp
     src/logic/models/dsensor.cpp
+    src/logic/project/project.cpp
     # UI
     src/ui/main_window.cpp
     src/ui/scene.cpp

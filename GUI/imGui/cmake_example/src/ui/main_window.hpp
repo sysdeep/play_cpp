@@ -3,6 +3,7 @@
 
 #include "./main_menu.hpp"
 #include "./scene.hpp"
+#include "application/application_ctx.hpp"
 #include "imgui.h"
 #include <GLFW/glfw3.h>
 
@@ -10,10 +11,11 @@ namespace UI {
 
 class MainWindow {
   public:
-    MainWindow();
+    MainWindow(ApplicationCtx *ctx);
     void loop();
 
   private:
+    ApplicationCtx *ctx;
     // char *glsl_version;
     GLFWwindow *window;
     ImGuiIO *io;

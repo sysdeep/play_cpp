@@ -1,10 +1,16 @@
 #include "./application.hpp"
+#include "application/application_ctx.hpp"
+#include "logic/project/project.hpp"
 #include "ui/main_window.hpp"
 #include <iostream>
 
 Application::Application() {
 
-    this->_main_window = new UI::MainWindow();
+    application_ctx = new ApplicationCtx();
+    application_ctx->project = new LOGIC::Project();
+
+    _main_window = new UI::MainWindow(application_ctx);
+
     std::cout << "Application created" << std::endl;
 }
 

@@ -3,6 +3,7 @@
 
 #include "./attr.hpp"
 #include "./model_publisher.hpp"
+#include <string>
 #include <vector>
 
 namespace LOGIC {
@@ -10,6 +11,9 @@ namespace LOGIC {
 class BaseModel : public ModelPublisher {
 
   public:
+    explicit BaseModel(std::string name) : name(name){};
+    std::string name;
+
     // explicit BaseModel(std::vector<Attr *> attrs) : attrs(std::move(attrs)) {}
     // BaseModel();
     Attr *get_attr(int id);
