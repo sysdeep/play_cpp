@@ -11,9 +11,14 @@ class DSensorView : public GraphItem, public DSensorVM {
     DSensorView();
     void draw(ImDrawList *) override;
     void set_light_state(bool) override;
+    bool get_light_state();
+    void toggle();
+    void set_visible(bool);
+    bool visible();
 
   private:
     bool is_visible;
+    bool is_active = false;
 };
 
 } // namespace UI

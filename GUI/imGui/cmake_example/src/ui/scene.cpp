@@ -17,6 +17,9 @@ Scene::Scene(ApplicationCtx *ctx) : ctx(ctx) {
     this->dsensor_proto->set_model(model);
     // this->dsensor_model = new LOGIC::DSensor("scene_sensor");
     // this->dsensor_proto->set_model(this->dsensor_model);
+
+    this->demo_modal = new DemoModal();
+    this->use_demo_modal = true;
 }
 
 void Scene::draw() {
@@ -55,6 +58,22 @@ void Scene::draw() {
             }
             ImGui::End();
         }
+
+        // example buttons
+        {
+            if (ImGui::Button("demo")) {
+
+                use_demo_modal = !use_demo_modal;
+                // auto model = ctx->project->get_node("main_sensor");
+
+                // model->set_attr_value(1, 1);
+            }
+
+            if (use_demo_modal) {
+                demo_modal->draw();
+            }
+        }
+
         ImGui::End();
     }
 }

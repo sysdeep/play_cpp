@@ -4,6 +4,7 @@
 #include "application/application_ctx.hpp"
 #include "logic/models/dsensor.hpp"
 #include "ui/core/graph_item.hpp"
+#include "ui/demo/demo_modal/demo_modal.hpp"
 #include "ui/units/dsensor/dsensor_proto.hpp"
 #include <vector>
 
@@ -20,6 +21,8 @@ class Scene {
 
     DSensorProto *dsensor_proto;
     LOGIC::DSensor *dsensor_model;
+    DemoModal *demo_modal;
+    bool use_demo_modal;
 };
 } // namespace UI
 

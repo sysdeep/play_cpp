@@ -87,7 +87,7 @@ void MainWindow::loop() {
             ImGui::Begin("Hello, world!"); // Create a window called "Hello, world!"
                                            // and append into it.
 
-            ImGui::Text(u8"Привет мир.");
+            ImGui::Text("Привет мир.");
 
             ImGui::Text("This is some useful text."); // Display some text (you can
                                                       // use a format strings too)

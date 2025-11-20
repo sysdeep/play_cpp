@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
 project(imgui-opengl-glfw-cmake-demo)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 20)
 
 set(CMAKE_VERBOSE_MAKEFILE 1)
 set(APP_VERSION_MAJOR 1)
@@ -26,9 +26,11 @@ set(SOURCES
     src/ui/main_window.cpp
     src/ui/scene.cpp
     src/ui/main_menu.cpp
+    src/ui/demo/demo_modal/demo_modal.cpp
     src/ui/gmodals/modals/base_gmodal.cpp
     src/ui/gmodals/modals/dsensor_gmodal.cpp
     src/ui/gmodals/frames/dsensor.cpp
+    src/ui/units/dsensor/dsensor_demo.cpp
     src/ui/units/dsensor/dsensor_view.cpp
     src/ui/units/dsensor/dsensor_proto.cpp
     src/ui/units/dsensor/dsensor_view_ex.cpp)
