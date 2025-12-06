@@ -16,12 +16,17 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(SOURCES
     src/main.cpp
     src/application/application.cpp
+    src/application/app_models/dsensor_model.cpp
+    src/application/app_models/section_model.cpp
+    src/application/app_models/root_model.cpp
     # LOGIC
     src/logic/core/attr.cpp
     src/logic/core/base_model.cpp
     src/logic/core/model_publisher.cpp
     src/logic/models/dsensor.cpp
+    src/logic/models/section.cpp
     src/logic/project/project.cpp
+    src/logic/project/node.cpp
     # UI
     src/ui/main_window.cpp
     src/ui/scene.cpp
@@ -32,6 +37,7 @@ set(SOURCES
     src/ui/gmodals/frames/dsensor.cpp
     src/ui/units/dsensor/dsensor_demo.cpp
     src/ui/units/dsensor/dsensor_view.cpp
+    src/ui/units/dsensor/dsensor_model_view.cpp
     src/ui/units/dsensor/dsensor_proto.cpp
     src/ui/units/dsensor/dsensor_view_ex.cpp)
 

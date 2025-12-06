@@ -5,10 +5,22 @@
 #include <string>
 
 namespace LOGIC {
+
+// struct DSensorAttrs {
+//     int logic;
+// };
+
 class DSensor : public BaseModel {
   public:
-    DSensor(std::string name);
+    DSensor(Node *node);
+    // DSensorAttrs attrs{0};
+
+    // attrs
+    int logic = 0;
+    bool is_error = false;
+    bool is_blocked = false;
 };
+
 } // namespace LOGIC
 
 #endif // !LOGIC_DSENSOR_MODEL
