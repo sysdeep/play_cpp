@@ -14,7 +14,12 @@
 
 ```bash
 libglfw3-dev
+
+# logging
+libspdlog-dev
 ```
+
+- https://github.com/gabime/spdlog
 
 ## Настройка среды
 

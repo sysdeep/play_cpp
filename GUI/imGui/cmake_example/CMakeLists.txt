@@ -41,6 +41,7 @@ set(SOURCES
     src/ui/units/dsensor/dsensor_proto.cpp
     src/ui/units/dsensor/dsensor_view_ex.cpp)
 
+
 set(IMGUI_SOURCES
     vendors/imgui/imgui.cpp vendors/imgui/imgui_demo.cpp
     vendors/imgui/imgui_draw.cpp vendors/imgui/imgui_widgets.cpp
@@ -78,6 +79,15 @@ include_directories(${OPENGL_INCLUDE_DIRS})
 
 # glew find_package(GLEW REQUIRED) include_directories(${GLEW_INCLUDE_DIRS})
 
+
+# NOT WORKING
+# https://github.com/twanas/spdlog-cmake/blob/master/CMakeLists.txt
+# add_subdirectory(vendors/spdlog)
+# find_package(spdlog)
+
+find_package(spdlog REQUIRED)
+
+
 target_link_libraries(
   ${APP_TARGET}
   glfw
@@ -85,4 +95,6 @@ target_link_libraries(
   # ${GLEW_LIBRARIES}
   ${EXTRA_LIBS}
   # for error undefined reference to symbol 'dlclose@@GLIBC_2.2.5'
-  ${CMAKE_DL_LIBS})
+  ${CMAKE_DL_LIBS}
+  spdlog::spdlog
+  )
