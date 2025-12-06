@@ -118,8 +118,8 @@ void DSensorViewEx::draw() {
                 x += sz + spacing; // N-gon
                 draw_list->AddCircle(ImVec2(x + sz * 0.5f, y + sz * 0.5f), sz * 0.5f, col, circle_segments, th);
                 x += sz + spacing; // Circle
-                draw_list->AddEllipse(ImVec2(x + sz * 0.5f, y + sz * 0.5f), sz * 0.5f, sz * 0.3f, col, -0.3f,
-                                      circle_segments, th);
+                // draw_list->AddEllipse(ImVec2(x + sz * 0.5f, y + sz * 0.5f), sz * 0.5f, sz * 0.3f, col, -0.3f,
+                //                       circle_segments, th);
                 x += sz + spacing; // Ellipse
                 draw_list->AddRect(ImVec2(x, y), ImVec2(x + sz, y + sz), col, 0.0f, ImDrawFlags_None, th);
                 x += sz + spacing; // Square
@@ -160,8 +160,8 @@ void DSensorViewEx::draw() {
             x += sz + spacing; // N-gon
             draw_list->AddCircleFilled(ImVec2(x + sz * 0.5f, y + sz * 0.5f), sz * 0.5f, col, circle_segments);
             x += sz + spacing; // Circle
-            draw_list->AddEllipseFilled(ImVec2(x + sz * 0.5f, y + sz * 0.5f), sz * 0.5f, sz * 0.3f, col, -0.3f,
-                                        circle_segments);
+            // draw_list->AddEllipseFilled(ImVec2(x + sz * 0.5f, y + sz * 0.5f), sz * 0.5f, sz * 0.3f, col, -0.3f,
+            //                             circle_segments);
             x += sz + spacing; // Ellipse
             draw_list->AddRectFilled(ImVec2(x, y), ImVec2(x + sz, y + sz), col);
             x += sz + spacing; // Square

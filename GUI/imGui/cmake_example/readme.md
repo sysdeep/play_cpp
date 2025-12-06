@@ -4,6 +4,12 @@
 
 Проект содержит часть архитектуры из ms3-GUI
 
+## Journal
+
+### 2025.12.06
+
+- update imGui 1.92.5
+
 ## Install dev
 
 ```bash
