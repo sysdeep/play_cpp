@@ -39,6 +39,22 @@ void DSensorModelView::draw(ImDrawList *draw_list) {
     draw_list->AddNgonFilled(ImVec2(ix + 40.0f, iy + 40.0f), sz, col, 9);
     // draw_list->AddNgonFilled(ImVec2(ix + 45.0f, iy + 45.0f), sz * 0.5f,
     //  ImColor(ImGui::ColorConvertU32ToFloat4(0x934499ff)), 9);
+
+    // try context menu - not working...
+    // // 22
+    // ImGui::OpenPopupOnItemClick("my popup", ImGuiPopupFlags_MouseButtonRight);
+
+    // // 11
+    // static float value = 0.5f;
+    // if (ImGui::BeginPopupContextItem("my popup")) {
+    //     if (ImGui::Selectable("Set to zero"))
+    //         value = 0.0f;
+    //     if (ImGui::Selectable("Set to PI"))
+    //         value = 3.1415f;
+    //     ImGui::SetNextItemWidth(-FLT_MIN);
+    //     ImGui::DragFloat("##Value", &value, 0.1f, 0.0f, 0.0f);
+    //     ImGui::EndPopup();
+    // }
 }
 
 void DSensorModelView::set_visible(bool st) { is_visible = st; };
