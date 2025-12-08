@@ -6,6 +6,7 @@
 #include "ui/core/graph_item.hpp"
 #include "ui/demo/demo_modal/demo_modal.hpp"
 #include "ui/units/dsensor/dsensor_proto.hpp"
+#include "ui/units/section_view/section_view.hpp"
 #include <vector>
 
 namespace UI {
@@ -23,6 +24,9 @@ class Scene {
     LOGIC::DSensor *dsensor_model;
     DemoModal *demo_modal;
     bool use_demo_modal;
+
+    //
+    SectionView *section_view;
 };
 } // namespace UI
 

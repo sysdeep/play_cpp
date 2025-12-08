@@ -4,6 +4,8 @@
 #include "ui/core/graph_item.hpp"
 #include "ui/units/dsensor/dsensor_proto.hpp"
 #include "ui/units/dsensor/dsensor_view.hpp"
+#include "ui/units/section_view/section_view.hpp"
+#include "ui/views/main_supply/main_supply.hpp"
 
 using namespace UI;
 
@@ -20,6 +22,8 @@ Scene::Scene(ApplicationCtx *ctx) : ctx(ctx) {
 
     this->demo_modal = new DemoModal();
     this->use_demo_modal = true;
+
+    this->section_view = new SectionView(ctx->root->section);
 }
 
 void Scene::draw() {
@@ -39,6 +43,9 @@ void Scene::draw() {
         for (GraphItem *item : graph_items) {
             item->draw(draw_list_g);
         }
+
+        // section
+        this->section_view->draw();
 
         const ImVec2 p = ImGui::GetCursorScreenPos();
 
@@ -73,6 +80,8 @@ void Scene::draw() {
                 demo_modal->draw();
             }
         }
+
+        // Views::MainSupply().draw();
 
         ImGui::End();
     }
