@@ -53,8 +53,11 @@ std::pair<unsigned int, std::string> Client::make_request(std::string path)
     std::string host_url("http://172.28.2.1:2375");
     std::string method_str("GET");
     // if (!is_remote)
-    //     curl_easy_setopt(curl, CURLOPT_UNIX_SOCKET_PATH, "/var/run/docker.sock");
-    curl_easy_setopt(curl, CURLOPT_URL, (host_url + path).c_str());
+    // curl_easy_setopt(curl, CURLOPT_UNIX_SOCKET_PATH, "/var/run/docker.sock");
+    curl_easy_setopt(curl, CURLOPT_UNIX_SOCKET_PATH, "/var/run/docker.sock");
+    curl_easy_setopt(curl, CURLOPT_URL, ("http:/foo" + path).c_str()); // work
+    // curl_easy_setopt(curl, CURLOPT_URL, ("http:/v1.24" + path).c_str());     // work
+    // curl_easy_setopt(curl, CURLOPT_URL, (host_url + path).c_str());
     curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, method_str.c_str());
     curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
