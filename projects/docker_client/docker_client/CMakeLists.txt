@@ -15,9 +15,15 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 set(SOURCES
     src/main.cpp
-    src/client.cpp
-    src/containers.cpp
-    src/images.cpp
+    src/client/client.cpp
+    src/client/containers.cpp
+    src/client/images.cpp
+  
+    src/client/models/docker_version.cpp
+    src/client/session/session.cpp
+    src/client/session/params_builder.cpp
+
+
 
     # 3th
     src/ddd/docker.cpp
@@ -36,6 +42,8 @@ add_executable(${APP_TARGET} ${SOURCES})
 # можно и так... add_executable(${APP_TARGET} ${SOURCES} ${IMGUI_SOURCES}
 # ${BACKEND_SOURCES})
 target_include_directories(${APP_TARGET} PRIVATE src)
+target_include_directories(${APP_TARGET} PRIVATE vendors/nlohmann/single_include) 
+
 # target_include_directories(${APP_TARGET} PRIVATE vendors/imgui) # Include the
 #                                                                 # IMGUI headers
 # target_include_directories(${APP_TARGET} PRIVATE vendors/imgui/backends
