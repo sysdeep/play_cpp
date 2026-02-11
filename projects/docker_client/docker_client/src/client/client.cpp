@@ -37,21 +37,23 @@ void Client::init()
     this->images = new Images(this->session);
 }
 
-void Client::docker_version()
+DockerVersion Client::docker_version()
 {
     std::string path = "/version";
 
     auto res = this->session->get(path);
-    std::cout << "status: " << res.first << std::endl;
-    std::cout << res.second << std::endl;
+    // std::cout << "status: " << res.first << std::endl;
+    // std::cout << res.second << std::endl;
 
-    json data = json::parse(res.second);
+    // json data = json::parse(res.second);
 
-    std::cout << data["BuildTime"] << std::endl;
+    // std::cout << data["BuildTime"] << std::endl;
 
     DockerVersion v = DockerVersion::fromString(res.second);
-    std::cout << v.build_time << std::endl;
-    std::cout << v.kernel_version << std::endl;
+    // std::cout << v.build_time << std::endl;
+    // std::cout << v.kernel_version << std::endl;
+
+    return v;
 }
 
 void Client::system_info()

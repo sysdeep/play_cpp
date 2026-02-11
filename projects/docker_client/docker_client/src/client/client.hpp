@@ -6,6 +6,7 @@
 #include "containers.hpp"
 #include "images.hpp"
 #include "session/session.hpp"
+#include "models/docker_version.hpp"
 
 class Client
 {
@@ -17,7 +18,7 @@ public:
     Containers *containers;
     Images *images;
 
-    void docker_version();
+    DockerVersion docker_version();
     void system_info();
 
 private:

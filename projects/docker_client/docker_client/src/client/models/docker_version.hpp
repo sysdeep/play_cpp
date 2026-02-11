@@ -3,6 +3,8 @@
 
 struct DockerVersion
 {
+    std::string version;
+    std::string api_version;
     std::string build_time;
     std::string kernel_version;
 

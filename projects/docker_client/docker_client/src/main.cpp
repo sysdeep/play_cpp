@@ -14,8 +14,16 @@ int main()
 
     cli.containers->get_all();
     cli.images->get_all();
-    cli.docker_version();
+
+    //
     cli.system_info();
+
+    // version
+    auto version = cli.docker_version();
+    std::cout << version.build_time << std::endl;
+    std::cout << version.kernel_version << std::endl;
+    std::cout << "Version: " << version.version << std::endl;
+    std::cout << "Api version: " << version.api_version << std::endl;
 
     // SIGFAULT
     // other client
