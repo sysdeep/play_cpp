@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QGraphicsRectItem>
 #include <QTimer>
+#include <string>
 
 class SensorView : public QObject, public QGraphicsRectItem
 {
@@ -11,13 +12,15 @@ class SensorView : public QObject, public QGraphicsRectItem
 
     int size;
     bool state = false;
+    std::string color;
     QTimer *timer;
 
     void _update_view();
 
 public:
     explicit SensorView(int size, QGraphicsRectItem *parent = nullptr);
-    // signals:
+
+    void set_color(std::string);
 };
 
 #endif // SENSORVIEW_H
