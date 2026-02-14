@@ -24,6 +24,7 @@ add_library(core STATIC
   widgets/speciallabel.h widgets/speciallabel.cpp
   gui/views/sensor_view.h gui/views/sensor_view.cpp
   gui/views/vibrator_view.h gui/views/vibrator_view.cpp
+  widgets/date_time_widget.hpp widgets/date_time_widget.cpp
 )
 
 target_link_libraries(core PRIVATE Qt${QT_VERSION_MAJOR}::Core)

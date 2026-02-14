@@ -15,4 +15,9 @@ Mnemo::Mnemo(int w, int h, QGraphicsView *parent)
 
     auto *vibrator = new VibratorView(20);
     scene->addItem(vibrator);
+
+    // datetime
+    date_time = new DateTimeWidget();
+    scene->addItem(date_time);
+    date_time->setPos(w - date_time->boundingRect().width(), 10);
 }
