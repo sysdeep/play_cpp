@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include <qboxlayout.h>
 #include <qpushbutton.h>
+#include <QHBoxLayout>
 // #include "../../core/widgets/speciallabel.h"
 #include "widgets/speciallabel.h"
 #include "lib/service_locator.hpp"
@@ -22,13 +23,17 @@ MainWindow::MainWindow(QWidget *parent)
     mnemo = new Mnemo(500, 600);
     vl->addWidget(mnemo);
 
+    // controls
+    auto *lc = new QHBoxLayout();
+    vl->addLayout(lc);
+
     QPushButton *btn = new QPushButton("close");
-    vl->addWidget(btn);
+
     connect(btn, &QPushButton::clicked, [=]()
             { close(); });
 
     QPushButton *msg_button = new QPushButton("do msg");
-    vl->addWidget(msg_button);
+
     connect(msg_button, &QPushButton::clicked, [=]()
             {
                 //
@@ -42,7 +47,12 @@ MainWindow::MainWindow(QWidget *parent)
             });
 
     auto *specLabel = new SpecialLabel();
-    vl->addWidget(specLabel);
+
+
+    lc->addWidget(specLabel);
+    lc->addStretch();
+    lc->addWidget(msg_button);
+    lc->addWidget(btn);
 }
 
 MainWindow::~MainWindow() {}
