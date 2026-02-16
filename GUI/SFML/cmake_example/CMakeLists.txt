@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.12)
-project(MySFMLProject CXX)
+project(app CXX)
 
 # Set C++ standard (SFML 3 requires C++17)
 set(CMAKE_CXX_STANDARD 17)
@@ -17,7 +17,10 @@ find_package(SFML REQUIRED COMPONENTS graphics window system audio network)
 # find_package(SFML COMPONENTS graphics window system REQUIRED)
 
 # Add your executable target
-add_executable(MyApp src/main.cpp)
+add_executable(app 
+    src/main.cpp
+    src/views/lamp_view.hpp src/views/lamp_view.cpp
+)
 
 # Link SFML libraries to your target
 # target_link_libraries(MyApp PRIVATE SFML::graphics SFML::window SFML::system SFML::audio SFML::network)
@@ -27,5 +30,5 @@ add_executable(MyApp src/main.cpp)
 # target_link_libraries(MyApp PRIVATE SFML::Graphics)
 
 if(SFML_FOUND)
-    target_link_libraries(MyApp PRIVATE sfml-graphics sfml-window sfml-system)
+    target_link_libraries(app PRIVATE sfml-graphics sfml-window sfml-system)
 endif()
