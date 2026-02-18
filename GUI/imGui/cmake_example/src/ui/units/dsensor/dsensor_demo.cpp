@@ -11,6 +11,7 @@ DsensorDemo::DsensorDemo() {
     auto sensor_node = new LOGIC::Node("foo", std::vector<LOGIC::Node *>{});
     sensor_model = new DSensorModel(sensor_node);
     sensor_with_model = new UI::DSensorModelView(sensor_model);
+    sensor_with_model->setPos(200, 20);
 }
 
 void DsensorDemo::draw() {
@@ -38,9 +39,10 @@ void DsensorDemo::draw() {
         sensor_with_model->set_visible(!sensor_with_model->visible());
     }
 
-    ImDrawList *draw_list_g = ImGui::GetWindowDrawList();
-    sensor->draw(draw_list_g);
-    sensor_with_model->draw(draw_list_g);
+    // ImDrawList *draw_list_g = ImGui::GetWindowDrawList();
+    DrawContext *ctx = new DrawContext();
+    sensor->draw(ctx);
+    sensor_with_model->draw(ctx);
 
     ImGui::End();
 }

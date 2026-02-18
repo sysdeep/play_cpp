@@ -4,17 +4,26 @@
 
 using namespace UI;
 
-MainSupplyView::MainSupplyView(MainSupplyModel *model) : model(model) {
+MainSupplyView::MainSupplyView(MainSupplyModel *model, SceneNode *parent) : Views::MainSupply{parent}, model(model) {
+
+    float sensorsX = 12.f;
     //
-    sensor_enabled = new DSensorModelView(model->sensor_enabled);
+    sensor_enabled = new DSensorModelView(model->sensor_enabled, this);
+    sensor_enabled->setPos(sensorsX, 12);
+
+    //
+    sensor_blocked = new DSensorModelView(model->sensor_enabled, this);
+    sensor_blocked->setPos(sensorsX, 12 + 12 + 4);
 };
 
-void MainSupplyView::draw(ImVec2 pos) {
+void MainSupplyView::drawEvent(DrawContext *ctx) {
     //
-    Views::MainSupply::draw(pos);
+    auto p0 = ImGui::GetCursorScreenPos();
+    Views::MainSupply::drawEvent(ctx);
+    ImGui::SetCursorScreenPos(p0);
 
-    // TODO: из-за эксперимента - не получается
+    // sensor
+    sensor_enabled->draw(ctx);
 
-    ImDrawList *draw_list = ImGui::GetWindowDrawList();
-    sensor_enabled->draw(draw_list);
+    sensor_blocked->draw(ctx);
 }

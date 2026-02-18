@@ -1,21 +1,23 @@
 
 
 #include "./main_supply.hpp"
+#include "ui/core/scene_node.hpp"
+#include <iostream>
 
-using namespace Views;
+Views::MainSupply::MainSupply(SceneNode *parent) : SceneNode{parent} {
+    //
+    setRect(48.f, 64.f);
+};
 
-MainSupply::MainSupply() {};
+void Views::MainSupply::drawEvent(DrawContext *ctx) {
 
-void MainSupply::draw(ImVec2 pos) {
-
-    // ImGui::SetCursorScreenPos(pos);
-    auto current_pos = ImGui::GetCursorScreenPos();
-    ImGui::SetCursorScreenPos(ImVec2(current_pos.x + pos.x, current_pos.y + pos.y));
+    // std::cout << "ms pos: x - " << _local_pos.x << " y - " << _local_pos.y << std::endl;
 
     ImDrawList *draw_list = ImGui::GetWindowDrawList();
 
-    float width = 48.0f;
-    float height = 64.0f;
+    // ImGui::SetCursorScreenPos(pos);
+    auto current_pos = ImGui::GetCursorScreenPos();
+    // ImGui::SetCursorScreenPos(ImVec2(current_pos.x + _pos.x, current_pos.y + _pos.y));
 
     // const ImVec2 p = ImGui::GetCursorScreenPos();
     auto colf = ImVec4(0.9f, 1.0f, 0.4f, 0.1f);
@@ -29,19 +31,20 @@ void MainSupply::draw(ImVec2 pos) {
     //     canvas_sz.x = 50.0f;
     // if (canvas_sz.y < 50.0f)
     //     canvas_sz.y = 50.0f;
-    ImVec2 canvas_p1 = ImVec2(pos.x + width, pos.y + height);
-    ImVec2 rect = ImVec2(width, height);
 
-    // Draw border and background color
-    // ImGuiIO &io = ImGui::GetIO();
-    // ImDrawList *draw_list = ImGui::GetWindowDrawList();
-    draw_list->AddRectFilled(pos, canvas_p1, IM_COL32(50, 50, 50, 255));
-    draw_list->AddRect(pos, canvas_p1, IM_COL32(255, 255, 255, 255));
+    auto p1 = Helper::VecAdd(current_pos, _local_pos);
+    auto p2 = Helper::VecAdd(p1, _rect);
+    ImGui::SetCursorScreenPos(p1);
+
+    // brush
+    draw_list->AddRectFilled(p1, p2, IM_COL32(163, 101, 62, 255), 3.0f);
+    // pen
+    // draw_list->AddRect(p1, p2, IM_COL32(255, 255, 255, 255), 3.0f);
 
     // This will catch our interactions
-    ImGui::InvisibleButton("canvas", rect, ImGuiButtonFlags_MouseButtonLeft | ImGuiButtonFlags_MouseButtonRight);
-    const bool is_hovered = ImGui::IsItemHovered(); // Hovered
-    const bool is_active = ImGui::IsItemActive();   // Held
+    ImGui::InvisibleButton("canvas", _rect, ImGuiButtonFlags_MouseButtonLeft | ImGuiButtonFlags_MouseButtonRight);
+    // const bool is_hovered = ImGui::IsItemHovered(); // Hovered
+    // const bool is_active = ImGui::IsItemActive();   // Held
     // const ImVec2 origin(canvas_p0.x + scrolling.x, canvas_p0.y + scrolling.y); // Lock scrolled origin
     // const ImVec2 mouse_pos_in_canvas(io.MousePos.x - origin.x, io.MousePos.y - origin.y);
 
@@ -70,5 +73,4 @@ void MainSupply::draw(ImVec2 pos) {
 
     // прикрепляется к вышестоящему виджету - кнопке
     ImGui::SetItemTooltip("Main supply");
-    ImGui::SetCursorScreenPos(current_pos);
 }

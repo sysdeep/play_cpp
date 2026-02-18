@@ -2,6 +2,7 @@
 #include "./main_supply_view.hpp"
 #include "imgui.h"
 #include "logic/project/node.hpp"
+#include "ui/core/draw_context.hpp"
 
 MainSupplyViewDemo::MainSupplyViewDemo() {
     //
@@ -21,14 +22,14 @@ MainSupplyViewDemo::MainSupplyViewDemo() {
 void MainSupplyViewDemo::draw() {
     ImGui::Begin("MainSupply demo");
 
-    // if (ImGui::Button("Toggle")) {
-    //     sensor->toggle();
-    //     if (sensor_model->logic > 0) {
-    //         sensor_model->logic = 0;
-    //     } else {
-    //         sensor_model->logic = 1;
-    //     }
-    // }
+    if (ImGui::Button("Toggle")) {
+        // sensor->toggle();
+        // if (sensor_model->logic > 0) {
+        //     sensor_model->logic = 0;
+        // } else {
+        //     sensor_model->logic = 1;
+        // }
+    }
 
     // if (ImGui::Button("Error")) {
     //     sensor_model->is_error = !sensor_model->is_error;
@@ -47,8 +48,10 @@ void MainSupplyViewDemo::draw() {
     // sensor->draw(draw_list_g);
     // sensor_with_model->draw(draw_list_g);
 
-    const ImVec2 p = ImGui::GetCursorScreenPos();
-    main_supply->draw(p);
+    // const ImVec2 p = ImGui::GetCursorScreenPos();
+    DrawContext *ctx = new DrawContext();
+    main_supply->setPos(20, 20);
+    main_supply->draw(ctx);
 
     ImGui::End();
 }

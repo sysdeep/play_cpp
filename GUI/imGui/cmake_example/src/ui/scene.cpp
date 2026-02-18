@@ -1,7 +1,8 @@
 #include "./scene.hpp"
 #include "application/application_ctx.hpp"
 #include "imgui.h"
-#include "ui/core/graph_item.hpp"
+#include "ui/core/draw_context.hpp"
+#include "ui/core/scene_node.hpp"
 #include "ui/units/dsensor/dsensor_proto.hpp"
 #include "ui/units/dsensor/dsensor_view.hpp"
 #include "ui/units/section_view/section_view.hpp"
@@ -40,12 +41,13 @@ void Scene::draw() {
         // ImGui::PopStyleVar();
         ImDrawList *draw_list_g = ImGui::GetWindowDrawList();
 
-        for (GraphItem *item : graph_items) {
-            item->draw(draw_list_g);
+        DrawContext *ctx = new DrawContext();
+        for (auto *item : graph_items) {
+            item->draw(ctx);
         }
 
         // section
-        this->section_view->draw();
+        this->section_view->draw(ctx);
 
         const ImVec2 p = ImGui::GetCursorScreenPos();
 
@@ -87,4 +89,8 @@ void Scene::draw() {
     }
 }
 
-void Scene::addItem(GraphItem *item) { this->graph_items.push_back(item); }
+void Scene::addItem(SceneNode *item) {
+    //
+    this->graph_items.push_back(item);
+    //
+}

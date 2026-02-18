@@ -2,14 +2,15 @@
 #define DSENSOR_VIEW
 
 #include "./dsensor_vm.hpp"
-#include "ui/core/graph_item.hpp"
+#include "ui/core/draw_context.hpp"
+#include "ui/core/scene_node.hpp"
 
 namespace UI {
 
-class DSensorView : public GraphItem, public DSensorVM {
+class DSensorView : public SceneNode, public DSensorVM {
   public:
     DSensorView();
-    void draw(ImDrawList *) override;
+
     void set_light_state(bool) override;
     bool get_light_state();
     void toggle();
@@ -19,6 +20,9 @@ class DSensorView : public GraphItem, public DSensorVM {
   private:
     bool is_visible;
     bool is_active = false;
+
+  protected:
+    void drawEvent(DrawContext *) override;
 };
 
 } // namespace UI

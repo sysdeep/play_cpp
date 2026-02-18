@@ -4,6 +4,14 @@
 
 using namespace UI::GMODALS;
 
-// DSensor::DSensor() : BaseFrame() {}
+DSensor::DSensor()
+    : BaseFrame() {
 
-void DSensor::draw() { ImGui::Text("DSensor frame!"); };
+      };
+
+void DSensor::draw() {
+    //
+    ImGui::Text("DSensor frame!");
+
+    ImGui::Checkbox("block", &this->is_disabled);
+};

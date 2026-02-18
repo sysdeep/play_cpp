@@ -3,7 +3,7 @@
 
 #include "application/application_ctx.hpp"
 #include "logic/models/dsensor.hpp"
-#include "ui/core/graph_item.hpp"
+#include "ui/core/scene_node.hpp"
 #include "ui/demo/demo_modal/demo_modal.hpp"
 #include "ui/units/dsensor/dsensor_proto.hpp"
 #include "ui/units/section_view/section_view.hpp"
@@ -14,11 +14,11 @@ class Scene {
   public:
     Scene(ApplicationCtx *ctx);
     void draw();
-    void addItem(GraphItem *);
+    void addItem(SceneNode *);
 
   private:
     ApplicationCtx *ctx;
-    std::vector<GraphItem *> graph_items;
+    std::vector<SceneNode *> graph_items;
 
     DSensorProto *dsensor_proto;
     LOGIC::DSensor *dsensor_model;

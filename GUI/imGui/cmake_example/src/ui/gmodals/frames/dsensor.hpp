@@ -8,8 +8,11 @@ namespace GMODALS {
 
 class DSensor : public BaseFrame {
   public:
-    // DSensor();
+    DSensor();
     void draw() override;
+
+  private:
+    bool is_disabled = false;
 };
 } // namespace GMODALS
 } // namespace UI

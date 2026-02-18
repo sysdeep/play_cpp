@@ -1,11 +1,16 @@
 #pragma once
 #include "imgui.h"
+#include "ui/core/draw_context.hpp"
+#include "ui/core/scene_node.hpp"
 
 namespace Views {
 
-class MainSupply {
+class MainSupply : public UI::SceneNode {
   public:
-    MainSupply();
-    void draw(ImVec2 pos);
+    MainSupply(SceneNode *parent = nullptr);
+
+  private:
+  protected:
+    void drawEvent(DrawContext *ctx) override;
 };
 } // namespace Views

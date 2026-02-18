@@ -11,8 +11,7 @@ namespace UI {
 class MainSupplyView : public Views::MainSupply {
   public:
     // MainSupplyView(DSensorModel *model);
-    MainSupplyView(MainSupplyModel *model);
-    void draw(ImVec2 pos);
+    MainSupplyView(MainSupplyModel *model, SceneNode *parent = nullptr);
 
     // void set_visible(bool);
     // bool visible();
@@ -21,9 +20,13 @@ class MainSupplyView : public Views::MainSupply {
     MainSupplyModel *model;
 
     DSensorModelView *sensor_enabled;
+    DSensorModelView *sensor_blocked;
 
     // bool is_visible = true;
     // ImVec4 get_color();
+
+  protected:
+    void drawEvent(DrawContext *ctx) override;
 };
 
 } // namespace UI

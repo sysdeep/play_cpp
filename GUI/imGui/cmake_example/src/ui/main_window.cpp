@@ -5,7 +5,7 @@
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
-#include "ui/gmodals/modals/dsensor_gmodal.hpp"
+#include "ui/gmodals/gmodals_demo/gmodals_demo.hpp"
 #include <GLFW/glfw3.h>
 #include <iostream>
 
@@ -48,7 +48,9 @@ void MainWindow::loop() {
     // UI::DSensorViewEx sensor = UI::DSensorViewEx(model);
     //
 
-    auto dsensor_gmodal = new UI::GMODALS::DSensorGmodal();
+    bool is_gmodals_demo = true;
+
+    auto gmodals_demo = new GModalsDemo();
 
     // Main loop
     while (!glfwWindowShouldClose(window)) {
@@ -70,7 +72,8 @@ void MainWindow::loop() {
 
         _scene->draw();
 
-        dsensor_gmodal->draw();
+        if (is_gmodals_demo)
+            gmodals_demo->draw();
 
         // 1. Show the big demo window (Most of the sample code is in
         // ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear

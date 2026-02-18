@@ -3,7 +3,7 @@ project(imgui-opengl-glfw-cmake-demo)
 
 set(CMAKE_CXX_STANDARD 20)
 
-set(CMAKE_VERBOSE_MAKEFILE 1)
+# set(CMAKE_VERBOSE_MAKEFILE 1)
 set(APP_VERSION_MAJOR 1)
 set(APP_VERSION_MINOR 0)
 
@@ -20,6 +20,9 @@ set(SOURCES
     src/application/app_models/section_model.cpp
     src/application/app_models/root_model.cpp
     src/application/app_models/main_supply_model.cpp
+    src/ui/core/scene_node.cpp
+    src/ui/core/draw_context.cpp
+    src/ui/core/ani_timer.cpp
     # LOGIC
     src/logic/core/attr.cpp
     src/logic/core/base_model.cpp
@@ -37,6 +40,7 @@ set(SOURCES
     src/ui/gmodals/modals/base_gmodal.cpp
     src/ui/gmodals/modals/dsensor_gmodal.cpp
     src/ui/gmodals/frames/dsensor.cpp
+    src/ui/gmodals/gmodals_demo/gmodals_demo.cpp
     src/ui/units/dsensor/dsensor_demo.cpp
     src/ui/units/dsensor/dsensor_view.cpp
     src/ui/units/dsensor/dsensor_model_view.cpp
@@ -104,3 +108,10 @@ target_link_libraries(
   ${CMAKE_DL_LIBS}
   spdlog::spdlog
   )
+
+
+
+# views demo
+add_executable(views_demo
+    src/cmd/views_demo/main.cpp
+)

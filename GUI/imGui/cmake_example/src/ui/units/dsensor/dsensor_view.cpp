@@ -18,7 +18,7 @@ void DSensorView::set_visible(bool st) { is_visible = st; };
 
 bool DSensorView::visible() { return is_visible; };
 
-void DSensorView::draw(ImDrawList *draw_list) {
+void DSensorView::drawEvent(DrawContext *ctx) {
     if (!is_visible)
         return;
 
@@ -51,6 +51,8 @@ void DSensorView::draw(ImDrawList *draw_list) {
     float iy = y; // initial y
     // float iy = 0; // initial y
     //
+
+    auto draw_list = ImGui::GetWindowDrawList();
     draw_list->AddNgonFilled(ImVec2(ix + 40.0f, iy + 40.0f), sz, col, 9);
     // draw_list->AddNgonFilled(ImVec2(ix + 45.0f, iy + 45.0f), sz * 0.5f,
     //  ImColor(ImGui::ColorConvertU32ToFloat4(0x934499ff)), 9);
