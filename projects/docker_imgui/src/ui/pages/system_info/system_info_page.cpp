@@ -1,6 +1,13 @@
 #include "system_info_page.hpp"
 #include "imgui.h"
 #include <iostream>
+#include <future>
+
+int calculateValue()
+{
+    std::this_thread::sleep_for(std::chrono::milliseconds(500)); // Имитация долгой работы
+    return 42;
+}
 
 SystemInfoPage::SystemInfoPage(UIState *state, DockerClient *docker_client) : state{state}, docker_client{docker_client}
 {
@@ -12,13 +19,44 @@ SystemInfoPage::SystemInfoPage(UIState *state, DockerClient *docker_client) : st
     //
     thread_model = std::make_shared<SystemInfoDataModel>();
 
+    last_update = std::chrono::system_clock::now();
+
     start();
+
+    // update_result = std::async(std::launch::async, calculateValue);
 }
 
 void SystemInfoPage::draw()
 {
     if (!state->system_info_window)
         return;
+
+    // async update
+    auto now = std::chrono::system_clock::now();
+    auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - this->last_update);
+    if (elapsed.count() > 1000)
+    {
+        std::cout << "start update async" << std::endl;
+        this->last_update = now;
+        // update_result = std::async(std::launch::async, calculateValue);
+        update_result = std::async(std::launch::async, [this]()
+                                   {
+                                       std::this_thread::sleep_for(std::chrono::milliseconds(800)); // Имитация долгой работы
+                                       return 42;
+                                       //
+                                   });
+    }
+
+    if (update_result.valid())
+    {
+        auto future_status = update_result.wait_for(std::chrono::seconds(0));
+        if (future_status == std::future_status::ready)
+        {
+            auto aaa = update_result.get();
+            std::cout << "update result: " << aaa << std::endl;
+        }
+    }
+    // async update
 
     auto sys = thread_model->snapshot();
 
@@ -102,7 +140,7 @@ void SystemInfoPage::run()
         // ss << "value_" << dist(rng);
         // model_->addOrUpdate("key", ss.str());
 
-        std::cout << "update" << std::endl;
+        // std::cout << "update" << std::endl;
         auto sys_info = docker_client->system->info();
         thread_model->addOrUpdate(sys_info);
 
@@ -129,4 +167,13 @@ void SystemInfoPage::stop()
     cv_.notify_one(); // разбудить, если поток «заснул» долго
     if (worker_.joinable())
         worker_.join();
+}
+
+void SystemInfoPage::run_update()
+{
+
+    auto sys_info = docker_client->system->info();
+
+    std::lock_guard<std::mutex> lock(update_mtx);
+    // update shared data
 }

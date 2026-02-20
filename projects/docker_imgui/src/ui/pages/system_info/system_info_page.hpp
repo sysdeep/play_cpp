@@ -7,6 +7,7 @@
 #include <atomic>
 #include <condition_variable>
 #include <chrono>
+#include <future>
 
 class SystemInfoDataModel
 {
@@ -79,4 +80,10 @@ private:
     std::condition_variable cv_;
 
     std::shared_ptr<SystemInfoDataModel> thread_model;
+
+    // async update
+    std::chrono::system_clock::time_point last_update;
+    void run_update();
+    std::mutex update_mtx;
+    std::future<int> update_result;
 };
