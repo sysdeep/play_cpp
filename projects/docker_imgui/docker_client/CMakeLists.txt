@@ -24,6 +24,7 @@ add_library(${APP_TARGET} STATIC
   entites/containers.cpp
   entites/system.cpp
   models/system_info.cpp
+  models/image.cpp
 )
 
 

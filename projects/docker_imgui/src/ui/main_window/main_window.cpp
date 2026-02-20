@@ -14,10 +14,10 @@ MainWindow::MainWindow(DockerClient *docker_client)
 
     // components
     main_menu = new MainMenu(state);
-    images_page = new ImagesPage();
 
     pages.push_back(new AboutPage(state));
     pages.push_back(new SystemInfoPage(state, docker_client));
+    pages.push_back(new ImagesPage(state, docker_client));
 };
 
 void MainWindow::start_loop()
@@ -55,7 +55,6 @@ void MainWindow::start_loop()
 
         for (auto dp : pages)
         {
-
             dp->draw();
         }
 
@@ -103,9 +102,6 @@ void MainWindow::start_loop()
                 show_another_window = false;
             ImGui::End();
         }
-
-        // main
-        images_page->draw();
 
         // Rendering
         ImGui::Render();

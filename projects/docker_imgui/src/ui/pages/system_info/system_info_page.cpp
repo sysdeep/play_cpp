@@ -72,7 +72,7 @@ void SystemInfoPage::process_update()
 
 void SystemInfoPage::start_update_task()
 {
-    std::cout << "start update async" << std::endl;
+    // std::cout << "start update async" << std::endl;
     auto task_future = std::async(std::launch::async, [this]()
                                   {
                                       auto info = this->docker_client->system->info();

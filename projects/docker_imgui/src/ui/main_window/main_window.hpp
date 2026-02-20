@@ -26,5 +26,5 @@ private:
     // components
     std::vector<DrawablePage *> pages;
     MainMenu *main_menu;
-    ImagesPage *images_page;
+    // ImagesPage *images_page;
 };

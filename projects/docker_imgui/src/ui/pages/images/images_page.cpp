@@ -1,16 +1,96 @@
 #include <stdio.h>
 #include "imgui.h"
 #include "images_page.hpp"
+#include <iostream>
 
-ImagesPage::ImagesPage()
+ImagesPage::ImagesPage(UIState *state, DockerClient *docker_client) : state(state), docker_client{docker_client}
 {
 
     table_flags = ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg;
     //  | ImGuiTableFlags_Resizable | ImGuiTableFlags_Reorderable | ImGuiTableFlags_Hideable;
     // table_flags |= ImGuiTableFlags_ContextMenuInBody;
+
+    // update data interval
+    update_timeout = std::chrono::seconds(2); // ms
+
+    // new async update
+    last_update = std::chrono::system_clock::now();
+
+    // TODO: !!! нижен потокобезопасный клиент
+    // start
+    // this->start_update_task();
+    // auto info = this->docker_client->system->info();
+    // std::cout << info.ServerVersion << std::endl;
 };
 
 void ImagesPage::draw()
+{
+
+    this->process_update();
+    this->process_draw();
+};
+
+void ImagesPage::process_update()
+{
+    // запуск фонового процесса
+    auto now = std::chrono::system_clock::now();
+    auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - this->last_update);
+    if (elapsed > update_timeout)
+    {
+
+        // this->start_update_task();
+        this->last_update = now;
+    }
+
+    // обработка футур
+    if (!futures.empty())
+    {
+
+        for (auto it = futures.begin(); it != futures.end();)
+        {
+
+            if (it->valid())
+            {
+                auto future_status = it->wait_for(std::chrono::seconds(0));
+                if (future_status == std::future_status::ready)
+                {
+                    // std::cout << "future status - ready, update system_info and erase" << std::endl;
+                    this->images = it->get();
+                    // remove element from vector
+                    futures.erase(it);
+                }
+                else
+                {
+                    ++it;
+                }
+            }
+            else
+            {
+                ++it;
+            }
+        }
+    }
+}
+
+void ImagesPage::start_update_task()
+{
+    // std::cout << "start update async" << std::endl;
+    auto task_future = std::async(std::launch::async, [this]()
+                                  {
+                                      auto info = this->docker_client->system->info();
+                                      std::cout << info.ServerVersion << std::endl;
+                                      //   auto images = this->docker_client->images->get_all();
+                                      //   std::cout << images.size() << std::endl;
+
+                                      //   std::this_thread::sleep_for(std::chrono::milliseconds(8000)); // Имитация долгой работы
+                                      //   return 42;
+                                      return images;
+                                      //
+                                  });
+    // futures.push_back(std::move(task_future));
+}
+
+void ImagesPage::process_draw()
 {
 
     // enum ContentsType
@@ -46,7 +126,7 @@ void ImagesPage::draw()
             ImGui::TableHeadersRow();
         }
 
-        for (int row = 0; row < 5; row++)
+        for (int row = 0; this->images.size(); row++)
         {
             ImGui::TableNextRow();
             for (int column = 0; column < 3; column++)
@@ -80,4 +160,4 @@ void ImagesPage::draw()
     }
 
     ImGui::End();
-};
+}

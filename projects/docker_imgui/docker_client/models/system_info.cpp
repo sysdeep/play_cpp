@@ -7,8 +7,8 @@ SystemInfo SystemInfo::fromString(const std::string src)
     rapidjson::Document document;
     document.Parse(src.c_str());
 
-    int containers = document["Containers"].GetInt();
-    std::cout << containers << std::endl;
+    // int containers = document["Containers"].GetInt();
+    // std::cout << containers << std::endl;
 
     SystemInfo result = SystemInfo{};
 
