@@ -28,7 +28,9 @@ private:
     SystemInfo system_info{};
 
     // async update
+    std::chrono::microseconds update_timeout; // ms
     std::chrono::system_clock::time_point last_update;
     std::vector<std::future<SystemInfo>> futures;
+    void start_update_task();
     void process_update();
 };
