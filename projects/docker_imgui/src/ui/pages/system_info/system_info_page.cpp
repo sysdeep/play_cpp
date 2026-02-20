@@ -160,8 +160,9 @@ void SystemInfoPage::process_draw()
 
         ImGui::TableSetColumnIndex(1);
         ImGui::Text("%d", system_info.Images);
+
+        ImGui::EndTable();
     }
-    ImGui::EndTable();
 
     ImGui::End();
 }
