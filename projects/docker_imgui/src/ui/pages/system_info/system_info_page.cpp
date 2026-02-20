@@ -11,19 +11,11 @@ int calculateValue()
 
 SystemInfoPage::SystemInfoPage(UIState *state, DockerClient *docker_client) : state{state}, docker_client{docker_client}
 {
-    period_ = std::chrono::seconds(1);
-    stopFlag_ = false;
     //
-    system_info = docker_client->system->info();
+    // system_info = docker_client->system->info();
 
-    //
-    thread_model = std::make_shared<SystemInfoDataModel>();
-
+    // new async update
     last_update = std::chrono::system_clock::now();
-
-    start();
-
-    // update_result = std::async(std::launch::async, calculateValue);
 }
 
 void SystemInfoPage::draw()
@@ -31,35 +23,67 @@ void SystemInfoPage::draw()
     if (!state->system_info_window)
         return;
 
-    // async update
+    // обновление данных
+    this->process_update();
+
+    // рисование
+    this->process_draw();
+}
+
+void SystemInfoPage::process_update()
+{
+    // запуск фонового процесса
     auto now = std::chrono::system_clock::now();
     auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - this->last_update);
-    if (elapsed.count() > 1000)
+    if (elapsed.count() > 2000)
     {
         std::cout << "start update async" << std::endl;
         this->last_update = now;
         // update_result = std::async(std::launch::async, calculateValue);
-        update_result = std::async(std::launch::async, [this]()
-                                   {
-                                       std::this_thread::sleep_for(std::chrono::milliseconds(800)); // Имитация долгой работы
-                                       return 42;
-                                       //
-                                   });
+        auto task_future = std::async(std::launch::async, [this]()
+                                      {
+                                          auto info = this->docker_client->system->info();
+
+                                          //   std::this_thread::sleep_for(std::chrono::milliseconds(8000)); // Имитация долгой работы
+                                          //   return 42;
+                                          return info;
+                                          //
+                                      });
+        futures.push_back(std::move(task_future));
     }
 
-    if (update_result.valid())
+    // обработка футур
+    if (!futures.empty())
     {
-        auto future_status = update_result.wait_for(std::chrono::seconds(0));
-        if (future_status == std::future_status::ready)
+
+        for (auto it = futures.begin(); it != futures.end();)
         {
-            auto aaa = update_result.get();
-            std::cout << "update result: " << aaa << std::endl;
+
+            if (it->valid())
+            {
+                auto future_status = it->wait_for(std::chrono::seconds(0));
+                if (future_status == std::future_status::ready)
+                {
+                    // std::cout << "future status - ready, update system_info and erase" << std::endl;
+                    this->system_info = it->get();
+                    // remove element from vector
+                    futures.erase(it);
+                }
+                else
+                {
+                    ++it;
+                }
+            }
+            else
+            {
+                ++it;
+            }
         }
     }
-    // async update
+}
 
-    auto sys = thread_model->snapshot();
-
+void SystemInfoPage::process_draw()
+{
     ImGui::Begin("System info");
     // ImGui::Begin("Another Window",
     //          &show_another_window); // Pass a pointer to our bool variable (the
@@ -85,7 +109,7 @@ void SystemInfoPage::draw()
 
         ImGui::TableSetColumnIndex(1);
         // ImGui::Text("%d", system_info.Containers);
-        ImGui::Text("%d", sys.payload.Containers);
+        ImGui::Text("%d", system_info.Containers);
 
         // ContainersRunning
         ImGui::TableNextRow();
@@ -93,7 +117,7 @@ void SystemInfoPage::draw()
         ImGui::Text("ContainersRunning");
 
         ImGui::TableSetColumnIndex(1);
-        ImGui::Text("%d", sys.payload.ContainersRunning);
+        ImGui::Text("%d", system_info.ContainersRunning);
 
         // ContainersPaused
         ImGui::TableNextRow();
@@ -101,7 +125,7 @@ void SystemInfoPage::draw()
         ImGui::Text("ContainersPaused");
 
         ImGui::TableSetColumnIndex(1);
-        ImGui::Text("%d", sys.payload.ContainersPaused);
+        ImGui::Text("%d", system_info.ContainersPaused);
 
         // ContainersStopped
         ImGui::TableNextRow();
@@ -109,7 +133,7 @@ void SystemInfoPage::draw()
         ImGui::Text("ContainersStopped");
 
         ImGui::TableSetColumnIndex(1);
-        ImGui::Text("%d", sys.payload.ContainersStopped);
+        ImGui::Text("%d", system_info.ContainersStopped);
 
         // Images
         ImGui::TableNextRow();
@@ -117,63 +141,9 @@ void SystemInfoPage::draw()
         ImGui::Text("Images");
 
         ImGui::TableSetColumnIndex(1);
-        ImGui::Text("%d", sys.payload.Images);
+        ImGui::Text("%d", system_info.Images);
     }
     ImGui::EndTable();
 
     ImGui::End();
-}
-
-// if (ImGui::Button("Закрыть"))
-//     this->state->about_window = false;
-
-// ImGui::End();
-// }
-
-void SystemInfoPage::run()
-{
-    while (!stopFlag_.load(std::memory_order_relaxed))
-    {
-        // ---------- 1. Обновляем модель ----------
-        // В реальном проекте здесь будет запрос к БД, REST‑API, расчёты и т.д.
-        // std::ostringstream ss;
-        // ss << "value_" << dist(rng);
-        // model_->addOrUpdate("key", ss.str());
-
-        // std::cout << "update" << std::endl;
-        auto sys_info = docker_client->system->info();
-        thread_model->addOrUpdate(sys_info);
-
-        // ---------- 2. Ожидание следующего цикла ----------
-        std::unique_lock<std::mutex> lk(mtx_);
-        // cv_.wait_for разбивает ожидание на небольшие интервалы,
-        // позволяя быстро отреагировать на stopFlag.
-        cv_.wait_for(lk, period_, [this]
-                     { return stopFlag_.load(); });
-    }
-}
-
-void SystemInfoPage::start()
-{
-    if (worker_.joinable())
-        throw std::logic_error("BackgroundUpdater already running");
-
-    stopFlag_ = false;
-    worker_ = std::thread(&SystemInfoPage::run, this);
-}
-void SystemInfoPage::stop()
-{
-    stopFlag_.store(true, std::memory_order_relaxed);
-    cv_.notify_one(); // разбудить, если поток «заснул» долго
-    if (worker_.joinable())
-        worker_.join();
-}
-
-void SystemInfoPage::run_update()
-{
-
-    auto sys_info = docker_client->system->info();
-
-    std::lock_guard<std::mutex> lock(update_mtx);
-    // update shared data
 }
