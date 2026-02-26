@@ -28,6 +28,7 @@ private:
         {PAGE_CONTAINERS, 0},
         {PAGE_IMAGES, 1},
     };
+    void make_main_menu();
 
     QThread        *m_thread = nullptr;
     UnixClient *unix_client = nullptr;

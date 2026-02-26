@@ -5,7 +5,9 @@
 #include <QLabel>
 #include <QDebug>
 #include <QStackedLayout>
+#include <QMenuBar>
 
+#include "gui/dialogs/AboutDialog.hpp"
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -48,6 +50,9 @@ MainWindow::MainWindow(QWidget *parent)
     main_layout->addWidget(actions_bar);
 
 
+    // main menu ------------------------------------------
+    this->make_main_menu();
+
 
     // connect --------------------------------------------
     connect(main_nav_tree, &MainNavTree::pageSelected, this, &MainWindow::onPageSelected);
@@ -76,7 +81,8 @@ MainWindow::MainWindow(QWidget *parent)
         connect(this, &MainWindow::destroyed, m_thread, &QThread::quit);
 //            connect(this, &MainWindow::destroyed, m_thread, &QThread::wait);
 
-    m_thread->start();
+        // TODO: временно отключено
+//    m_thread->start();
 
 
 
@@ -84,6 +90,24 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+}
+
+void MainWindow::make_main_menu()
+{
+    // file -----------------------------------------------
+    QMenu *fileMenu = menuBar()->addMenu("File");
+
+    // about ----------------------------------------------
+    auto *aboutMenu = menuBar()->addMenu("About");
+
+    // about
+    auto *aboutAppAction = new QAction("&About...", this);
+    connect(aboutAppAction, &QAction::triggered, [this](){
+        AboutDialog dlg(this);
+        dlg.exec();
+    });
+
+    aboutMenu->addAction(aboutAppAction);
 }
 
 void MainWindow::onPageSelected(int page)

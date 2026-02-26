@@ -13,6 +13,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets Network REQUIRED)
+find_package(RapidJSON CONFIG REQUIRED)
+
 
 set(PROJECT_SOURCES
         main.cpp
@@ -23,6 +25,11 @@ set(PROJECT_SOURCES
         widgets/pages.hpp
         pages/containers_page.hpp pages/containers_page.cpp
         core/unix_client.hpp core/unix_client.cpp
+
+        gui/dialogs/AboutDialog.hpp gui/dialogs/AboutDialog.cpp
+
+        # docker
+        docker/containers_parser.hpp docker/containers_parser.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
