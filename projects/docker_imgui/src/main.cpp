@@ -6,7 +6,7 @@ int main()
 {
     std::cout << "main" << std::endl;
 
-    DockerClient *client = new DockerClient();
+    docker::DockerClient *client = new docker::DockerClient();
     // auto sys_info = client->system->info();
     // std::cout << "containers: " << sys_info.Containers << std::endl;
     auto images = client->images->get_all();

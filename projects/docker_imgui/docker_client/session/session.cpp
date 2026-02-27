@@ -1,6 +1,8 @@
 #include "session.hpp"
 #include <iostream>
 
+using namespace docker;
+
 Session::Session() : host_uri("http:/v1.24"), is_remote(false)
 {
     this->init();
@@ -24,7 +26,7 @@ void Session::init()
 Response Session::get(std::string path)
 {
 
-    curl = curl_easy_init();
+    auto curl = curl_easy_init();
     if (!curl)
     {
         std::cout << "error while initiating curl" << std::endl;
@@ -50,7 +52,7 @@ Response Session::get(std::string path)
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &readBuffer);
 
-    res = curl_easy_perform(curl);
+    auto res = curl_easy_perform(curl);
     if (res != CURLE_OK)
         fprintf(stderr, "curl_easy_perform() failed: %s\n",
                 curl_easy_strerror(res));

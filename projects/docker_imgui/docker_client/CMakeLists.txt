@@ -25,6 +25,7 @@ add_library(${APP_TARGET} STATIC
   entites/system.cpp
   models/system_info.cpp
   models/image.cpp
+  models/parser_utils.cpp
 )
 
 

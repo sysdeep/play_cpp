@@ -1,8 +1,9 @@
 #include "docker_version.hpp"
-#include "nlohmann/json.hpp"
+// #include "nlohmann/json.hpp"
 #include <iostream>
 
-using json = nlohmann::json;
+using namespace docker;
+// using json = nlohmann::json;
 
 /*
 {
@@ -59,15 +60,15 @@ using json = nlohmann::json;
 DockerVersion DockerVersion::fromString(std::string src)
 {
     std::cout << src << std::endl;
-    json data = json::parse(src);
+    // json data = json::parse(src);
     // std::cout << data["BuildTime"] << std::endl;
 
     DockerVersion result;
 
-    result.build_time = data["BuildTime"];
-    result.kernel_version = data["KernelVersion"];
-    result.version = data["Version"];
-    result.api_version = data["ApiVersion"];
+    // result.build_time = data["BuildTime"];
+    // result.kernel_version = data["KernelVersion"];
+    // result.version = data["Version"];
+    // result.api_version = data["ApiVersion"];
 
     return result;
 }

@@ -2,14 +2,18 @@
 #include "session/session.hpp"
 #include "models/system_info.hpp"
 
-class System
+namespace docker
 {
-public:
-    System(Session *session);
+    class System
+    {
+    public:
+        System(Session *session);
 
-    // methods
-    SystemInfo info();
+        // methods
+        SystemInfo info();
 
-private:
-    Session *session;
-};
+    private:
+        Session *session;
+    };
+
+}

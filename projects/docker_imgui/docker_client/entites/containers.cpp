@@ -2,6 +2,7 @@
 #include <iostream>
 #include "session/params_builder.hpp"
 
+using namespace docker;
 Containers::Containers(Session *session) : session(session) {}
 
 void Containers::get_all()

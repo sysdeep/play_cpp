@@ -2,6 +2,8 @@
 #include "rapidjson/document.h"
 #include <iostream>
 
+using namespace docker;
+
 SystemInfo SystemInfo::fromString(const std::string src)
 {
     rapidjson::Document document;

@@ -1,42 +1,45 @@
 #include "image.hpp"
 #include "rapidjson/document.h"
 #include <iostream>
+#include "parser_utils.hpp"
 
-Image Image::fromString(const std::string src)
-{
-    rapidjson::Document document;
-    document.Parse(src.c_str());
+using namespace docker;
 
-    Image result = Image{};
+// Image Image::fromString(const std::string src)
+// {
+//     rapidjson::Document document;
+//     document.Parse(src.c_str());
 
-    if (document.HasMember("Containers"))
-        result.Containers = document["Containers"].GetUint();
+//     Image result = Image{};
 
-    // if (document.HasMember("ContainersRunning"))
-    //     result.ContainersRunning = document["ContainersRunning"].GetUint();
+//     if (document.HasMember("Containers"))
+//         result.Containers = document["Containers"].GetUint();
 
-    // if (document.HasMember("ContainersPaused"))
-    //     result.ContainersPaused = document["ContainersPaused"].GetUint();
+//     // if (document.HasMember("ContainersRunning"))
+//     //     result.ContainersRunning = document["ContainersRunning"].GetUint();
 
-    // if (document.HasMember("ContainersStopped"))
-    //     result.ContainersStopped = document["ContainersStopped"].GetUint();
+//     // if (document.HasMember("ContainersPaused"))
+//     //     result.ContainersPaused = document["ContainersPaused"].GetUint();
 
-    // if (document.HasMember("Images"))
-    //     result.Images = document["Images"].GetUint();
+//     // if (document.HasMember("ContainersStopped"))
+//     //     result.ContainersStopped = document["ContainersStopped"].GetUint();
 
-    // if (document.HasMember("MemTotal"))
-    //     result.MemTotal = document["MemTotal"].GetUint64();
+//     // if (document.HasMember("Images"))
+//     //     result.Images = document["Images"].GetUint();
 
-    // if (document.HasMember("ServerVersion"))
-    // {
-    //     auto res = document["ServerVersion"].GetString();
-    //     result.ServerVersion = std::string(res, document["ServerVersion"].GetStringLength());
-    // }
+//     // if (document.HasMember("MemTotal"))
+//     //     result.MemTotal = document["MemTotal"].GetUint64();
 
-    return result;
-}
+//     // if (document.HasMember("ServerVersion"))
+//     // {
+//     //     auto res = document["ServerVersion"].GetString();
+//     //     result.ServerVersion = std::string(res, document["ServerVersion"].GetStringLength());
+//     // }
 
-std::vector<Image> Image::fromStringArray(const std::string src)
+//     return result;
+// }
+
+std::vector<Image> docker::parseImages(const std::string src)
 {
     rapidjson::Document document;
     document.Parse(src.c_str());
@@ -48,8 +51,17 @@ std::vector<Image> Image::fromStringArray(const std::string src)
         for (auto const &record : document.GetArray())
         {
             Image result = Image{};
+
             if (record.HasMember("Containers"))
                 result.Containers = record["Containers"].GetUint();
+
+            // if (record.HasMember("Id"))
+            // {
+            //     auto len = record["Id"].GetStringLength();
+            //     result.Id = std::string(record["Id"].GetString());
+            // }
+
+            result.Id = processString(record, "Id", "Error");
 
             results.push_back(std::move(result));
         }

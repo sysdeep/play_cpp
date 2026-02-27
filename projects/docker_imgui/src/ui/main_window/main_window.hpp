@@ -12,7 +12,7 @@
 class MainWindow
 {
 public:
-    MainWindow(DockerClient *docker_client);
+    MainWindow(docker::DockerClient *docker_client);
 
     void start_loop();
 

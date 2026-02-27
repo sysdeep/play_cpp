@@ -3,7 +3,7 @@
 #include "images_page.hpp"
 #include <iostream>
 
-ImagesPage::ImagesPage(UIState *state, DockerClient *docker_client) : state(state), docker_client{docker_client}
+ImagesPage::ImagesPage(UIState *state, docker::DockerClient *docker_client) : state(state), docker_client{docker_client}
 {
 
     table_flags = ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg;
@@ -16,9 +16,9 @@ ImagesPage::ImagesPage(UIState *state, DockerClient *docker_client) : state(stat
     // new async update
     last_update = std::chrono::system_clock::now();
 
-    // TODO: !!! нижен потокобезопасный клиент
+    // TODO: !!! нужен потокобезопасный клиент
     // start
-    // this->start_update_task();
+    this->start_update_task();
     // auto info = this->docker_client->system->info();
     // std::cout << info.ServerVersion << std::endl;
 };
@@ -33,14 +33,14 @@ void ImagesPage::draw()
 void ImagesPage::process_update()
 {
     // запуск фонового процесса
-    auto now = std::chrono::system_clock::now();
-    auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - this->last_update);
-    if (elapsed > update_timeout)
-    {
+    // auto now = std::chrono::system_clock::now();
+    // auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - this->last_update);
+    // if (elapsed > update_timeout)
+    // {
 
-        // this->start_update_task();
-        this->last_update = now;
-    }
+    //     this->start_update_task();
+    //     this->last_update = now;
+    // }
 
     // обработка футур
     if (!futures.empty())
@@ -54,7 +54,7 @@ void ImagesPage::process_update()
                 auto future_status = it->wait_for(std::chrono::seconds(0));
                 if (future_status == std::future_status::ready)
                 {
-                    // std::cout << "future status - ready, update system_info and erase" << std::endl;
+                    std::cout << "future status - ready, update images and erase" << std::endl;
                     this->images = it->get();
                     // remove element from vector
                     futures.erase(it);
@@ -74,20 +74,20 @@ void ImagesPage::process_update()
 
 void ImagesPage::start_update_task()
 {
-    // std::cout << "start update async" << std::endl;
+    std::cout << "start update images async" << std::endl;
     auto task_future = std::async(std::launch::async, [this]()
                                   {
-                                      auto info = this->docker_client->system->info();
-                                      std::cout << info.ServerVersion << std::endl;
-                                      //   auto images = this->docker_client->images->get_all();
-                                      //   std::cout << images.size() << std::endl;
+                                      //   auto info = this->docker_client->system->info();
+                                      //   std::cout << info.ServerVersion << std::endl;
+                                      auto images = this->docker_client->images->get_all();
+                                      std::cout << "got images: " << images.size() << std::endl;
 
                                       //   std::this_thread::sleep_for(std::chrono::milliseconds(8000)); // Имитация долгой работы
                                       //   return 42;
                                       return images;
                                       //
                                   });
-    // futures.push_back(std::move(task_future));
+    futures.push_back(std::move(task_future));
 }
 
 void ImagesPage::process_draw()
@@ -105,56 +105,67 @@ void ImagesPage::process_draw()
     //          &show_another_window); // Pass a pointer to our bool variable (the
     //                                 // window will have a closing button that will
     //                                 // clear the bool when clicked)
-    ImGui::Text("Hello from another window!");
-    ImGui::Text("Hello from another window!");
-    ImGui::Text("Hello from another window!");
-    ImGui::Text("Hello from another window!");
-    ImGui::Text("Hello from another window!");
-    ImGui::Text("Hello from another window!");
-    ImGui::Text("Hello from another window!");
-    // if (ImGui::Button("Close Me"))
-    //     show_another_window = false;
+
+    int images_count = this->images.size();
+    ImGui::Text("total: %d", images_count);
+    ImGui::Text("futures: %ld", this->futures.size());
+
+    if (ImGui::Button("Обновить"))
+    {
+        this->start_update_task();
+    }
 
     // 3 - columns count
     if (ImGui::BeginTable("table1", 4, table_flags))
     {
         // Display headers
         {
-            ImGui::TableSetupColumn("One");
+            ImGui::TableSetupColumn("Id");
             ImGui::TableSetupColumn("Two");
-            ImGui::TableSetupColumn("Three");
+            ImGui::TableSetupColumn("Containers");
             ImGui::TableHeadersRow();
         }
 
-        for (int row = 0; this->images.size(); row++)
+        // std::cout << "rows to draw: " << images_count << std::endl;
+        for (int row = 0; row < images_count; ++row)
         {
+            // std::cout << "row: " << row << std::endl;
             ImGui::TableNextRow();
-            for (int column = 0; column < 3; column++)
-            {
-                ImGui::TableSetColumnIndex(column);
-                ImGui::Text("Cell %d,%d", column, row);
 
-                // char buf[32];
-                // sprintf(buf, "Hello %d,%d", column, row);
-                // ImGui::TextUnformatted(buf);
+            // ID
+            ImGui::TableSetColumnIndex(0);
+            ImGui::Text("%s", this->images[row].Id.c_str());
 
-                // if (contents_type == CT_Text)
-                //     ImGui::TextUnformatted(buf);
-                // else if (contents_type == CT_FillButton)
-                //     ImGui::Button(buf, ImVec2(-FLT_MIN, 0.0f));
-            }
+            // containers
+            ImGui::TableSetColumnIndex(2);
+            ImGui::Text("%u", this->images[row].Containers);
 
-            ImGui::TableSetColumnIndex(3);
-            ImGui::PushID(row * 4 + 3);
-            ImGui::SmallButton("options");
-            if (ImGui::BeginPopupContextItem())
-            {
-                ImGui::Text("This is the popup for Button(\"..\") in Cell %d,%d", 3, row);
-                if (ImGui::Button("Close"))
-                    ImGui::CloseCurrentPopup();
-                ImGui::EndPopup();
-            }
-            ImGui::PopID();
+            // for (int column = 0; column < 3; column++)
+            // {
+            //     ImGui::TableSetColumnIndex(column);
+            //     ImGui::Text("Cell %d,%d", column, row);
+
+            //     // char buf[32];
+            //     // sprintf(buf, "Hello %d,%d", column, row);
+            //     // ImGui::TextUnformatted(buf);
+
+            //     // if (contents_type == CT_Text)
+            //     //     ImGui::TextUnformatted(buf);
+            //     // else if (contents_type == CT_FillButton)
+            //     //     ImGui::Button(buf, ImVec2(-FLT_MIN, 0.0f));
+            // }
+
+            // ImGui::TableSetColumnIndex(3);
+            // ImGui::PushID(row * 4 + 3);
+            // ImGui::SmallButton("options");
+            // if (ImGui::BeginPopupContextItem())
+            // {
+            //     ImGui::Text("This is the popup for Button(\"..\") in Cell %d,%d", 3, row);
+            //     if (ImGui::Button("Close"))
+            //         ImGui::CloseCurrentPopup();
+            //     ImGui::EndPopup();
+            // }
+            // ImGui::PopID();
         }
         ImGui::EndTable();
     }

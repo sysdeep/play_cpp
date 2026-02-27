@@ -2,6 +2,8 @@
 #include "rapidjson/document.h"
 #include <iostream>
 
+using namespace docker;
+
 System::System(Session *session) : session{session} {}
 
 SystemInfo System::info()

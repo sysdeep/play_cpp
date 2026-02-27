@@ -4,7 +4,7 @@
 #include "imgui_impl_opengl3.h"
 #include "ui/pages/system_info/system_info_page.hpp"
 
-MainWindow::MainWindow(DockerClient *docker_client)
+MainWindow::MainWindow(docker::DockerClient *docker_client)
 {
     //
     factory = new ImGuiFactory();

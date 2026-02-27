@@ -6,6 +6,7 @@
 #include "rapidjson/document.h"
 
 // using json = nlohmann::json;
+using namespace docker;
 
 DockerClient::DockerClient() : host("http:/v1.24")
 {

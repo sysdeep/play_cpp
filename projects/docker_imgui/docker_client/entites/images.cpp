@@ -1,6 +1,7 @@
 #include "images.hpp"
 #include <iostream>
 
+using namespace docker;
 Images::Images(Session *session) : session(session) {}
 
 std::vector<Image> Images::get_all()
@@ -11,7 +12,7 @@ std::vector<Image> Images::get_all()
     auto res = this->session->get(path);
     if (res.first == 200)
     {
-        return Image::fromStringArray(res.second);
+        return parseImages(res.second);
     }
 
     std::vector<Image> result;

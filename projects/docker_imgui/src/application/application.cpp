@@ -1,6 +1,6 @@
 #include "application.hpp"
 
-Application::Application(DockerClient *docker_client)
+Application::Application(docker::DockerClient *docker_client)
 {
     //
     main_window = new MainWindow(docker_client);

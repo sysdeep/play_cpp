@@ -10,7 +10,7 @@
 class ImagesPage : public DrawablePage
 {
 public:
-    ImagesPage(UIState *state, DockerClient *docker_client);
+    ImagesPage(UIState *state, docker::DockerClient *docker_client);
 
     void draw() override;
 
@@ -21,15 +21,15 @@ private:
     //     bool is_visible{false};
 
     UIState *state;
-    DockerClient *docker_client;
+    docker::DockerClient *docker_client;
 
     // main data model
-    std::vector<Image> images;
+    std::vector<docker::Image> images;
 
     // async update
     std::chrono::microseconds update_timeout; // ms
     std::chrono::system_clock::time_point last_update;
-    std::vector<std::future<std::vector<Image>>> futures;
+    std::vector<std::future<std::vector<docker::Image>>> futures;
     void start_update_task();
     void process_update();
 };

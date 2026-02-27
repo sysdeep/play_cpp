@@ -3,7 +3,7 @@
 #include <iostream>
 #include <future>
 
-SystemInfoPage::SystemInfoPage(UIState *state, DockerClient *docker_client) : state{state}, docker_client{docker_client}
+SystemInfoPage::SystemInfoPage(UIState *state, docker::DockerClient *docker_client) : state{state}, docker_client{docker_client}
 {
 
     // update data interval

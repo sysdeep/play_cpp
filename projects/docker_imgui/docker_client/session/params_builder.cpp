@@ -1,5 +1,7 @@
 #include "params_builder.hpp"
 
+using namespace docker;
+
 ParamsBuilder::ParamsBuilder() {}
 
 ParamsBuilder *ParamsBuilder::add(std::string key, std::string value)

@@ -1,13 +1,16 @@
 #pragma once
 #include "session/session.hpp"
 
-class Containers
+namespace docker
 {
-public:
-    Containers(Session *session);
+    class Containers
+    {
+    public:
+        Containers(Session *session);
 
-    void get_all();
+        void get_all();
 
-private:
-    Session *session;
-};
+    private:
+        Session *session;
+    };
+}

@@ -14,23 +14,23 @@
 class SystemInfoPage : public DrawablePage
 {
 public:
-    SystemInfoPage(UIState *state, DockerClient *docker_client);
+    SystemInfoPage(UIState *state, docker::DockerClient *docker_client);
 
     void draw() override;
 
 private:
     UIState *state;
-    DockerClient *docker_client;
+    docker::DockerClient *docker_client;
 
     void process_draw();
 
     // main data model
-    SystemInfo system_info{};
+    docker::SystemInfo system_info{};
 
     // async update
     std::chrono::microseconds update_timeout; // ms
     std::chrono::system_clock::time_point last_update;
-    std::vector<std::future<SystemInfo>> futures;
+    std::vector<std::future<docker::SystemInfo>> futures;
     void start_update_task();
     void process_update();
 };

@@ -5,7 +5,7 @@
 class Application
 {
 public:
-    Application(DockerClient *docker_client);
+    Application(docker::DockerClient *docker_client);
 
     void start();
 
