@@ -1,7 +1,8 @@
 #include <stdio.h>
+#include <iostream>
 #include "imgui.h"
 #include "images_page.hpp"
-#include <iostream>
+#include "ui/icons/fa4.hpp"
 
 ImagesPage::ImagesPage(UIState *state, docker::DockerClient *docker_client) : state(state), docker_client{docker_client}
 {
@@ -100,7 +101,8 @@ void ImagesPage::process_draw()
     // };
     // int contents_type = CT_FillButton;
 
-    ImGui::Begin("Images");
+    ImGui::Begin(ICON_FA_ODNOKLASSNIKI " "
+                                       "Images");
     // ImGui::Begin("Another Window",
     //          &show_another_window); // Pass a pointer to our bool variable (the
     //                                 // window will have a closing button that will
@@ -110,7 +112,7 @@ void ImagesPage::process_draw()
     ImGui::Text("total: %d", images_count);
     ImGui::Text("futures: %ld", this->futures.size());
 
-    if (ImGui::Button("Обновить"))
+    if (ImGui::Button(ICON_FA_REFRESH " Обновить"))
     {
         this->start_update_task();
     }

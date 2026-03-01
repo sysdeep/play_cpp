@@ -3,6 +3,7 @@
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 #include "ui/pages/system_info/system_info_page.hpp"
+#include "ui/icons/fa4.hpp"
 
 MainWindow::MainWindow(docker::DockerClient *docker_client)
 {
@@ -67,7 +68,12 @@ void MainWindow::start_loop()
             ImGui::Begin("Hello, world!"); // Create a window called "Hello, world!"
                                            // and append into it.
 
-            ImGui::Text("Привет мир.");
+            ImGui::Text("Привет мир - "
+                        "\xef\x80\x80");
+
+            ImGui::Text("\xef\x80\x80 Привет мир");
+            ImGui::Text("\xef\x80\x81 Привет мир");
+            ImGui::Text("\xef\x80\x82 Привет мир");
 
             ImGui::Text("This is some useful text."); // Display some text (you can
                                                       // use a format strings too)
@@ -159,6 +165,22 @@ void MainWindow::_setup_fonts()
     // io->Fonts->AddFontFromFileTTF("../vendors/imgui/misc/fonts/Roboto-Medium.ttf", 16.0f, NULL,
     //                               io->Fonts->GetGlyphRangesCyrillic());
 
-    io->Fonts->AddFontFromFileTTF("../assets/Roboto-Medium.ttf", 16.0f, NULL,
-                                  io->Fonts->GetGlyphRangesCyrillic());
+    // io->Fonts->AddFontFromFileTTF("../assets/Roboto-Regular.ttf", 16.0f, NULL,
+    //                               io->Fonts->GetGlyphRangesCyrillic());
+
+    // io->Fonts->AddFontDefaultVector();
+
+    ImFontConfig icons_config;
+
+    icons_config.MergeMode = true;
+    icons_config.PixelSnapH = true;
+    icons_config.GlyphMinAdvanceX = 13.0f; // Use if you want to make the icon monospaced
+
+    io->Fonts->AddFontFromFileTTF("../assets/Roboto-Regular.ttf", 16.f);
+    // io->Fonts->AddFontFromFileTTF("../assets/Roboto-Medium.ttf", 16.f);
+
+    io->Fonts->AddFontFromFileTTF("../assets/fontawesome-webfont.ttf", 13.f, &icons_config);
+
+    // Call this after all fonts are loaded
+    io->Fonts->Build();
 }
