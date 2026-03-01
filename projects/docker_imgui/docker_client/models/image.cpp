@@ -54,7 +54,14 @@ std::vector<Image> docker::parseImages(const std::string src)
 
             // Containers
             if (record.HasMember("Containers"))
-                result.Containers = record["Containers"].GetUint();
+            {
+                // TODO: ругается!!!
+                // if(record["Containers"].IsInt()){
+
+                // }
+
+                // result.Containers = record["Containers"].GetUint();
+            }
 
             // Id
             result.Id = processString(record, "Id", "Error");
@@ -78,9 +85,10 @@ std::vector<Image> docker::parseImages(const std::string src)
                 result.RepoTags = names;
             }
 
+            // TODO: ругается!!!
             // Size
-            if (record.HasMember("Size"))
-                result.Size = record["Size"].GetUint64();
+            // if (record.HasMember("Size"))
+            //     result.Size = record["Size"].GetUint64();
 
             // Created
             if (record.HasMember("Created"))
@@ -105,7 +113,7 @@ std::vector<Image> docker::parseImages(const std::string src)
                 // {
                 //     std::cout << result.Id << " " << "uint64" << std::endl;
                 // }
-                result.Created = record["Created"].GetInt64();
+                // result.Created = record["Created"].GetInt64();
                 // TODO: по идее uint...
                 // result.Created = record["Created"].GetUint64();
             }
