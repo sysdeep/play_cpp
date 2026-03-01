@@ -52,16 +52,63 @@ std::vector<Image> docker::parseImages(const std::string src)
         {
             Image result = Image{};
 
+            // Containers
             if (record.HasMember("Containers"))
                 result.Containers = record["Containers"].GetUint();
 
-            // if (record.HasMember("Id"))
-            // {
-            //     auto len = record["Id"].GetStringLength();
-            //     result.Id = std::string(record["Id"].GetString());
-            // }
-
+            // Id
             result.Id = processString(record, "Id", "Error");
+
+            // RepoTags
+            if (record.HasMember("RepoTags"))
+            {
+                std::vector<std::string> names;
+                if (record["RepoTags"].IsArray())
+                {
+                    for (auto const &val : record["RepoTags"].GetArray())
+                    {
+                        if (val.IsString())
+                        {
+
+                            std::string res(val.GetString(), val.GetStringLength());
+                            names.push_back(std::move(res));
+                        }
+                    }
+                }
+                result.RepoTags = names;
+            }
+
+            // Size
+            if (record.HasMember("Size"))
+                result.Size = record["Size"].GetUint64();
+
+            // Created
+            if (record.HasMember("Created"))
+            {
+
+                // if (record["Created"].IsInt64())
+                // {
+                //     std::cout << result.Id << " " << "int64" << std::endl;
+                // }
+
+                // if (record["Created"].IsInt())
+                // {
+                //     std::cout << result.Id << " " << "int" << std::endl;
+                // }
+
+                // if (record["Created"].IsUint())
+                // {
+                //     std::cout << result.Id << " " << "uint" << std::endl;
+                // }
+
+                // if (record["Created"].IsUint64())
+                // {
+                //     std::cout << result.Id << " " << "uint64" << std::endl;
+                // }
+                result.Created = record["Created"].GetInt64();
+                // TODO: по идее uint...
+                // result.Created = record["Created"].GetUint64();
+            }
 
             results.push_back(std::move(result));
         }

@@ -118,13 +118,15 @@ void ImagesPage::process_draw()
     }
 
     // 3 - columns count
-    if (ImGui::BeginTable("table1", 4, table_flags))
+    if (ImGui::BeginTable("table1", 5, table_flags))
     {
         // Display headers
         {
             ImGui::TableSetupColumn("Id");
-            ImGui::TableSetupColumn("Two");
+            ImGui::TableSetupColumn("Name");
             ImGui::TableSetupColumn("Containers");
+            ImGui::TableSetupColumn("Size");
+            ImGui::TableSetupColumn("Created");
             ImGui::TableHeadersRow();
         }
 
@@ -138,9 +140,25 @@ void ImagesPage::process_draw()
             ImGui::TableSetColumnIndex(0);
             ImGui::Text("%s", this->images[row].Id.c_str());
 
+            // Name
+            if (this->images[row].RepoTags.size() > 0)
+            {
+                // TODO: все имена
+                ImGui::TableSetColumnIndex(1);
+                ImGui::Text("%s", this->images[row].RepoTags[0].c_str());
+            }
+
             // containers
             ImGui::TableSetColumnIndex(2);
             ImGui::Text("%u", this->images[row].Containers);
+
+            // size
+            ImGui::TableSetColumnIndex(3);
+            ImGui::Text("%lu", this->images[row].Size);
+
+            // created
+            ImGui::TableSetColumnIndex(4);
+            ImGui::Text("%lu", this->images[row].Created);
 
             // for (int column = 0; column < 3; column++)
             // {

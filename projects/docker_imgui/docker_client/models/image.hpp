@@ -9,12 +9,12 @@ namespace docker
     struct Image
     {
         uint Containers;
-        uint Created;
+        uint64_t Created;
         std::string Id;
         // "Labels" : null,
         //    "ParentId" : "",
         // "RepoDigests" : [],
-        // "RepoTags" : ["nvchad:2"],
+        std::vector<std::string> RepoTags;
         // "SharedSize" : -1,
         uint64_t Size;
 
