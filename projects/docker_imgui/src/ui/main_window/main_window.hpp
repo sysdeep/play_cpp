@@ -6,6 +6,7 @@
 #include "ui/pages/about/about_page.hpp"
 #include "ui/ui_state.hpp"
 #include "ui/pages/drawable_page.hpp"
+#include "ui/main_nav/main_nav.hpp"
 #include "main_menu.hpp"
 #include "docker_client.hpp"
 
@@ -27,4 +28,6 @@ private:
     std::vector<DrawablePage *> pages;
     MainMenu *main_menu;
     // ImagesPage *images_page;
+
+    ui::MainNav *main_nav;
 };

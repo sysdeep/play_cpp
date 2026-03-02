@@ -29,6 +29,12 @@ ImagesPage::ImagesPage(UIState *state, docker::DockerClient *docker_client) : st
 void ImagesPage::draw()
 {
 
+    if (!state->images_window)
+    {
+        return;
+    }
+
+    // TODO: сделать систему определения что окно появилось -> обновить содержимое
     this->process_update();
     this->process_draw();
 };

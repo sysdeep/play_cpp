@@ -24,6 +24,7 @@ set(SOURCES
     src/ui/main_window/main_window.cpp
     src/ui/main_window/imgui_factory.cpp
     src/ui/main_window/main_menu.cpp
+    src/ui/main_nav/main_nav.cpp
     src/ui/pages/images/images_page.cpp
     src/ui/pages/about/about_page.cpp
     src/ui/pages/system_info/system_info_page.cpp

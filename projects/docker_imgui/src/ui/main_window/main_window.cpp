@@ -15,6 +15,7 @@ MainWindow::MainWindow(docker::DockerClient *docker_client)
 
     // components
     main_menu = new MainMenu(state);
+    main_nav = new ui::MainNav(state);
 
     pages.push_back(new AboutPage(state));
     pages.push_back(new SystemInfoPage(state, docker_client));
@@ -49,6 +50,7 @@ void MainWindow::start_loop()
 
         // main menu
         this->main_menu->draw();
+        this->main_nav->draw();
 
         // demo window
         if (state->demo_window)
