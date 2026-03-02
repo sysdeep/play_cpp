@@ -19,12 +19,17 @@ public:
 private:
     ImGuiTableFlags table_flags;
     //     bool is_visible{false};
+    ImGuiTableColumnFlags column_name_flags = ImGuiTableColumnFlags_DefaultSort |
+                                              ImGuiTableColumnFlags_WidthStretch;
 
     UIState *state;
     docker::DockerClient *docker_client;
 
     // main data model
     std::vector<docker::Image> images;
+
+    // filter
+    std::string filterStr;
 
     // async update
     std::chrono::microseconds update_timeout; // ms

@@ -1,7 +1,12 @@
 cmake_minimum_required(VERSION 3.16)
 project(docker_imgui LANGUAGES CXX)
 
+
+# NOTE: gcc 12 - only 17 standard
+# Set the C++ standard to 17
 set(CMAKE_CXX_STANDARD 17)
+# Ensure the compiler is forced to use C++20, or configuration fails
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # set(CMAKE_VERBOSE_MAKEFILE 1)
 # set(APP_VERSION_MAJOR 1)
@@ -22,6 +27,7 @@ set(SOURCES
     src/ui/pages/images/images_page.cpp
     src/ui/pages/about/about_page.cpp
     src/ui/pages/system_info/system_info_page.cpp
+    src/ui/utils/humanize.cpp
 )
 
 include_directories(${PROJECT_SOURCE_DIR}/src/)
@@ -39,7 +45,9 @@ add_library(imgui_backend STATIC ${IMGUI_BACKEND_SOURCES})
 set(IMGUI_SOURCES
     vendors/imgui/imgui.cpp vendors/imgui/imgui_demo.cpp
     vendors/imgui/imgui_draw.cpp vendors/imgui/imgui_widgets.cpp
-    vendors/imgui/imgui_tables.cpp)
+    vendors/imgui/imgui_tables.cpp
+    vendors/imgui/misc/cpp/imgui_stdlib.cpp
+    )
 
 add_library(imgui STATIC ${IMGUI_SOURCES})
 

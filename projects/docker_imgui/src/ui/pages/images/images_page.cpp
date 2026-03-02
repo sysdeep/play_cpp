@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <iostream>
 #include "imgui.h"
+#include "misc/cpp/imgui_stdlib.h"
 #include "images_page.hpp"
 #include "ui/icons/fa4.hpp"
+#include "ui/utils/humanize.hpp"
 
 ImagesPage::ImagesPage(UIState *state, docker::DockerClient *docker_client) : state(state), docker_client{docker_client}
 {
@@ -112,53 +114,100 @@ void ImagesPage::process_draw()
     ImGui::Text("total: %d", images_count);
     ImGui::Text("futures: %ld", this->futures.size());
 
+    // filter ---------------------------------------------
+    ImGui::PushItemWidth(250.f);
+    ImGui::InputText("filter", &this->filterStr);
+    ImGui::SameLine();
+    if (ImGui::Button("Clear"))
+    {
+        this->filterStr.clear();
+    }
+
+    // ImGui::InputText("filter id", &this->filterStr);
+    // ImGui::SameLine();
+    // if (ImGui::Button("Clear"))
+    // {
+    //     this->filterStr.clear();
+    // }
+
+    ImGui::PopItemWidth();
+
+    // commands -------------------------------------------
     if (ImGui::Button(ICON_FA_REFRESH " Обновить"))
     {
         this->start_update_task();
     }
 
+    // table ----------------------------------------------
     // 3 - columns count
     if (ImGui::BeginTable("table1", 5, table_flags))
     {
+
+        // ImGui::TableSetupColumn(0, );
+        // std::cout << "flags: " << column_name_flags << std::endl;
         // Display headers
         {
-            ImGui::TableSetupColumn("Id");
-            ImGui::TableSetupColumn("Name");
-            ImGui::TableSetupColumn("Containers");
-            ImGui::TableSetupColumn("Size");
-            ImGui::TableSetupColumn("Created");
+            ImGui::TableSetupColumn("Name", column_name_flags, 1.0f);
+            // ImGui::TableSetupColumn("Name");
+            ImGui::TableSetupColumn("Id", column_name_flags, 0.5f);
+            ImGui::TableSetupColumn("Containers", column_name_flags, 0.5f);
+            ImGui::TableSetupColumn("Size", column_name_flags, 0.5f);
+            ImGui::TableSetupColumn("Created", column_name_flags, 0.5f);
             ImGui::TableHeadersRow();
         }
 
         // std::cout << "rows to draw: " << images_count << std::endl;
         for (int row = 0; row < images_count; ++row)
         {
-            // std::cout << "row: " << row << std::endl;
-            ImGui::TableNextRow();
 
-            // ID
-            ImGui::TableSetColumnIndex(0);
-            ImGui::Text("%s", this->images[row].Id.c_str());
-
-            // Name
-            if (this->images[row].RepoTags.size() > 0)
+            // dublicate names
+            auto names = this->images[row].RepoTags;
+            if (names.size() == 0)
             {
-                // TODO: все имена
-                ImGui::TableSetColumnIndex(1);
-                ImGui::Text("%s", this->images[row].RepoTags[0].c_str());
+                names.push_back(std::string("---"));
             }
 
-            // containers
-            ImGui::TableSetColumnIndex(2);
-            ImGui::Text("%u", this->images[row].Containers);
+            for (const auto name : names)
+            {
 
-            // size
-            ImGui::TableSetColumnIndex(3);
-            ImGui::Text("%lu", this->images[row].Size);
+                // filter
+                if (this->filterStr.size() > 0)
+                {
+                    if (name.find(this->filterStr) == std::string::npos)
+                    {
+                        continue;
+                    }
+                }
 
-            // created
-            ImGui::TableSetColumnIndex(4);
-            ImGui::Text("%lu", this->images[row].Created);
+                // std::cout << "row: " << row << std::endl;
+                ImGui::TableNextRow();
+
+                // Name
+                ImGui::TableSetColumnIndex(0);
+                ImGui::Text("%s", name.c_str());
+
+                // ID
+                // auto Style = ImGui::GetStyle();
+                ImGui::PushFont(state->fontMono, 18.f);
+                ImGui::TableSetColumnIndex(1);
+                ImGui::Text("%s", ui::Humanize::formatImageID(this->images[row].Id).c_str());
+                ImGui::PopFont();
+
+                // containers
+                ImGui::TableSetColumnIndex(2);
+                ImGui::Text("%lu", this->images[row].Containers);
+
+                // size
+                ImGui::TableSetColumnIndex(3);
+                // ImGui::Text("%lu", this->images[row].Size);
+                ImGui::PushFont(state->fontMono, 18.f);
+                ImGui::Text("%s", ui::Humanize::toSize(this->images[row].Size).c_str());
+                ImGui::PopFont();
+
+                // created
+                ImGui::TableSetColumnIndex(4);
+                ImGui::Text("%lu", this->images[row].Created);
+            }
 
             // for (int column = 0; column < 3; column++)
             // {

@@ -16,6 +16,45 @@ std::string docker::processString(const rapidjson::Value &record, const char *na
     return default_value;
 }
 
+uint64_t docker::processUint64(const rapidjson::Value &value)
+{
+    if (value.IsUint64())
+    {
+        return value.GetUint64();
+    }
+
+    if (value.IsUint())
+    {
+        unsigned u = value.GetUint();
+        return static_cast<uint64_t>(u);
+    }
+
+    if (value.IsInt64())
+    {
+        int64_t i64 = value.GetInt64();
+        return static_cast<uint64_t>(i64);
+    }
+
+    if (value.IsInt())
+    {
+        int i = value.GetInt();
+        return static_cast<uint64_t>(i);
+    }
+
+    if (value.IsDouble())
+    {
+        double d = value.GetDouble();
+        return static_cast<uint64_t>(d);
+    }
+
+    throw std::runtime_error("value is not number");
+
+    // else
+    // {
+    //     std::cout << "Value is not a number" << std::endl;
+    // }
+}
+
 // void processValue(const Value& value) {
 //     if (value.IsUint64()) {
 //         uint64_t u64 = value.GetUint64();

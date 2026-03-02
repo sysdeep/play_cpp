@@ -157,7 +157,6 @@ void MainWindow::_setup_fonts()
 
     auto io = &ImGui::GetIO();
     // ------------------------------------------------------------------------
-    // TODO: fonts
     // io.Fonts->AddFontFromFileTTF("../fira.ttf", 16.0f, NULL,
     //                              io.Fonts->GetGlyphRangesCyrillic());
     // io.Fonts->AddFontFromFileTTF("../hemi_head_bd_it.ttf", 16.0f, NULL,
@@ -170,16 +169,22 @@ void MainWindow::_setup_fonts()
 
     // io->Fonts->AddFontDefaultVector();
 
+    this->state->fontRegular = io->Fonts->AddFontFromFileTTF("../assets/Roboto-Regular.ttf", 16.f, nullptr, io->Fonts->GetGlyphRangesCyrillic());
+    // io->Fonts->AddFontFromFileTTF("../assets/Roboto-Medium.ttf", 16.f);
+
+    // NOTE: данный шрифт подмешивается к самому первому, и должен быть определён сразу за ним
+    // icons font
     ImFontConfig icons_config;
 
     icons_config.MergeMode = true;
     icons_config.PixelSnapH = true;
     icons_config.GlyphMinAdvanceX = 13.0f; // Use if you want to make the icon monospaced
 
-    io->Fonts->AddFontFromFileTTF("../assets/Roboto-Regular.ttf", 16.f);
-    // io->Fonts->AddFontFromFileTTF("../assets/Roboto-Medium.ttf", 16.f);
+    static const ImWchar icons_ranges[] = {ICON_MIN_FA, ICON_MAX_FA, 0};
+    io->Fonts->AddFontFromFileTTF("../assets/fontawesome-webfont.ttf", 13.f, &icons_config, icons_ranges);
 
-    io->Fonts->AddFontFromFileTTF("../assets/fontawesome-webfont.ttf", 13.f, &icons_config);
+    // monospace font
+    this->state->fontMono = io->Fonts->AddFontFromFileTTF("../assets/RobotoMono-Regular.ttf", 16.f, nullptr, io->Fonts->GetGlyphRangesCyrillic());
 
     // Call this after all fonts are loaded
     io->Fonts->Build();

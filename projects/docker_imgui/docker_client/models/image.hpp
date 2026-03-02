@@ -8,7 +8,7 @@ namespace docker
 
     struct Image
     {
-        uint Containers;
+        uint64_t Containers;
         uint64_t Created;
         std::string Id;
         // "Labels" : null,

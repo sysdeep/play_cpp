@@ -54,14 +54,7 @@ std::vector<Image> docker::parseImages(const std::string src)
 
             // Containers
             if (record.HasMember("Containers"))
-            {
-                // TODO: ругается!!!
-                // if(record["Containers"].IsInt()){
-
-                // }
-
-                // result.Containers = record["Containers"].GetUint();
-            }
+                result.Containers = processUint64(record["Containers"]);
 
             // Id
             result.Id = processString(record, "Id", "Error");
@@ -85,38 +78,13 @@ std::vector<Image> docker::parseImages(const std::string src)
                 result.RepoTags = names;
             }
 
-            // TODO: ругается!!!
             // Size
-            // if (record.HasMember("Size"))
-            //     result.Size = record["Size"].GetUint64();
+            if (record.HasMember("Size"))
+                result.Size = processUint64(record["Size"]);
 
             // Created
             if (record.HasMember("Created"))
-            {
-
-                // if (record["Created"].IsInt64())
-                // {
-                //     std::cout << result.Id << " " << "int64" << std::endl;
-                // }
-
-                // if (record["Created"].IsInt())
-                // {
-                //     std::cout << result.Id << " " << "int" << std::endl;
-                // }
-
-                // if (record["Created"].IsUint())
-                // {
-                //     std::cout << result.Id << " " << "uint" << std::endl;
-                // }
-
-                // if (record["Created"].IsUint64())
-                // {
-                //     std::cout << result.Id << " " << "uint64" << std::endl;
-                // }
-                // result.Created = record["Created"].GetInt64();
-                // TODO: по идее uint...
-                // result.Created = record["Created"].GetUint64();
-            }
+                result.Created = processUint64(record["Created"]);
 
             results.push_back(std::move(result));
         }
