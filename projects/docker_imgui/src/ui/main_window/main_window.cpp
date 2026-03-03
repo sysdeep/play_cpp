@@ -4,6 +4,8 @@
 #include "imgui_impl_opengl3.h"
 #include "ui/pages/system_info/system_info_page.hpp"
 #include "ui/pages/containers/containers_page.hpp"
+#include "ui/frames/images/images_frame.hpp"
+#include "ui/content/content_window.hpp"
 #include "ui/icons/fa4.hpp"
 
 MainWindow::MainWindow(docker::DockerClient *docker_client)
@@ -14,6 +16,10 @@ MainWindow::MainWindow(docker::DockerClient *docker_client)
     state = new UIState();
     state->demo_window = true;
 
+    // content
+    auto content_window = new ui::ContentWindow();
+    content_window->registerPage(1, new ui::ImagesFrame(state, docker_client));
+
     // components
     main_menu = new MainMenu(state);
     main_nav = new ui::MainNav(state);
@@ -22,6 +28,7 @@ MainWindow::MainWindow(docker::DockerClient *docker_client)
     pages.push_back(new SystemInfoPage(state, docker_client));
     pages.push_back(new ImagesPage(state, docker_client));
     pages.push_back(new ui::ContainersPage(state, docker_client));
+    pages.push_back(content_window);
 };
 
 void MainWindow::start_loop()

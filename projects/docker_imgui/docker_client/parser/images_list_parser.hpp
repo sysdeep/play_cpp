@@ -1,11 +1,11 @@
 #pragma once
 #include <vector>
-#include "docker_client/models/image.hpp"
+#include "models/image_list_model.hpp"
 
 namespace docker
 {
     namespace parser
     {
-        std::vector<Image> parseImagesList(const std::string src);
+        std::vector<ImageListModel> parseImagesList(const std::string src);
     }
 }

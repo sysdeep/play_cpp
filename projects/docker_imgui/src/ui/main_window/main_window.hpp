@@ -6,6 +6,7 @@
 #include "ui/pages/about/about_page.hpp"
 #include "ui/ui_state.hpp"
 #include "ui/pages/drawable_page.hpp"
+#include "ui/core/drawable.hpp"
 #include "ui/main_nav/main_nav.hpp"
 #include "main_menu.hpp"
 #include "docker_client.hpp"
@@ -25,7 +26,7 @@ private:
 
     UIState *state;
     // components
-    std::vector<DrawablePage *> pages;
+    std::vector<ui::Drawable *> pages;
     MainMenu *main_menu;
     // ImagesPage *images_page;
 

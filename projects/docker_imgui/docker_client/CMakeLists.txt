@@ -24,10 +24,11 @@ add_library(${APP_TARGET} STATIC
   sections/containers.cpp
   sections/system.cpp
   models/system_info.cpp
-  models/image.cpp
   models/container_list_model.hpp
+  models/image_list_model.hpp
   parser/parser_utils.cpp
   parser/containers_list_parser.cpp
+  parser/images_list_parser.cpp
 )
 
 

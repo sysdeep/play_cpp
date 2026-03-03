@@ -37,6 +37,29 @@ void MainNav::draw()
         uiState->demo_window = !uiState->demo_window;
     }
 
+    ImGui::Separator();
+    ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_None;
+    if (ImGui::BeginTabBar("MyTabBar", tab_bar_flags))
+    {
+        if (ImGui::BeginTabItem("Avocado"))
+        {
+            ImGui::Text("This is the Avocado tab!\nblah blah blah blah blah");
+            ImGui::EndTabItem();
+        }
+        if (ImGui::BeginTabItem("Broccoli"))
+        {
+            ImGui::Text("This is the Broccoli tab!\nblah blah blah blah blah");
+            ImGui::EndTabItem();
+        }
+        if (ImGui::BeginTabItem("Cucumber"))
+        {
+            ImGui::Text("This is the Cucumber tab!\nblah blah blah blah blah");
+            ImGui::EndTabItem();
+        }
+        ImGui::EndTabBar();
+    }
+    ImGui::Separator();
+
     // if (ImGui::TreeNode("Resizable, stretch"))
     // {
     //     ImGui::Text("%s", "test");

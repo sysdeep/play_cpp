@@ -1,9 +1,10 @@
 #pragma once
+#include "ui/core/drawable.hpp"
 
-class DrawablePage
+class DrawablePage : public ui::Drawable
 {
 public:
-    virtual ~DrawablePage() {};
+    // virtual ~DrawablePage() {};
 
-    virtual void draw() = 0;
+    // virtual void draw() = 0;
 };

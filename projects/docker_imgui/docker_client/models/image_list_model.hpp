@@ -6,7 +6,7 @@
 namespace docker
 {
 
-    struct Image
+    struct ImageListModel
     {
         uint64_t Containers;
         uint64_t Created;
@@ -22,5 +22,4 @@ namespace docker
         // static std::vector<Image> fromStringArray(const std::string src);
     };
 
-    std::vector<Image> parseImages(const std::string src);
 }

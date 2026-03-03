@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include "session/session.hpp"
-#include "models/image.hpp"
+#include "models/image_list_model.hpp"
 
 namespace docker
 {
@@ -11,7 +11,7 @@ namespace docker
     public:
         Images(Session *session);
 
-        std::vector<Image> get_all();
+        std::vector<ImageListModel> get_all();
 
     private:
         Session *session;
