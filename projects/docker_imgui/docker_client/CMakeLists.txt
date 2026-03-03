@@ -20,12 +20,14 @@ include_directories(${PROJECT_SOURCE_DIR})
 add_library(${APP_TARGET} STATIC
   docker_client.cpp
   session/session.cpp
-  entites/images.cpp
-  entites/containers.cpp
-  entites/system.cpp
+  sections/images.cpp
+  sections/containers.cpp
+  sections/system.cpp
   models/system_info.cpp
   models/image.cpp
-  models/parser_utils.cpp
+  models/container_list_model.hpp
+  parser/parser_utils.cpp
+  parser/containers_list_parser.cpp
 )
 
 

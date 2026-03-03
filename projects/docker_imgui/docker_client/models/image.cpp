@@ -1,7 +1,7 @@
 #include "image.hpp"
 #include "rapidjson/document.h"
 #include <iostream>
-#include "parser_utils.hpp"
+#include "parser/parser_utils.hpp"
 
 using namespace docker;
 
@@ -54,10 +54,10 @@ std::vector<Image> docker::parseImages(const std::string src)
 
             // Containers
             if (record.HasMember("Containers"))
-                result.Containers = processUint64(record["Containers"]);
+                result.Containers = parser::processUint64(record["Containers"]);
 
             // Id
-            result.Id = processString(record, "Id", "Error");
+            result.Id = parser::processString(record, "Id", "Error");
 
             // RepoTags
             if (record.HasMember("RepoTags"))
@@ -80,11 +80,11 @@ std::vector<Image> docker::parseImages(const std::string src)
 
             // Size
             if (record.HasMember("Size"))
-                result.Size = processUint64(record["Size"]);
+                result.Size = parser::processUint64(record["Size"]);
 
             // Created
             if (record.HasMember("Created"))
-                result.Created = processUint64(record["Created"]);
+                result.Created = parser::processUint64(record["Created"]);
 
             results.push_back(std::move(result));
         }

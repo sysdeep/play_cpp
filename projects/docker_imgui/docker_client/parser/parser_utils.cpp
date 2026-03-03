@@ -1,6 +1,7 @@
 #include "parser_utils.hpp"
 
-std::string docker::processString(const rapidjson::Value &record, const char *name, const std::string default_value)
+using namespace docker;
+std::string parser::processString(const rapidjson::Value &record, const char *name, const std::string default_value)
 {
     if (!record.IsObject())
     {
@@ -16,7 +17,7 @@ std::string docker::processString(const rapidjson::Value &record, const char *na
     return default_value;
 }
 
-uint64_t docker::processUint64(const rapidjson::Value &value)
+uint64_t parser::processUint64(const rapidjson::Value &value)
 {
     if (value.IsUint64())
     {

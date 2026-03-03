@@ -3,6 +3,7 @@
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 #include "ui/pages/system_info/system_info_page.hpp"
+#include "ui/pages/containers/containers_page.hpp"
 #include "ui/icons/fa4.hpp"
 
 MainWindow::MainWindow(docker::DockerClient *docker_client)
@@ -20,6 +21,7 @@ MainWindow::MainWindow(docker::DockerClient *docker_client)
     pages.push_back(new AboutPage(state));
     pages.push_back(new SystemInfoPage(state, docker_client));
     pages.push_back(new ImagesPage(state, docker_client));
+    pages.push_back(new ui::ContainersPage(state, docker_client));
 };
 
 void MainWindow::start_loop()

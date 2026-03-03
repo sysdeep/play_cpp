@@ -11,6 +11,7 @@ public:
     bool about_window{false};
     bool system_info_window{true};
     bool images_window{true};
+    bool containers_window{true};
 
     // fonts
     ImFont *fontRegular = nullptr;

@@ -3,9 +3,9 @@
 #include <string>
 #include <curl/curl.h>
 
-#include "entites/containers.hpp"
-#include "entites/images.hpp"
-#include "entites/system.hpp"
+#include "sections/containers.hpp"
+#include "sections/images.hpp"
+#include "sections/system.hpp"
 #include "session/session.hpp"
 #include "models/docker_version.hpp"
 
