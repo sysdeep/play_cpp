@@ -21,6 +21,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(SOURCES
     src/main.cpp
     src/application/application.cpp
+    src/ui/ui_state.cpp
     src/ui/main_window/main_window.cpp
     src/ui/main_window/imgui_factory.cpp
     src/ui/main_window/main_menu.cpp
@@ -34,6 +35,8 @@ set(SOURCES
     src/ui/utils/humanize.cpp
     src/ui/content/content_frame.cpp
     src/ui/content/content_window.cpp
+    src/ui/windows/container_window.cpp
+    src/ui/windows/image_window.cpp
 )
 
 include_directories(${PROJECT_SOURCE_DIR}/src/)

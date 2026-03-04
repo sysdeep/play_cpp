@@ -3,7 +3,7 @@
 #include "imgui.h"
 #include "misc/cpp/imgui_stdlib.h"
 #include "images_frame.hpp"
-#include "ui/icons/fa4.hpp"
+#include "ui/icons/icons.hpp"
 #include "ui/utils/humanize.hpp"
 
 using namespace ui;
@@ -144,7 +144,7 @@ void ImagesFrame::process_draw()
     ImGui::PopItemWidth();
 
     // commands -------------------------------------------
-    if (ImGui::Button(ICON_FA_REFRESH " Обновить"))
+    if (ImGui::Button(ICON_REFRESH " Обновить"))
     {
         this->start_update_task();
     }
@@ -178,6 +178,7 @@ void ImagesFrame::process_draw()
                 names.push_back(std::string("---"));
             }
 
+            int ni = 1;
             for (const auto name : names)
             {
 
@@ -195,6 +196,13 @@ void ImagesFrame::process_draw()
 
                 // Name
                 ImGui::TableSetColumnIndex(0);
+                ImGui::PushID((row * 4 + 3) * ni++);
+                if (ImGui::SmallButton("..."))
+                {
+                    this->state->show_image(this->images[row].Id);
+                }
+                ImGui::PopID();
+                ImGui::SameLine();
                 ImGui::Text("%s", name.c_str());
 
                 // ID

@@ -34,8 +34,14 @@ void ContentFrame::draw()
 
             if (ImGui::BeginTabItem(pp->getMeta().title))
             {
-                // pp.first
+
+                const ImGuiID child_id = ImGui::GetID((void *)(intptr_t)pp);
+                ImGuiChildFlags flags =
+                    ImGuiChildFlags_AlwaysUseWindowPadding;
+                ImGui::BeginChild(child_id, ImVec2(0, 0), flags);
                 pp->draw();
+
+                ImGui::EndChild();
 
                 ImGui::EndTabItem();
             }

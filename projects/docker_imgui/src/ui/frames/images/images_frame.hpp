@@ -6,7 +6,7 @@
 #include "models/image_list_model.hpp"
 #include "ui/ui_state.hpp"
 #include "ui/frames/frame.hpp"
-#include "ui/icons/fa4.hpp"
+#include "ui/icons/icons.hpp"
 
 namespace ui
 {
@@ -21,7 +21,7 @@ namespace ui
 
         void process_draw();
 
-        static constexpr const char *title = ICON_FA_ADDRESS_BOOK " Images";
+        static constexpr const char *title = ICON_IMAGE " Images";
 
     private:
         ImGuiTableFlags table_flags;

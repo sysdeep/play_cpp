@@ -30,5 +30,5 @@ private:
     MainMenu *main_menu;
     // ImagesPage *images_page;
 
-    ui::MainNav *main_nav;
+    // ui::MainNav *main_nav;
 };

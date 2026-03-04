@@ -1,7 +1,7 @@
 #include <iostream>
 #include "containers_frame.hpp"
 #include "imgui.h"
-#include "ui/icons/fa4.hpp"
+#include "ui/icons/icons.hpp"
 #include "ui/utils/humanize.hpp"
 
 using namespace ui;
@@ -40,7 +40,7 @@ void ContainersFrame::process_draw()
     ImGui::Text("futures: %ld", this->futures.size());
 
     // commands -------------------------------------------
-    if (ImGui::Button(ICON_FA_REFRESH " Обновить"))
+    if (ImGui::Button(ICON_REFRESH " Обновить"))
     {
         this->start_update_task();
     }
@@ -74,6 +74,7 @@ void ContainersFrame::process_draw()
                 names.push_back(std::string("---"));
             }
 
+            int ni = 1;
             for (const auto name : names)
             {
 
@@ -91,6 +92,14 @@ void ContainersFrame::process_draw()
 
                 // Name
                 ImGui::TableSetColumnIndex(0);
+                ImGui::PushID((row * 3 + 3) * ni++);
+                if (ImGui::SmallButton("..."))
+                {
+                    std::cout << "do open: " << name << std::endl;
+                    this->uiState->show_container(this->containers[row].Id);
+                }
+                ImGui::PopID();
+                ImGui::SameLine();
                 ImGui::Text("%s", name.c_str());
 
                 // ID

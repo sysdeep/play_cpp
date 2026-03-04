@@ -7,7 +7,7 @@
 #include "docker_client.hpp"
 #include "models/container_list_model.hpp"
 #include "ui/frames/frame.hpp"
-#include "ui/icons/fa4.hpp"
+#include "ui/icons/icons.hpp"
 
 namespace ui
 {
@@ -19,7 +19,7 @@ namespace ui
         void draw() override;
         FrameMeta getMeta() override;
 
-        static constexpr const char *title = ICON_FA_CODEPEN " Containers";
+        static constexpr const char *title = ICON_CONTAINER " Containers";
 
     private:
         // components

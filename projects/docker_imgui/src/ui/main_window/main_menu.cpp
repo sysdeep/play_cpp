@@ -56,6 +56,12 @@ void MainMenu::draw()
             {
                 state->demo_window = !state->demo_window;
             }
+
+            if (ImGui::MenuItem("Example"))
+            {
+                state->example_window = !state->example_window;
+            }
+
             ImGui::EndMenu();
         }
         ImGui::EndMainMenuBar();
