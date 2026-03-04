@@ -10,7 +10,7 @@ namespace ui
         explicit ContentWindow();
         void draw() override;
 
-        void registerPage(int pageId, Frame *frame);
+        void registerPage(Frame *frame);
 
     private:
         ContentFrame *contentFrame;

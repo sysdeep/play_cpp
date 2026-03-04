@@ -30,6 +30,7 @@ set(SOURCES
     src/ui/pages/about/about_page.cpp
     src/ui/pages/system_info/system_info_page.cpp
     src/ui/frames/images/images_frame.cpp
+    src/ui/frames/containers/containers_frame.cpp
     src/ui/utils/humanize.cpp
     src/ui/content/content_frame.cpp
     src/ui/content/content_window.cpp

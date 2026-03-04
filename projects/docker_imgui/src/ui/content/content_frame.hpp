@@ -12,9 +12,9 @@ namespace ui
         explicit ContentFrame();
         void draw() override;
 
-        void registerPage(int pageId, Frame *frame);
+        void registerPage(Frame *frame);
 
     private:
-        std::map<int, Frame *> pages;
+        std::vector<Frame *> pages;
     };
 }

@@ -1,11 +1,12 @@
 #pragma once
+#include <chrono>
+#include <future>
 #include "imgui.h"
 #include "docker_client.hpp"
 #include "models/image_list_model.hpp"
 #include "ui/ui_state.hpp"
 #include "ui/frames/frame.hpp"
-#include <chrono>
-#include <future>
+#include "ui/icons/fa4.hpp"
 
 namespace ui
 {
@@ -16,8 +17,11 @@ namespace ui
         ImagesFrame(UIState *state, docker::DockerClient *docker_client);
 
         void draw() override;
+        FrameMeta getMeta() override;
 
         void process_draw();
+
+        static constexpr const char *title = ICON_FA_ADDRESS_BOOK " Images";
 
     private:
         ImGuiTableFlags table_flags;

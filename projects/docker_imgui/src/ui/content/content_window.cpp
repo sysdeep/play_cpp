@@ -16,10 +16,10 @@ void ContentWindow::draw()
     ImGui::End();
 };
 
-void ContentWindow::registerPage(int pageId, Frame *frame)
+void ContentWindow::registerPage(Frame *frame)
 {
     if (contentFrame == nullptr)
         return;
 
-    contentFrame->registerPage(pageId, frame);
+    contentFrame->registerPage(frame);
 }

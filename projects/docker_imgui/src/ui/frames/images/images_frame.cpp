@@ -28,6 +28,11 @@ ImagesFrame::ImagesFrame(UIState *state, docker::DockerClient *docker_client) : 
     // std::cout << info.ServerVersion << std::endl;
 };
 
+FrameMeta ImagesFrame::getMeta()
+{
+    return FrameMeta{ImagesFrame::title};
+}
+
 void ImagesFrame::draw()
 {
 
