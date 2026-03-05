@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include "window.hpp"
+#include <iostream>
 
 namespace ui
 {
@@ -8,6 +9,10 @@ namespace ui
     {
     public:
         ImageWindow(std::string id);
+        ~ImageWindow()
+        {
+            std::cout << "image window deleted" << std::endl;
+        };
         void draw() override;
 
     private:

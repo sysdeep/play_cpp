@@ -1,4 +1,8 @@
 cmake_minimum_required(VERSION 3.16)
+
+set(CMAKE_C_COMPILER clang)
+set(CMAKE_CXX_COMPILER clang++)
+
 project(docker_imgui LANGUAGES CXX)
 
 
@@ -21,10 +25,14 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(SOURCES
     src/main.cpp
     src/application/application.cpp
+    src/ui/core/async_fetcher.cpp
     src/ui/ui_state.cpp
     src/ui/main_window/main_window.cpp
     src/ui/main_window/imgui_factory.cpp
     src/ui/main_window/main_menu.cpp
+    src/ui/main_window/modals_manager/modals_manager.cpp
+    src/ui/main_window/modals_manager/modals_storage.cpp
+    src/ui/main_window/modals_manager/modal_provider.hpp
     src/ui/main_nav/main_nav.cpp
     src/ui/pages/images/images_page.cpp
     src/ui/pages/containers/containers_page.cpp

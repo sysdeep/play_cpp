@@ -2,6 +2,7 @@
 #include <iostream>
 #include "session/params_builder.hpp"
 #include "parser/containers_list_parser.hpp"
+#include "parser/container_parser.hpp"
 
 using namespace docker;
 Containers::Containers(Session *session) : session(session) {}
@@ -40,5 +41,20 @@ std::vector<ContainerListModel> Containers::get_all()
 
     // TODO: error
     std::vector<ContainerListModel> result;
+    return result;
+}
+
+ContainerModel Containers::get(const std::string &id)
+{
+    std::string path = "/containers/" + id + "/json";
+
+    auto res = this->session->get(path);
+    if (res.first == 200)
+    {
+        return parser::parseContainer(res.second);
+    }
+
+    // TODO: error
+    ContainerModel result;
     return result;
 }

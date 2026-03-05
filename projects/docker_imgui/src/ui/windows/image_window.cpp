@@ -3,7 +3,10 @@
 
 using namespace ui;
 
-ImageWindow::ImageWindow(std::string id) : id(id) {};
+ImageWindow::ImageWindow(std::string id) : id(id)
+{
+    std::cout << "image window created" << std::endl;
+};
 
 void ImageWindow::draw()
 {

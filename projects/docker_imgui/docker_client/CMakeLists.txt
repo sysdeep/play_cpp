@@ -28,6 +28,7 @@ add_library(${APP_TARGET} STATIC
   models/image_list_model.hpp
   parser/parser_utils.cpp
   parser/containers_list_parser.cpp
+  parser/container_parser.cpp
   parser/images_list_parser.cpp
 )
 

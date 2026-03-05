@@ -10,6 +10,7 @@
 #include "ui/main_nav/main_nav.hpp"
 #include "main_menu.hpp"
 #include "docker_client.hpp"
+#include "modals_manager/modals_manager.hpp"
 
 class MainWindow
 {
@@ -31,4 +32,5 @@ private:
     // ImagesPage *images_page;
 
     // ui::MainNav *main_nav;
+    ui::ModalsManager *modalsManager;
 };

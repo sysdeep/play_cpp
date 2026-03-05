@@ -32,8 +32,11 @@ MainWindow::MainWindow(docker::DockerClient *docker_client)
     pages.push_back(content_window);
     pages.push_back(new AboutPage(state));
     pages.push_back(new SystemInfoPage(state, docker_client));
-    pages.push_back(new ImagesPage(state, docker_client));
-    pages.push_back(new ui::ContainersPage(state, docker_client));
+    // pages.push_back(new ImagesPage(state, docker_client));
+    // pages.push_back(new ui::ContainersPage(state, docker_client));
+
+    // modals manager -------------------------------------
+    this->modalsManager = new ui::ModalsManager(state, docker_client);
 };
 
 void MainWindow::start_loop()
@@ -74,16 +77,19 @@ void MainWindow::start_loop()
             dp->draw();
         }
 
-        // windows
-        for (const auto &id : state->container_modals)
-        {
-            ui::ContainerWindow(id).draw();
-        }
+        // // windows
+        // for (const auto &id : state->container_modals)
+        // {
+        //     ui::ContainerWindow(id).draw();
+        // }
 
-        for (const auto &id : state->image_modals)
-        {
-            ui::ImageWindow(id).draw();
-        }
+        // for (const auto &id : state->image_modals)
+        // {
+        //     ui::ImageWindow(id).draw();
+        // }
+
+        // modals manager
+        this->modalsManager->draw();
 
         // example window -----------------------------------------------------
         if (state->example_window)
