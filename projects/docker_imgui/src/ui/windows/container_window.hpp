@@ -4,13 +4,14 @@
 #include "ui/core/async_fetcher.hpp"
 #include "models/container_model.hpp"
 #include "docker_client.hpp"
+#include "window_handler.hpp"
 
 namespace ui
 {
     class ContainerWindow : public Window
     {
     public:
-        ContainerWindow(std::string id, docker::DockerClient *docker_client);
+        ContainerWindow(std::string id, docker::DockerClient *docker_client, WindowHandler *window_handler);
         ~ContainerWindow()
         {
             delete (fetcher);
@@ -19,7 +20,9 @@ namespace ui
 
     private:
         std::string id;
+        bool is_running = true;
         docker::DockerClient *docker_client;
+        WindowHandler *window_handler;
 
         AsyncFetcher<docker::ContainerModel> *fetcher;
 

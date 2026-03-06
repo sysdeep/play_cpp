@@ -5,8 +5,12 @@
 
 using namespace ui;
 
-ContainerWindow::ContainerWindow(std::string id, docker::DockerClient *docker_client) : id(id),
-                                                                                        docker_client(docker_client)
+ContainerWindow::ContainerWindow(std::string id,
+                                 docker::DockerClient *docker_client,
+                                 WindowHandler *window_handler) : id(id),
+                                                                  docker_client(docker_client),
+                                                                  window_handler(window_handler),
+                                                                  is_running(true)
 {
 
     fetcher = new AsyncFetcher<docker::ContainerModel>([=]()
@@ -27,7 +31,7 @@ void ContainerWindow::draw()
     auto payload = fetcher->tick();
 
     auto title = ICON_CONTAINER " Container: " + payload.Name;
-    ImGui::Begin(title.c_str());
+    ImGui::Begin(title.c_str(), &is_running);
 
     drawStatus(payload);
     /*
@@ -52,6 +56,11 @@ void ContainerWindow::draw()
         fetcher->start();
     }
     ImGui::End();
+
+    if (!is_running)
+    {
+        window_handler->do_close(this->id);
+    }
 };
 
 void ContainerWindow::drawStatus(const docker::ContainerModel &model)
