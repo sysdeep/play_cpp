@@ -1,6 +1,7 @@
 #include <string>
 #include "imgui.h"
 #include "content_frame.hpp"
+#include <cstdint>
 
 using namespace ui;
 
