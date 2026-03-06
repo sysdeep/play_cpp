@@ -24,5 +24,11 @@ namespace ui
         AsyncFetcher<docker::ContainerModel> *fetcher;
 
         docker::ContainerModel fetch();
+
+        // draw
+        void drawStatus(const docker::ContainerModel &model);
+        void drawDetails();
+        void drawNetworks();
+        void drawVolumes();
     };
 }

@@ -188,7 +188,9 @@ void MainWindow::_setup_fonts()
 
     // io->Fonts->AddFontDefaultVector();
 
-    this->state->fontRegular = io->Fonts->AddFontFromFileTTF("../assets/Roboto-Regular.ttf", 16.f, nullptr, io->Fonts->GetGlyphRangesCyrillic());
+    const auto fontSize = 18.f;
+
+    this->state->fontRegular = io->Fonts->AddFontFromFileTTF("../assets/Roboto-Regular.ttf", fontSize, nullptr, io->Fonts->GetGlyphRangesCyrillic());
     // io->Fonts->AddFontFromFileTTF("../assets/Roboto-Medium.ttf", 16.f);
 
     // NOTE: данный шрифт подмешивается к самому первому, и должен быть определён сразу за ним
@@ -203,7 +205,7 @@ void MainWindow::_setup_fonts()
     io->Fonts->AddFontFromFileTTF("../assets/fontawesome-webfont.ttf", 13.f, &icons_config, icons_ranges);
 
     // monospace font
-    this->state->fontMono = io->Fonts->AddFontFromFileTTF("../assets/RobotoMono-Regular.ttf", 16.f, nullptr, io->Fonts->GetGlyphRangesCyrillic());
+    this->state->fontMono = io->Fonts->AddFontFromFileTTF("../assets/RobotoMono-Regular.ttf", fontSize, nullptr, io->Fonts->GetGlyphRangesCyrillic());
 
     // Call this after all fonts are loaded
     io->Fonts->Build();
