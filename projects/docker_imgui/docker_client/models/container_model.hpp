@@ -6,20 +6,6 @@
 namespace docker
 {
 
-    // "State" : {
-    //     "Status" : "running",
-    //     "Running" : true,
-    //     "Paused" : false,
-    //     "Restarting" : false,
-    //     "OOMKilled" : false,
-    //     "Dead" : false,
-    //     "Pid" : 4591,
-    //     "ExitCode" : 0,
-    //     "Error" : "",
-    //     "StartedAt" : "2026-03-05T07:08:32.952693854Z",
-    //     "FinishedAt" : "2026-03-04T15:42:18.255986124Z"
-    // },
-
     struct ContainerState
     {
         std::string Status;
@@ -29,10 +15,47 @@ namespace docker
         bool OOMKilled;
         bool Dead;
         uint64_t Pid;
-        uint64_t ExitCode;
+        int64_t ExitCode;
         std::string Error;
         std::string StartedAt;
-        std::string Finished;
+        std::string FinishedAt;
+    };
+
+    // тип монирования - volume
+    struct ContainerMountVolume
+    {
+        std::string Type;
+        std::string Name;
+        std::string Source;
+        std::string Destination;
+        std::string Driver;
+        std::string Mode;
+        bool RW;
+        std::string Propagation;
+    };
+
+    struct ContainerNetwork
+    {
+        std::string Key; // bridge
+
+        std::string IPAddress;
+        std::string Gateway;
+        std::string MacAddress;
+
+        // NOTE: добавить остальные поля если нужно - см. полную модель в парсере
+    };
+
+    struct ContainerNetworkSettings
+    {
+        std::vector<ContainerNetwork> Networks;
+    };
+
+    struct ContainerConfig
+    {
+        std::vector<std::string> Cmd;
+        std::vector<std::string> Env;
+        std::vector<std::string> Entrypoint;
+        std::string Image;
     };
 
     struct ContainerModel
@@ -48,6 +71,17 @@ namespace docker
         // std::string ImageID;
         // std::string State;
         // std::string Status;
+
+        // volume mounts
+        std::vector<ContainerMountVolume> MountVolumes;
+
+        // TODO: bind mounts
+
+        // network settings
+        ContainerNetworkSettings NetworkSettings;
+
+        // config
+        ContainerConfig Config;
     };
 
 }

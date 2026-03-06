@@ -44,6 +44,7 @@ void MainWindow::start_loop()
     auto window = factory->init();
 
     this->_setup_fonts();
+    this->_setup_style();
 
     // Setup Dear ImGui style
     // ImGui::StyleColorsDark();
@@ -209,4 +210,19 @@ void MainWindow::_setup_fonts()
 
     // Call this after all fonts are loaded
     io->Fonts->Build();
+}
+
+void MainWindow::_setup_style()
+{
+    auto &style = ImGui::GetStyle();
+    // style.Colors[ImGuiCol_WindowBg] = ImVec4(0.11f, 0.11f, 0.11f, 1.00f);
+    // style.Colors[ImGuiCol_FrameBg] = ImVec4(0.18f, 0.18f, 0.18f, 1.00f);
+
+    style.FrameRounding = 2.0f;
+    style.ChildRounding = 2.0f;
+    style.TabRounding = 2.0f;
+    style.GrabRounding = 2.0f;
+    style.PopupRounding = 2.0f;
+    style.WindowRounding = 2.0f;
+    style.ScrollbarRounding = 4.0f;
 }

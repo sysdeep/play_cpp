@@ -27,8 +27,8 @@ namespace ui
 
         // draw
         void drawStatus(const docker::ContainerModel &model);
-        void drawDetails();
-        void drawNetworks();
-        void drawVolumes();
+        void drawConfig(const docker::ContainerModel &model);
+        void drawNetworks(const docker::ContainerModel &model);
+        void drawVolumes(const docker::ContainerModel &model);
     };
 }

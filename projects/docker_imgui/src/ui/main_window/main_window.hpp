@@ -24,6 +24,7 @@ private:
     ImGuiFactory *factory;
 
     void _setup_fonts();
+    void _setup_style();
 
     UIState *state;
     // components

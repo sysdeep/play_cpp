@@ -8,5 +8,11 @@ namespace docker
     {
         ContainerModel parseContainer(const std::string &src);
         ContainerState parseContainerState(const rapidjson::Value &value);
+        ContainerMountVolume parseContainerMountVolume(const rapidjson::Value &value);
+
+        ContainerNetworkSettings parseContainerNetworkSettings(const rapidjson::Value &value);
+        ContainerNetwork parseContainerNetwork(const rapidjson::Value &value, const std::string &key);
+
+        ContainerConfig parseContainerConfig(const rapidjson::Value &value);
     }
 }
