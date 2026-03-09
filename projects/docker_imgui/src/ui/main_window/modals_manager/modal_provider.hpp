@@ -27,7 +27,7 @@ namespace ui
     };
 
     //--------------
-    class ImagesModalProvider final : public ModalProvider<ImageWindow>
+    class ImagesModalProvider final : public ModalProvider<ImageWindow>, public WindowHandler
     {
     public:
         using Base = ModalProvider<ImageWindow>;
@@ -40,7 +40,12 @@ namespace ui
 
         Ptr makeModal(const std::string &id, docker::DockerClient *docker_client) override
         {
-            return std::make_unique<ImageWindow>(id);
+            return std::make_unique<ImageWindow>(id, docker_client, this);
+        }
+
+        void do_close(const std::string &id) override
+        {
+            uiState->show_image(id);
         }
     };
 

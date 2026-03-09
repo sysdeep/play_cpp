@@ -33,6 +33,7 @@ set(SOURCES
     src/ui/main_window/modals_manager/modals_manager.cpp
     src/ui/main_window/modals_manager/modals_storage.cpp
     src/ui/main_window/modals_manager/modal_provider.hpp
+    # src/ui/main_window/modals_manager/modal_provider.cpp
     src/ui/main_nav/main_nav.cpp
     src/ui/pages/images/images_page.cpp
     src/ui/pages/containers/containers_page.cpp
