@@ -40,6 +40,7 @@ void MainMenu::draw()
             }
             ImGui::EndMenu();
         }
+
         // about
         if (ImGui::BeginMenu("About"))
         {
@@ -60,6 +61,11 @@ void MainMenu::draw()
             if (ImGui::MenuItem("Example"))
             {
                 state->example_window = !state->example_window;
+            }
+
+            if (ImGui::MenuItem("Docker system info"))
+            {
+                state->system_info_window = !state->system_info_window;
             }
 
             ImGui::EndMenu();

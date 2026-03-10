@@ -87,7 +87,13 @@ void SystemInfoPage::start_update_task()
 
 void SystemInfoPage::process_draw()
 {
-    ImGui::Begin("System info");
+
+    if (!this->state->system_info_window)
+    {
+        return;
+    }
+
+    ImGui::Begin("System info", &state->system_info_window);
     // ImGui::Begin("Another Window",
     //          &show_another_window); // Pass a pointer to our bool variable (the
     //                                 // window will have a closing button that will

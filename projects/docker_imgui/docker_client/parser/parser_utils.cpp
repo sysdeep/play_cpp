@@ -17,6 +17,26 @@ std::string parser::processString(const rapidjson::Value &record, const char *na
     return default_value;
 }
 
+std::vector<std::string> parser::processStringsList(const rapidjson::Value &record, const char *name)
+{
+    std::vector<std::string> result{};
+    if (record.HasMember("Cmd"))
+    {
+        if (record["Cmd"].IsArray())
+        {
+            for (auto const &val : record["Cmd"].GetArray())
+            {
+                if (val.IsString())
+                {
+                    std::string res(val.GetString(), val.GetStringLength());
+                    result.push_back(std::move(res));
+                }
+            }
+        }
+    }
+    return result;
+}
+
 int64_t parser::processInt64(const rapidjson::Value &value)
 {
     if (value.IsInt64())

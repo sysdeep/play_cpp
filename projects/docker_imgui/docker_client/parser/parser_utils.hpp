@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <vector>
 #include <cstdint>
 #include "rapidjson/document.h"
 
@@ -9,6 +10,7 @@ namespace docker
     {
 
         std::string processString(const rapidjson::Value &record, const char *name, const std::string default_value);
+        std::vector<std::string> processStringsList(const rapidjson::Value &record, const char *name);
 
         int64_t processInt64(const rapidjson::Value &value);
         int64_t processInt64If(const rapidjson::Value &value, const char *name, int64_t default_value = 0);

@@ -13,7 +13,7 @@ SysInfoBar::SysInfoBar(docker::DockerClient *docker_client) : docker_client(dock
                                                        return this->docker_client->system->info();
                                                        //
                                                    },
-                                                   std::chrono::milliseconds(1000));
+                                                   std::chrono::milliseconds(10000));
 
     // start
     fetcher->start();

@@ -2,6 +2,7 @@
 #include "async_fetcher.hpp"
 #include "models/container_model.hpp"
 #include "models/system_info.hpp"
+#include "models/image_model.hpp"
 
 using namespace ui;
 
@@ -75,3 +76,4 @@ void AsyncFetcher<payloadT>::start()
 // template classes -----------------------------------------------------------
 template class ui::AsyncFetcher<docker::ContainerModel>;
 template class ui::AsyncFetcher<docker::SystemInfo>;
+template class ui::AsyncFetcher<docker::ImageModel>;
