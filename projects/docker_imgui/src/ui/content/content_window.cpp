@@ -18,9 +18,12 @@ void ContentWindow::draw()
     // ImVec2(0.0f, 1.0f)
     // ); // Use pivot for bottom alignment
 
+    auto size = ImVec2(viewport->WorkSize.x, viewport->WorkSize.y * 0.9f);
+
     // 1. Устанавливаем позицию и размер на весь экран
     ImGui::SetNextWindowPos(viewport->WorkPos);
-    ImGui::SetNextWindowSize(viewport->WorkSize);
+    // ImGui::SetNextWindowSize(viewport->WorkSize);
+    ImGui::SetNextWindowSize(size);
     // ImGui::SetNextWindowViewport(viewport->ID);
 
     // 2. Настраиваем прозрачность фона (опционально)

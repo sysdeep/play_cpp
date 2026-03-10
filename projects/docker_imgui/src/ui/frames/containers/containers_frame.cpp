@@ -96,7 +96,7 @@ void ContainersFrame::process_draw()
                 if (ImGui::SmallButton("..."))
                 {
                     std::cout << "do open: " << name << std::endl;
-                    this->uiState->show_container(this->containers[row].Id);
+                    this->uiState->toggle_container(this->containers[row].Id);
                 }
                 ImGui::PopID();
                 ImGui::SameLine();

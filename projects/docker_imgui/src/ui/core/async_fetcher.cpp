@@ -1,6 +1,7 @@
 #include <iostream>
 #include "async_fetcher.hpp"
 #include "models/container_model.hpp"
+#include "models/system_info.hpp"
 
 using namespace ui;
 
@@ -71,4 +72,6 @@ void AsyncFetcher<payloadT>::start()
     futures.push_back(std::move(task_future));
 }
 
+// template classes -----------------------------------------------------------
 template class ui::AsyncFetcher<docker::ContainerModel>;
+template class ui::AsyncFetcher<docker::SystemInfo>;

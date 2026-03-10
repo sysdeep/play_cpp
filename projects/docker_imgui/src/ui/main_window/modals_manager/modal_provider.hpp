@@ -45,7 +45,7 @@ namespace ui
 
         void do_close(const std::string &id) override
         {
-            uiState->show_image(id);
+            uiState->toggle_image(id);
         }
     };
 
@@ -68,7 +68,7 @@ namespace ui
 
         void do_close(const std::string &id) override
         {
-            uiState->show_container(id);
+            uiState->toggle_container(id);
         }
     };
 }

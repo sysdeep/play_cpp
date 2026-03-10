@@ -3,7 +3,7 @@
 
 UIState::UIState() {};
 
-void UIState::show_container(const std::string &id)
+void UIState::toggle_container(const std::string &id)
 {
     auto it = std::find(container_modals.begin(), container_modals.end(), id);
     if (it == container_modals.end())
@@ -16,7 +16,7 @@ void UIState::show_container(const std::string &id)
     }
 };
 
-void UIState::show_image(const std::string &id)
+void UIState::toggle_image(const std::string &id)
 {
     auto it = std::find(image_modals.begin(), image_modals.end(), id);
     if (it == image_modals.end())

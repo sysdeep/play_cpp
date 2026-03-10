@@ -199,7 +199,7 @@ void ImagesFrame::process_draw()
                 ImGui::PushID((row * 4 + 3) * ni++);
                 if (ImGui::SmallButton("..."))
                 {
-                    this->state->show_image(this->images[row].Id);
+                    this->state->toggle_image(this->images[row].Id);
                 }
                 ImGui::PopID();
                 ImGui::SameLine();

@@ -28,9 +28,9 @@ public:
     ImFont *fontMono = nullptr;
 
     // open modals
-    void show_container(const std::string &id);
+    void toggle_container(const std::string &id);
     std::vector<std::string> container_modals;
 
-    void show_image(const std::string &id);
+    void toggle_image(const std::string &id);
     std::vector<std::string> image_modals;
 };

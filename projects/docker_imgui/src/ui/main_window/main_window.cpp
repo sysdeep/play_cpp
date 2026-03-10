@@ -11,6 +11,7 @@
 #include "ui/icons/fa4.hpp"
 #include "ui/windows/container_window.hpp"
 #include "ui/windows/image_window.hpp"
+#include "ui/sys_info_bar/sys_info_bar.hpp"
 
 MainWindow::MainWindow(docker::DockerClient *docker_client)
 {
@@ -34,6 +35,7 @@ MainWindow::MainWindow(docker::DockerClient *docker_client)
     pages.push_back(new SystemInfoPage(state, docker_client));
     // pages.push_back(new ImagesPage(state, docker_client));
     // pages.push_back(new ui::ContainersPage(state, docker_client));
+    pages.push_back(new ui::SysInfoBar(docker_client));
 
     // modals manager -------------------------------------
     this->modalsManager = new ui::ModalsManager(state, docker_client);
