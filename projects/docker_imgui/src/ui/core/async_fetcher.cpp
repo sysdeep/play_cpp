@@ -3,6 +3,7 @@
 #include "models/container_model.hpp"
 #include "models/system_info.hpp"
 #include "models/image_model.hpp"
+#include "models/image_history_model.hpp"
 
 using namespace ui;
 
@@ -77,3 +78,4 @@ void AsyncFetcher<payloadT>::start()
 template class ui::AsyncFetcher<docker::ContainerModel>;
 template class ui::AsyncFetcher<docker::SystemInfo>;
 template class ui::AsyncFetcher<docker::ImageModel>;
+template class ui::AsyncFetcher<std::vector<docker::ImageHistoryModel>>;

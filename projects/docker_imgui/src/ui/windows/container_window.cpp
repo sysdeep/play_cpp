@@ -55,6 +55,13 @@ void ContainerWindow::draw()
     {
         fetcher->start();
     }
+
+    // Check if the window is focused and the Escape key is pressed
+    if (ImGui::IsWindowFocused(ImGuiFocusedFlags_RootAndChildWindows) && ImGui::IsKeyPressed(ImGuiKey_Escape))
+    {
+        is_running = false; // Set the visibility state to false to close the window
+    }
+
     ImGui::End();
 
     if (!is_running)
@@ -77,6 +84,10 @@ void ContainerWindow::drawStatus(const docker::ContainerModel &model)
 
     if (ImGui::BeginTable("containers_table", 2))
     {
+
+        ImGui::TableSetupColumn("key", ImGuiTableColumnFlags_WidthFixed);
+        ImGui::TableSetupColumn("value", ImGuiTableColumnFlags_WidthStretch);
+
         // ID
         ImGui::TableNextRow();
         ImGui::TableSetColumnIndex(0);
@@ -172,6 +183,10 @@ void ContainerWindow::drawConfig(const docker::ContainerModel &model)
 
     if (ImGui::BeginTable("config_table", 2))
     {
+
+        ImGui::TableSetupColumn("key", ImGuiTableColumnFlags_WidthFixed);
+        ImGui::TableSetupColumn("value", ImGuiTableColumnFlags_WidthStretch);
+
         // Image
         ImGui::TableNextRow();
         ImGui::TableSetColumnIndex(0);
@@ -313,7 +328,7 @@ void ContainerWindow::drawVolumes(const docker::ContainerModel &model)
 docker::ContainerModel ContainerWindow::fetch()
 {
     auto container = this->docker_client->containers->get(id);
-    std::cout << "got container: " << container.Id << std::endl;
+    // std::cout << "got container: " << container.Id << std::endl;
 
     return container;
 }

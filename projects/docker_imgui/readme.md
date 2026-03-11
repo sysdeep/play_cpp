@@ -34,4 +34,7 @@ curl localhost:2375/images/json
 
 # image
 curl localhost:2375/images/sha256:365268e7ce469d5474b0f544ba2995f9f95f06ae28ede5d02f307f693a36783a/json
+
+# image history
+curl localhost:2375/images/sha256:365268e7ce469d5474b0f544ba2995f9f95f06ae28ede5d02f307f693a36783a/history
 ```

@@ -31,6 +31,7 @@ add_library(${APP_TARGET} STATIC
   parser/container_parser.cpp
   parser/images_list_parser.cpp
   parser/image_parser.cpp
+  parser/image_history_parser.cpp
 )
 
 

@@ -20,11 +20,11 @@ std::string parser::processString(const rapidjson::Value &record, const char *na
 std::vector<std::string> parser::processStringsList(const rapidjson::Value &record, const char *name)
 {
     std::vector<std::string> result{};
-    if (record.HasMember("Cmd"))
+    if (record.HasMember(name))
     {
-        if (record["Cmd"].IsArray())
+        if (record[name].IsArray())
         {
-            for (auto const &val : record["Cmd"].GetArray())
+            for (auto const &val : record[name].GetArray())
             {
                 if (val.IsString())
                 {

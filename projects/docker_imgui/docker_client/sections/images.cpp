@@ -2,6 +2,7 @@
 #include "images.hpp"
 #include "parser/images_list_parser.hpp"
 #include "parser/image_parser.hpp"
+#include "parser/image_history_parser.hpp"
 
 using namespace docker;
 Images::Images(Session *session) : session(session) {}
@@ -39,5 +40,23 @@ ImageModel Images::get(const std::string &id)
     }
 
     ImageModel result;
+    return result;
+}
+
+std::vector<ImageHistoryModel> Images::get_history(const std::string &id)
+{
+    std::string path = "/images/" + id + "/history";
+
+    auto res = this->session->get(path);
+    if (res.first == 200)
+    {
+        return parser::parseImageHistory(res.second);
+    }
+    else
+    {
+        // TODO: throw exception
+    }
+
+    std::vector<ImageHistoryModel> result;
     return result;
 }
