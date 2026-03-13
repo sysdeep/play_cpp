@@ -13,19 +13,29 @@ ParamsBuilder *ParamsBuilder::add(std::string key, std::string value)
 std::string ParamsBuilder::build()
 {
     std::string res = "";
-    bool first = false;
-    for (auto pair : this->params)
-    {
-        if (!first)
-        {
-            res += "&";
-        }
-        else
-        {
-            first = true;
-        }
+    const std::string delim = "&";
 
+    for (size_t i = 0; i < params.size(); ++i)
+    {
+        auto pair = params[i];
         res += pair.first + "=" + pair.second;
+        if (i + 1 < params.size())
+            res += delim;
     }
+
+    // bool first = false;
+    // for (auto pair : this->params)
+    // {
+    //     res += pair.first + "=" + pair.second;
+
+    //     if (!first)
+    //     {
+    //         res += "&";
+    //     }
+    //     else
+    //     {
+    //         first = true;
+    //     }
+    // }
     return res;
 }

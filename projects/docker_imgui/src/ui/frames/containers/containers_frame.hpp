@@ -8,18 +8,21 @@
 #include "models/container_list_model.hpp"
 #include "ui/frames/frame.hpp"
 #include "ui/icons/icons.hpp"
+#include "ui/components/containers_table.hpp"
 
 namespace ui
 {
-    class ContainersFrame : public Frame
+    class ContainersFrame : public Frame, public ContainersTableHandler
     {
     public:
         explicit ContainersFrame(UIState *uiState, docker::DockerClient *docker_client);
+        static constexpr const char *title = ICON_CONTAINER " Containers";
 
         void draw() override;
         FrameMeta getMeta() override;
 
-        static constexpr const char *title = ICON_CONTAINER " Containers";
+        // ContainersTableHandler interface ---------------
+        void on_container_toggled(const std::string &id) override;
 
     private:
         // components
@@ -32,6 +35,8 @@ namespace ui
         ImGuiTableColumnFlags column_name_flags = ImGuiTableColumnFlags_DefaultSort |
                                                   ImGuiTableColumnFlags_WidthStretch;
 
+        bool show_all = false;
+
         // methods
         void process_draw();
 
@@ -41,5 +46,8 @@ namespace ui
         std::vector<std::future<std::vector<docker::ContainerListModel>>> futures;
         void start_update_task();
         void process_update();
+
+        // components
+        ContainersTable containers_table;
     };
 }

@@ -11,7 +11,7 @@ namespace docker
     public:
         Containers(Session *session);
 
-        std::vector<ContainerListModel> get_all();
+        std::vector<ContainerListModel> get_all(bool all = false);
         ContainerModel get(const std::string &id);
 
     private:

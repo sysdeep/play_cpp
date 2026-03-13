@@ -8,10 +8,11 @@
 #include "models/image_model.hpp"
 #include "models/image_history_model.hpp"
 #include "ui/core/async_fetcher.hpp"
+#include "ui/components/containers_table.hpp"
 
 namespace ui
 {
-    class ImageWindow : public Window
+    class ImageWindow : public Window, public ContainersTableHandler
     {
     public:
         ImageWindow(std::string id, docker::DockerClient *docker_client, WindowHandler *window_handler);
@@ -21,6 +22,9 @@ namespace ui
             delete (history_fetcher);
         };
         void draw() override;
+
+        // ContainersTableHandler interface -----------------------------------
+        void on_container_toggled(const std::string &id) override;
 
     private:
         std::string id;
@@ -37,5 +41,8 @@ namespace ui
         void draw_details(docker::ImageModel &payload);
         void draw_config(docker::ImageModel &payload);
         void draw_history(const std::vector<docker::ImageHistoryModel> &payload);
+
+        // components
+        ContainersTable containers_table;
     };
 }

@@ -1,4 +1,5 @@
 #include <chrono>
+#include <iostream>
 #include "imgui.h"
 #include "image_window.hpp"
 #include "ui/icons/icons.hpp"
@@ -10,7 +11,8 @@ ImageWindow::ImageWindow(std::string id,
                          WindowHandler *window_handler) : id(id),
                                                           docker_client(docker_client),
                                                           window_handler(window_handler),
-                                                          is_running(true)
+                                                          is_running(true),
+                                                          containers_table(this)
 {
     std::cout << "image window created" << std::endl;
 
@@ -170,6 +172,10 @@ void ImageWindow::draw_details(docker::ImageModel &payload)
         ImGui::EndTable();
     }
 
+    ImGui::Separator();
+    // containers_table.draw();
+    ImGui::Separator();
+
     ImGui::EndGroup();
 }
 
@@ -268,4 +274,10 @@ void ImageWindow::draw_history(const std::vector<docker::ImageHistoryModel> &pay
     ImGui::Text("History: %zu", payload.size());
 
     ImGui::EndGroup();
+}
+
+// ContainersTableHandler interface -------------------------------------------
+void ImageWindow::on_container_toggled(const std::string &id)
+{
+    std::cout << "Need container toggle: " << id << std::endl;
 }

@@ -47,6 +47,7 @@ set(SOURCES
     src/ui/windows/container_window.cpp
     src/ui/windows/image_window.cpp
     src/ui/sys_info_bar/sys_info_bar.cpp
+    src/ui/components/containers_table.cpp
 )
 
 include_directories(${PROJECT_SOURCE_DIR}/src/)

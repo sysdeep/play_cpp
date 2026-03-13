@@ -20,6 +20,7 @@ include_directories(${PROJECT_SOURCE_DIR})
 add_library(${APP_TARGET} STATIC
   docker_client.cpp
   session/session.cpp
+  session/params_builder.cpp
   sections/images.cpp
   sections/containers.cpp
   sections/system.cpp
