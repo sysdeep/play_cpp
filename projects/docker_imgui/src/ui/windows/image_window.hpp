@@ -7,6 +7,7 @@
 #include "docker_client.hpp"
 #include "models/image_model.hpp"
 #include "models/image_history_model.hpp"
+#include "models/container_list_model.hpp"
 #include "ui/core/async_fetcher.hpp"
 #include "ui/components/containers_table.hpp"
 
@@ -20,6 +21,7 @@ namespace ui
         {
             delete (fetcher);
             delete (history_fetcher);
+            delete (containers_fetcher);
         };
         void draw() override;
 
@@ -36,6 +38,7 @@ namespace ui
         // image data fetcher
         AsyncFetcher<docker::ImageModel> *fetcher;
         AsyncFetcher<std::vector<docker::ImageHistoryModel>> *history_fetcher;
+        AsyncFetcher<std::vector<docker::ContainerListModel>> *containers_fetcher;
 
         // draw
         void draw_details(docker::ImageModel &payload);

@@ -11,5 +11,8 @@ namespace ui
 
         // запрос на закрытие окна
         virtual void do_close(const std::string &id) = 0;
+
+        // запрос на отображение контейнера
+        virtual void do_toggle_container(const std::string &id) = 0;
     };
 }

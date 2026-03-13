@@ -23,6 +23,7 @@ add_library(${APP_TARGET} STATIC
   session/params_builder.cpp
   sections/images.cpp
   sections/containers.cpp
+  sections/containers_filter.cpp
   sections/system.cpp
   models/system_info.cpp
   models/container_list_model.hpp

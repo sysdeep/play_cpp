@@ -1,6 +1,7 @@
 #include <iostream>
 #include "async_fetcher.hpp"
 #include "models/container_model.hpp"
+#include "models/container_list_model.hpp"
 #include "models/system_info.hpp"
 #include "models/image_model.hpp"
 #include "models/image_history_model.hpp"
@@ -76,6 +77,7 @@ void AsyncFetcher<payloadT>::start()
 
 // template classes -----------------------------------------------------------
 template class ui::AsyncFetcher<docker::ContainerModel>;
+template class ui::AsyncFetcher<std::vector<docker::ContainerListModel>>;
 template class ui::AsyncFetcher<docker::SystemInfo>;
 template class ui::AsyncFetcher<docker::ImageModel>;
 template class ui::AsyncFetcher<std::vector<docker::ImageHistoryModel>>;

@@ -43,9 +43,15 @@ namespace ui
             return std::make_unique<ImageWindow>(id, docker_client, this);
         }
 
+        // WindowHandler interface --------------------------------------------
         void do_close(const std::string &id) override
         {
             uiState->toggle_image(id);
+        }
+
+        void do_toggle_container(const std::string &id) override
+        {
+            uiState->toggle_container(id);
         }
     };
 
@@ -66,7 +72,13 @@ namespace ui
             return std::make_unique<ContainerWindow>(id, docker_client, this);
         }
 
+        // WindowHandler interface --------------------------------------------
         void do_close(const std::string &id) override
+        {
+            uiState->toggle_container(id);
+        }
+
+        void do_toggle_container(const std::string &id) override
         {
             uiState->toggle_container(id);
         }

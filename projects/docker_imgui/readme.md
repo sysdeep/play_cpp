@@ -25,6 +25,8 @@ sudo apt install libstdc++-12-dev
 ```bash
 # containers
 curl localhost:2375/containers/json
+# all=true&filters=%7B%22status%22%3A%5B%22running%22%5D%7D
+# all=true&filters=%7B%22ancestor%22%3A%22sha256%3A1aae88c4cca561e1d31d7a9e1d2f04c090e5fa3cdc55acc2f8b7be221b645aaa%22%7D
 
 # container
 curl localhost:2375/containers/28cf1320d2ba4408e389e996ba2dc1e3fab489205dd5d34aba7fe55c3e9b3fba/json

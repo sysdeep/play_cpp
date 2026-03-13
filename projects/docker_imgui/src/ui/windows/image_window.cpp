@@ -32,9 +32,20 @@ ImageWindow::ImageWindow(std::string id,
                                                                                },
                                                                                std::chrono::milliseconds(0));
 
+    containers_fetcher = new AsyncFetcher<std::vector<docker::ContainerListModel>>([=]()
+                                                                                   {
+                                                                                       //
+                                                                                       auto filter = docker::ContainersFilter();
+                                                                                       filter.addAncestor(id);
+                                                                                       return this->docker_client->containers->get_all(true, std::make_optional(filter));
+                                                                                       //
+                                                                                   },
+                                                                                   std::chrono::milliseconds(0));
+
     // start
     fetcher->start();
     history_fetcher->start();
+    containers_fetcher->start();
 };
 
 void ImageWindow::draw()
@@ -173,7 +184,8 @@ void ImageWindow::draw_details(docker::ImageModel &payload)
     }
 
     ImGui::Separator();
-    // containers_table.draw();
+    auto image_containers = containers_fetcher->tick();
+    containers_table.draw(image_containers);
     ImGui::Separator();
 
     ImGui::EndGroup();
@@ -279,5 +291,5 @@ void ImageWindow::draw_history(const std::vector<docker::ImageHistoryModel> &pay
 // ContainersTableHandler interface -------------------------------------------
 void ImageWindow::on_container_toggled(const std::string &id)
 {
-    std::cout << "Need container toggle: " << id << std::endl;
+    window_handler->do_toggle_container(id);
 }
