@@ -3,12 +3,12 @@
 
 namespace UI {
 class MainMenu {
-  public:
-    MainMenu();
-    void draw();
+public:
+  MainMenu();
+  void draw();
 
-  private:
-    bool _show_demo = false;
+private:
+  bool _show_demo = false;
 };
 } // namespace UI
 

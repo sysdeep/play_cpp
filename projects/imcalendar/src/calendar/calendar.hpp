@@ -1,3 +1,4 @@
+#pragma once
 #include <string>
 #include "calendar_model.hpp"
 #include "cal.hpp"

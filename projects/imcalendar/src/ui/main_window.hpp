@@ -1,33 +1,32 @@
 #ifndef MAIN_WINDOW
 #define MAIN_WINDOW
 
-#include "./main_menu.hpp"
-#include "./scene.hpp"
-#include "application/application_ctx.hpp"
-#include "imgui.h"
 #include <GLFW/glfw3.h>
+#include "imgui.h"
+#include "imgui_factory.hpp"
+#include "./main_menu.hpp"
+#include "calendar/calendar.hpp"
 
-namespace UI {
+namespace UI
+{
 
-class MainWindow {
-  public:
-    MainWindow(ApplicationCtx *ctx);
+    class MainWindow
+    {
+          public:
+    MainWindow();
     void loop();
 
   private:
-    ApplicationCtx *ctx;
-    // char *glsl_version;
-    GLFWwindow *window;
-    ImGuiIO *io;
-    MainMenu *_main_menu;
-    Scene *_scene;
+    ImGuiFactory *factory;
 
-    void initGLFW();
-    void initImGui();
+    void _setup_fonts();
+    void _setup_style();
 
-    void exitImGui();
-    void exitGLFW();
-};
+    void draw();
+
+    // components
+    Calendar *calendar;
+  };
 
 } // namespace UI
 
