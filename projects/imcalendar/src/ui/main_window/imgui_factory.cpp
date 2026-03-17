@@ -47,8 +47,11 @@ GLFWwindow *ImGuiFactory::init()
     // only glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // 3.0+ only
 #endif
 
+    // Set window hints for an undecorated window
+    // glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
+
     // Create window with graphics context
-    window = glfwCreateWindow(1280, 720, "Dear ImGui GLFW+OpenGL3 example", nullptr, nullptr);
+    window = glfwCreateWindow(640, 480, "ImCalendar", nullptr, nullptr);
     if (window == nullptr)
         std::abort();
     glfwMakeContextCurrent(window);

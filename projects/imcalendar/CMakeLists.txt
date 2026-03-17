@@ -28,12 +28,17 @@ set(SOURCES
     src/ui/calendar_window/calendar_window.cpp
     src/ui/calendar_window/calendar_model.cpp
     src/ui/calendar_window/board.cpp
-    src/ui/main_menu.cpp
+    src/ui/calendar_window/selector.cpp
+    src/ui/calendar_window/today_bar.cpp
+    src/ui/utils/utils.cpp
+    # src/ui/main_menu.cpp
 )
 
 set(IMGUI_SOURCES
-    vendors/imgui/imgui.cpp vendors/imgui/imgui_demo.cpp
-    vendors/imgui/imgui_draw.cpp vendors/imgui/imgui_widgets.cpp
+    vendors/imgui/imgui.cpp 
+    # vendors/imgui/imgui_demo.cpp
+    vendors/imgui/imgui_draw.cpp 
+    vendors/imgui/imgui_widgets.cpp
     vendors/imgui/imgui_tables.cpp)
 
 set(BACKEND_SOURCES vendors/imgui/backends/imgui_impl_glfw.cpp

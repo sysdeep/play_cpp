@@ -1,6 +1,7 @@
 #include <cmath>
 #include "imgui.h"
 #include "board.hpp"
+#include "ui/utils/utils.hpp"
 
 using namespace UI;
 Board::Board() {}
@@ -20,8 +21,19 @@ void Board::draw(CalendarModel *model)
     if (ImGui::BeginTable("calendar_grid", 7))
     {
 
+        // week days header
+        ImGui::TableNextRow();
+        int index = 0;
+        for (auto day : calendar::weekdays)
+        {
+            auto label = calendar::get_weekday_name_short(day);
+            ImGui::TableSetColumnIndex(index++);
+            // ImGui::Text("%s", label);
+            CenterTextInCell(label);
+        }
+
+        // body
         const int rows = std::ceil(double(this->data_model.size()) / 7.f);
-        std::cout << "rows: " << rows << std::endl;
 
         for (int row = 0; row < rows; row++)
         {
@@ -47,8 +59,22 @@ void Board::draw(CalendarModel *model)
                     continue;
                 }
 
+                bool is_current_day = day_is_current(day, model);
+                if (is_current_day)
+                {
+
+                    ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(5 / 7.0f, 0.6f, 0.6f));
+                    ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(5 / 7.0f, 0.7f, 0.7f));
+                    ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(5 / 7.0f, 0.8f, 0.8f));
+                }
+
                 auto btn_text_model = std::to_string(day.day);
                 ImGui::Button(btn_text_model.c_str(), ImVec2(-FLT_MIN, 0.0f));
+
+                if (is_current_day)
+                {
+                    ImGui::PopStyleColor(3);
+                }
 
                 // auto btn_text_model = std::to_string(column * row);
                 // if (ImGui::Button(btn_text_model.c_str(), ImVec2(-FLT_MIN, 0.0f)))
@@ -112,4 +138,15 @@ std::vector<Day> Board::make_board(CalendarModel *model)
     // }
 
     return days;
+}
+
+bool Board::day_is_current(Day day, CalendarModel *model)
+{
+    if (model->current_year != model->year)
+        return false;
+
+    if (model->current_month != model->month)
+        return false;
+
+    return model->current_day == day.day;
 }

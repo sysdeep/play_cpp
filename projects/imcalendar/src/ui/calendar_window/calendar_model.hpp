@@ -29,6 +29,8 @@ namespace UI
 
     void go_next_month();
     void go_prev_month();
+    void go_next_year();
+    void go_prev_year();
 
     void go_to(int year, int month);
 

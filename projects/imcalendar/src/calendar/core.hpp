@@ -29,13 +29,13 @@ namespace calendar
     };
 
     constexpr const char *const weekdays_short[] = {
+        "Вс", // Sunday = 0
         "Пн",
         "Вт",
         "Ср",
         "Чт",
         "Пт",
         "Сб",
-        "Вс",
     };
 
     constexpr const char *const weekdays_long[] = {

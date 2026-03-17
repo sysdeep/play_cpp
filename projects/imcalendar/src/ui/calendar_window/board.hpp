@@ -19,5 +19,7 @@ namespace UI
         int last_year = -1;
         int last_month = -1;
         std::vector<Day> data_model;
+
+        bool day_is_current(Day day, CalendarModel *model);
     };
 }

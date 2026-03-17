@@ -67,6 +67,16 @@ void CalendarModel::go_prev_month()
   this->go_to(new_year, new_month);
 }
 
+void CalendarModel::go_next_year()
+{
+  this->go_to(this->year + 1, this->month);
+}
+
+void CalendarModel::go_prev_year()
+{
+  this->go_to(this->year - 1, this->month);
+}
+
 void CalendarModel::go_to(int year, int month)
 {
 
