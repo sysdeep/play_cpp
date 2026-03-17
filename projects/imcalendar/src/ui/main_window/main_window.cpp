@@ -16,25 +16,19 @@ MainWindow::MainWindow()
 
 void MainWindow::loop()
 {
+  // inti glfw and opengl context -------------------------
   auto window = factory->init();
 
+  // setup ------------------------------------------------
+  this->_setup_configuration();
   this->_setup_fonts();
   this->_setup_style();
 
   // Our state
   // bool show_demo_window = true;
-  // bool show_another_window = false;
   ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
-  // UI::DSensorVM *model = new UI::DSensorVM();
-  // UI::DSensorViewEx sensor = UI::DSensorViewEx(model);
-  //
-
-  // auto dsensor_gmodal = new UI::GMODALS::DSensorGmodal();
-
-  auto io = &ImGui::GetIO();
-
-  // Main loop
+  // main loop --------------------------------------------
   while (!glfwWindowShouldClose(window))
   {
 
@@ -54,29 +48,27 @@ void MainWindow::loop()
     // if (show_demo_window)
     //   ImGui::ShowDemoWindow(&show_demo_window);
 
-    // my
-    // sensor.draw();
-    // _main_menu->draw();
-
-    // Rendering
+    // rendering ------------------------------------------
     ImGui::Render();
     int display_w, display_h;
     glfwGetFramebufferSize(window, &display_w, &display_h);
     glViewport(0, 0, display_w, display_h);
-    glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w,
-                 clear_color.z * clear_color.w, clear_color.w);
+    glClearColor(clear_color.x * clear_color.w,
+                 clear_color.y * clear_color.w,
+                 clear_color.z * clear_color.w,
+                 clear_color.w);
     glClear(GL_COLOR_BUFFER_BIT);
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
     glfwSwapBuffers(window);
   }
 
+  // Cleanup glfw and imgui -------------------------------
   factory->shutdown(window);
 }
 
 void MainWindow::draw()
 {
-
   calendar->draw();
 }
 
@@ -149,6 +141,7 @@ void MainWindow::_setup_fonts()
 }
 
 void MainWindow::_setup_style()
+
 {
   auto &style = ImGui::GetStyle();
   // style.Colors[ImGuiCol_WindowBg] = ImVec4(0.11f, 0.11f, 0.11f, 1.00f);
@@ -161,4 +154,11 @@ void MainWindow::_setup_style()
   style.PopupRounding = 2.0f;
   style.WindowRounding = 2.0f;
   style.ScrollbarRounding = 4.0f;
+}
+
+void MainWindow::_setup_configuration()
+{
+  // disable saving ini config
+  auto &io = ImGui::GetIO();
+  io.IniFilename = nullptr;
 }
