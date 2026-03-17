@@ -1,7 +1,5 @@
-#ifndef APPLICATION
-#define APPLICATION
-
-#include "ui/main_window.hpp"
+#pragma once
+#include "ui/main_window/main_window.hpp"
 
 class Application
 {
@@ -12,5 +10,3 @@ public:
 private:
   UI::MainWindow *_main_window;
 };
-
-#endif // !DEBUG

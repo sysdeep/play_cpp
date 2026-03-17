@@ -9,7 +9,7 @@
 #   - Alternative for older VS2010 to VS2015: https://marketplace.visualstudio.com/items?itemName=EditorConfigTeam.EditorConfig
 
 # top-most EditorConfig file
-root = true
+# root = true
 
 # Default settings:
 # Use 4 spaces as indentation
@@ -19,9 +19,6 @@ indent_size = 4
 insert_final_newline = true
 trim_trailing_whitespace = true
 
-[imstb_*]
-indent_size = 3
-trim_trailing_whitespace = false
 
 [Makefile]
 indent_style = tab

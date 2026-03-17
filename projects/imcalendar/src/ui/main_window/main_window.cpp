@@ -1,12 +1,9 @@
-#include "./main_window.hpp"
-#include "./main_menu.hpp"
+#include <iostream>
+#include <GLFW/glfw3.h>
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
-#include <GLFW/glfw3.h>
-#include <iostream>
-
-#include <GLFW/glfw3.h> // Will drag system OpenGL headers
+#include "./main_window.hpp"
 
 using namespace UI;
 
@@ -14,7 +11,7 @@ MainWindow::MainWindow()
 {
 
   factory = new ImGuiFactory();
-  calendar = new Calendar();
+  calendar = new CalendarWindow();
 }
 
 void MainWindow::loop()

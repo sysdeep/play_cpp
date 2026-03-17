@@ -1,18 +1,17 @@
-#ifndef MAIN_WINDOW
-#define MAIN_WINDOW
+#pragma once
 
 #include <GLFW/glfw3.h>
 #include "imgui.h"
 #include "imgui_factory.hpp"
-#include "./main_menu.hpp"
-#include "calendar/calendar.hpp"
+// #include "./main_menu.hpp"
+#include "ui/calendar_window/calendar_window.hpp"
 
 namespace UI
 {
 
-    class MainWindow
-    {
-          public:
+  class MainWindow
+  {
+  public:
     MainWindow();
     void loop();
 
@@ -25,9 +24,7 @@ namespace UI
     void draw();
 
     // components
-    Calendar *calendar;
+    CalendarWindow *calendar;
   };
 
 } // namespace UI
-
-#endif // !MAIN_WINDOW

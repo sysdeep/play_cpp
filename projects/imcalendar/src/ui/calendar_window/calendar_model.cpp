@@ -1,8 +1,8 @@
 #include "calendar_model.hpp"
 #include <algorithm>
 #include <iostream>
-#include "cal.hpp"
 
+using namespace UI;
 CalendarModel::CalendarModel()
 {
 
@@ -16,7 +16,7 @@ CalendarModel::CalendarModel()
   this->prepare(current_year, current_month);
 
   // this->day = ltm->tm_mday;
-  // this->days_in_month = cal::days_in_month(this->year, this->month);
+  // this->days_in_month = calendar::days_in_month(this->year, this->month);
 
   // int cell_index = 0;
   // for (int r = 0; r < 5; r++)
@@ -78,13 +78,13 @@ void CalendarModel::prepare(int year, int month)
   this->year = year;
   this->month = month;
 
-  auto days_in_month = cal::days_in_month(this->year, this->month);
+  auto days_in_month = calendar::days_in_month(this->year, this->month);
 
   // build days
   this->days.clear();
   for (int day = 0; day < days_in_month; day++)
   {
-    auto wd = cal::day_of_week(day + 1, month, year);
+    auto wd = calendar::day_of_week(day + 1, month, year);
     this->days.push_back(Day{day + 1, wd});
   }
 

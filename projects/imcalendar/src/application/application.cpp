@@ -1,6 +1,5 @@
-#include "./application.hpp"
-#include "ui/main_window.hpp"
 #include <iostream>
+#include "./application.hpp"
 
 Application::Application()
 {

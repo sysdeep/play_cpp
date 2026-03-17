@@ -1,107 +1,84 @@
-#include <iostream>
-#include <ostream>
-#include <string>
-#include <ctime>
 #include "calendar.hpp"
-#include "imgui.h"
-#include "cal.hpp"
-#include "core.hpp"
 
-Calendar::Calendar()
+using namespace calendar;
+
+int calendar::days_in_month(int year, int month)
 {
+    if (month < 1 || month > 12)
+        throw std::out_of_range("Month must be in the range 1..12");
 
-  // // current date/time based on current system
+    // Февраль – отдельный случай, потому что количество дней зависит от года
+    if (month == 2)
+        return is_leap_year(year) ? 29 : 28;
 
-  this->model = new CalendarModel();
-  this->board = new Board();
+    // Для остальных месяцев берём значение из готовой таблицы
+    return days_in_common_month[month - 1];
 }
 
-void Calendar::draw()
+// void calendar::validate_date(int day, int month, int year)
+// {
+//     if (year < 1) // любой положительный год разрешён
+//         throw std::out_of_range("Year must be >= 1");
+//     if (month < 1 || month > 12)
+//         throw std::out_of_range("Month must be in the range 1..12");
+//     if (day < 1 || day > 31)
+//         throw std::out_of_range("Day must be in the range 1..31");
+
+//     // Дни, которые реально могут быть в данном месяце
+//     constexpr std::array<int, 12> days_in_month_common{
+//         31, 28, 31, 30, 31, 30,
+//         31, 31, 30, 31, 30, 31};
+
+//     // Високосный год?
+//     // constexpr auto is_leap = [](int y) constexpr noexcept
+//     // {
+//     //     return (y % 4 == 0) & amp;
+//     //     &amp;
+//     //     ((y % 100 != 0) || (y % 400 == 0));
+//     // };
+
+//     int max_day = days_in_month_common[month - 1];
+//     if (month == 2 && is_leap_year(year))
+//         ++max_day; // февраль в високосный год
+
+//     if (day > max_day)
+//         throw std::out_of_range("Invalid day for the given month/year");
+// }
+
+Weekday calendar::day_of_week(int day, int month, int year) noexcept
 {
-
-  // if (!is_visible)
-  //       return;
-  //
-  ImGui::Begin("Calendar");
-
-  ImGui::Text("Hello from Calendar!");
-
-  this->_draw_today_info();
-
-  this->_draw_selector();
-  this->_draw_week_days();
-  board->draw(this->model);
-
-  ImGui::Text("%d", this->tmp_day_index);
-
-  ImGui::End();
-}
-
-void Calendar::on_day_clicked(int index)
-{
-  std::cout << index << std::endl;
-  this->tmp_day_index = index;
-}
-
-void Calendar::_draw_selector()
-{
-  // draw month selector
-  if (ImGui::BeginTable("month_selector", 3))
-  {
-    ImGui::TableNextRow();
-    ImGui::TableSetColumnIndex(0);
-    if (ImGui::Button("prev", ImVec2(-FLT_MIN, 0.0f)))
+    // Перенос января и февраля в предыдущий год
+    // (Zeller работает с «март‑февраль» как 3‑14)
+    if (month <= 2)
     {
-      model->go_prev_month();
+        month += 12;
+        --year;
     }
 
-    ImGui::TableSetColumnIndex(1);
+    const int K = year % 100; // годы в столетии
+    const int J = year / 100; // номер столетия
 
-    // selected month
-    auto month_name = get_month_name(static_cast<core::Month>(model->month - 1));
-    ImGui::Text("%s %d", month_name, model->year);
+    // Формула Zeller'а для Григорианского календаря
+    int h = (day + (13 * (month + 1)) / 5 + K + K / 4 + J / 4 + 5 * J) % 7;
 
-    ImGui::TableSetColumnIndex(2);
+    // h = 0 → Saturday, 1 → Sunday, … 6 → Friday
+    // Нам удобнее иметь 0 = Sunday, поэтому делаем поправку:
+    int w = (h + 6) % 7; // 0 = Sunday … 6 = Saturday
 
-    if (ImGui::Button("next", ImVec2(-FLT_MIN, 0.0f)))
-    {
-      model->go_next_month();
-    }
-
-    ImGui::EndTable();
-  }
+    return static_cast<Weekday>(w);
 }
 
-void Calendar::_draw_week_days()
-{
-  if (ImGui::BeginTable("week_days_table", 7))
-  {
-    ImGui::TableNextRow();
+// Weekday day_of_week_checked(int day, int month, int year)
+// {
+//     validate_date(day, month, year);
+//     return day_of_week(day, month, year);
+// }
 
-    int index = 0;
-    for (auto day : this->week_days)
-    {
+// std::array<std::string, 7> weekday_names{
+//     "Sunday", "Monday", "Tuesday", "Wednesday",
+//     "Thursday", "Friday", "Saturday"};
 
-      ImGui::TableSetColumnIndex(index++);
-      ImGui::Text("%s", day.c_str());
-    }
-
-    ImGui::EndTable();
-  }
-}
-
-/**
- * информация о тек. дне
- */
-void Calendar::_draw_today_info()
-{
-
-  auto ww = cal::day_of_week(model->current_day, model->month, model->year);
-
-  ImGui::Text("Today:");
-  ImGui::Text("Year: %d", model->year);
-  ImGui::Text("Month: %d", model->month);
-  ImGui::Text("Day: %d", model->current_day);
-  ImGui::Text("Wd: %s", cal::to_string(ww).c_str());
-  // ImGui::Text("Days in month: %d", model->days);
-}
+// std::string to_string(calendar::Weekday d) noexcept
+// {
+//     return weekday_names[static_cast<std::size_t>(d)];
+// }

@@ -1,7 +1,7 @@
 #pragma once
 #include <array>
 
-namespace core
+namespace calendar
 {
 
     // ---------------------------------------------------------------

@@ -19,15 +19,15 @@ set(SOURCES
 
     # calendar
     src/calendar/calendar.cpp
-    src/calendar/calendar_model.cpp
-    src/calendar/cal.cpp
-    src/calendar/board.cpp
     src/calendar/core.cpp
-
-
+    
+    
     # UI
-    src/ui/imgui_factory.cpp
-    src/ui/main_window.cpp
+    src/ui/main_window/imgui_factory.cpp
+    src/ui/main_window/main_window.cpp
+    src/ui/calendar_window/calendar_window.cpp
+    src/ui/calendar_window/calendar_model.cpp
+    src/ui/calendar_window/board.cpp
     src/ui/main_menu.cpp
 )
 

@@ -1,8 +1,8 @@
 #include <cmath>
 #include "imgui.h"
 #include "board.hpp"
-#include "core.hpp"
 
+using namespace UI;
 Board::Board() {}
 
 void Board::draw(CalendarModel *model)
@@ -79,7 +79,7 @@ std::vector<Day> Board::make_board(CalendarModel *model)
             //           << ", wday: " << static_cast<std::size_t>(day.weekday)
             //           << ", i: " << i
             //           << ", iwd: " << static_cast<std::size_t>(weekdays[i]);
-            if (day.weekday == core::weekdays[i])
+            if (day.weekday == calendar::weekdays[i])
             {
                 days.push_back(day);
                 month_day_index++;
@@ -87,7 +87,7 @@ std::vector<Day> Board::make_board(CalendarModel *model)
             }
             else
             {
-                days.push_back(Day{0, core::Weekday::Sunday}); // empty cell
+                days.push_back(Day{0, calendar::Weekday::Sunday}); // empty cell
                 // std::cout << " [pass]\n";
             }
         }
