@@ -71,15 +71,6 @@ void MainWindow::loop()
 void MainWindow::draw()
 {
     calendar->draw();
-
-    ImGui::Begin("Fonts");
-    ImGui::Text("Test");
-    ImGui::Text("\xef\x80\x82");
-    ImGui::Text("\uf08a");
-    ImGui::Text("\uf067");
-    ImGui::SameLine();
-    ImGui::Text("\uf0fe");
-    ImGui::End();
 }
 
 void MainWindow::_setup_fonts()

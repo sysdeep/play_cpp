@@ -1,7 +1,8 @@
-#include <cmath>
-#include "imgui.h"
 #include "board.hpp"
+#include "imgui.h"
+#include "src/calendar/core.hpp"
 #include "ui/utils/utils.hpp"
+#include <cmath>
 
 using namespace UI;
 Board::Board() {}
@@ -62,14 +63,26 @@ void Board::draw(CalendarModel *model)
                 bool is_current_day = day_is_current(day, model);
                 if (is_current_day)
                 {
-
                     ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(5 / 7.0f, 0.6f, 0.6f));
                     ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(5 / 7.0f, 0.7f, 0.7f));
                     ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(5 / 7.0f, 0.8f, 0.8f));
                 }
 
+                bool is_weekend = day.weekday == calendar::Weekday::Sunday || day.weekday == calendar::Weekday::Saturday;
+                if (is_weekend)
+                {
+                    ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(3 / 7.0f, 0.6f, 0.6f));
+                    ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(3 / 7.0f, 0.7f, 0.7f));
+                    ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(3 / 7.0f, 0.8f, 0.8f));
+                }
+
                 auto btn_text_model = std::to_string(day.day);
                 ImGui::Button(btn_text_model.c_str(), ImVec2(-FLT_MIN, 0.0f));
+
+                if (is_weekend)
+                {
+                    ImGui::PopStyleColor(3);
+                }
 
                 if (is_current_day)
                 {

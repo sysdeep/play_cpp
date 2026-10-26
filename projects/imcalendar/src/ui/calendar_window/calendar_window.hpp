@@ -7,6 +7,7 @@
 #include "imgui.h"
 #include "selector.hpp"
 #include "today_bar.hpp"
+#include "ui/about/about.hpp"
 
 namespace UI
 {
@@ -23,5 +24,7 @@ namespace UI
         Board *board;
         Selector *selector;
         TodayBar *today_bar;
+        About *about;
+        bool is_about;
     };
 } // namespace UI

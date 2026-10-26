@@ -31,6 +31,7 @@ set(SOURCES
     src/ui/calendar_window/selector.cpp
     src/ui/calendar_window/today_bar.cpp
     src/ui/utils/utils.cpp
+    src/ui/about/about.cpp
     # src/ui/main_menu.cpp
 )
 

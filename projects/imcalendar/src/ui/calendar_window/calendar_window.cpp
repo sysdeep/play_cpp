@@ -22,6 +22,9 @@ CalendarWindow::CalendarWindow()
     this->board = new Board();
     this->selector = new Selector(this->model);
     this->today_bar = new TodayBar();
+
+    this->is_about = true;
+    this->about = new About();
 }
 
 void CalendarWindow::draw()
@@ -39,6 +42,20 @@ void CalendarWindow::draw()
     selector->draw();
     ImGui::Dummy(ImVec2(0.0f, 16.0f));
     board->draw(this->model);
+
+    ImGui::Dummy(ImVec2(0.0f, 16.0f));
+
+    // info bar
+    ImGui::Text("v 0.0.1");
+    ImGui::SameLine();
+    ImGui::Text("About");
+    if (ImGui::IsItemClicked())
+    {
+        this->about->show();
+    }
+
+    // about ----------------------------------------------
+    this->about->draw();
 
     ImGui::End();
 }
