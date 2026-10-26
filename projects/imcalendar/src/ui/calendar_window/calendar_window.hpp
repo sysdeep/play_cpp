@@ -4,20 +4,24 @@
 #include "board.hpp"
 #include "calendar/calendar.hpp"
 #include "calendar_model.hpp"
+#include "imgui.h"
 #include "selector.hpp"
 #include "today_bar.hpp"
 
-namespace UI {
-class CalendarWindow {
- public:
-  CalendarWindow();
-  void draw();
+namespace UI
+{
+    class CalendarWindow
+    {
+    public:
+        CalendarWindow();
+        void draw();
 
- private:
-  CalendarModel* model;
+    private:
+        ImGuiWindowFlags window_flags;
+        CalendarModel *model;
 
-  Board* board;
-  Selector* selector;
-  TodayBar* today_bar;
-};
-}  // namespace UI
+        Board *board;
+        Selector *selector;
+        TodayBar *today_bar;
+    };
+} // namespace UI

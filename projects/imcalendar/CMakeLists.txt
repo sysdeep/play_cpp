@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
-project(imgui-opengl-glfw-cmake-demo)
+project(imcalculator)
 
 set(CMAKE_CXX_STANDARD 17)
 
