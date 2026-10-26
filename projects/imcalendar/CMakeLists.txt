@@ -48,8 +48,11 @@ add_library(backend STATIC ${BACKEND_SOURCES})
 
 add_library(imgui STATIC ${IMGUI_SOURCES})
 
+# add_subdirectory(vendors/argparse)
+
 include_directories(${PROJECT_SOURCE_DIR})
 include_directories(vendors/imgui)
+include_directories(vendors/argparse/include)
 
 add_executable(${APP_TARGET} ${SOURCES})
 target_link_libraries(${APP_TARGET} imgui backend)

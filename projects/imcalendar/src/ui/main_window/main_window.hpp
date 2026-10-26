@@ -1,22 +1,21 @@
 #pragma once
 
 #include <GLFW/glfw3.h>
+
 #include "imgui.h"
 #include "imgui_factory.hpp"
 // #include "./main_menu.hpp"
 #include "ui/calendar_window/calendar_window.hpp"
 
-namespace UI
-{
+namespace UI {
 
-  class MainWindow
-  {
-  public:
+class MainWindow {
+   public:
     MainWindow();
     void loop();
 
-  private:
-    ImGuiFactory *factory;
+   private:
+    ImGuiFactory* factory;
 
     void _setup_configuration();
     void _setup_fonts();
@@ -25,7 +24,7 @@ namespace UI
     void draw();
 
     // components
-    CalendarWindow *calendar;
-  };
+    CalendarWindow* calendar;
+};
 
-} // namespace UI
+}  // namespace UI

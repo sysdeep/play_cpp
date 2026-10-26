@@ -4,9 +4,9 @@
 class Application
 {
 public:
-  Application();
-  void run();
+    Application();
+    void run();
 
 private:
-  UI::MainWindow *_main_window;
+    UI::MainWindow *_main_window;
 };
