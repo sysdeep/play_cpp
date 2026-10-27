@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
-project(imcalculator)
+project(imcalculator VERSION 0.0.2 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -8,6 +8,13 @@ set(APP_VERSION_MAJOR 1)
 set(APP_VERSION_MINOR 0)
 
 set(APP_TARGET app)
+
+# Указываем CMake сгенерировать реальный version.h из шаблона
+configure_file(
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/version.hpp.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/version.hpp"
+)
+
 
 # NOTE: for
 # including(https://stackoverflow.com/questions/61206703/is-there-includepath-option-in-clangd)
@@ -66,6 +73,9 @@ target_include_directories(${APP_TARGET} PRIVATE vendors/imgui) # Include the
                                                                 # IMGUI headers
 target_include_directories(${APP_TARGET} PRIVATE vendors/imgui/backends)
 # target_include_directories(${APP_TARGET} PRIVATE vendors/imgui-1.91.6/backends)# Include the IMGUI headers
+
+# Не забываем добавить путь к сгенерированному файлу в include
+target_include_directories(${APP_TARGET} PRIVATE "${CMAKE_CURRENT_BINARY_DIR}")
 
 # glfw
 find_package(glfw3 REQUIRED)

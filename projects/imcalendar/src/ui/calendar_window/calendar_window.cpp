@@ -2,6 +2,7 @@
 #include "calendar/calendar.hpp"
 #include "imgui.h"
 #include "ui/utils/utils.hpp"
+#include "version.hpp"
 #include <ctime>
 #include <iostream>
 #include <ostream>
@@ -46,7 +47,7 @@ void CalendarWindow::draw()
     ImGui::Dummy(ImVec2(0.0f, 16.0f));
 
     // info bar
-    ImGui::Text("v 0.0.1");
+    ImGui::Text("v %s", PROJECT_VERSION);
     ImGui::SameLine();
     ImGui::Text("About");
     if (ImGui::IsItemClicked())

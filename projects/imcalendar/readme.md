@@ -38,3 +38,28 @@ TODO: - добавить рекомпеляцию в make
 1 - поместить нужный шрифт в vendors/fonts/
 2 - скомпилировать `./binary_to_compressed_c ../vendors/fonts/JetBrainsMonoNerdFontMono-Regular.ttf JetBrains > ../src/ui/gen/font_FONTNAME.cpp`
 3 - подключить в main_window `io->Fonts->AddFontFromMemoryCompressedTTF(JetBrains_compressed_data, JetBrains_compressed_size);`
+
+### Version
+
+Для подстановки версии используется функционал CMake.
+
+1 - определить версию `project(imcalculator VERSION 0.0.2 LANGUAGES CXX)`
+
+2 - создать файл-шаблон который будет потом заполнен cmake - см. version.hpp.in
+
+3 - задать правила подстановки, берём шаблон и рендерим в папку сборки
+
+```cmake
+configure_file(
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/version.hpp.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/version.hpp"
+)
+```
+
+4 - добавить папку сборки в пути поиска
+
+```cmake
+target_include_directories(${APP_TARGET} PRIVATE "${CMAKE_CURRENT_BINARY_DIR}")
+```
+
+5 - подключить version.hpp и использовать - `std::cout << "Версия: " << APP_VERSION << std::endl; `

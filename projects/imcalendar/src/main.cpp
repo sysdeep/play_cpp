@@ -3,12 +3,13 @@
 
 #include "application/application.hpp"
 #include "argparse/argparse.hpp"
+#include "version.hpp"
 
 int main(int argc, const char *const *argv)
 {
 
     // argparse ---------------------------------------------------------------
-    argparse::ArgumentParser program("imcalendar", "0.0.1");
+    argparse::ArgumentParser program("imcalendar", PROJECT_VERSION);
 
     try
     {

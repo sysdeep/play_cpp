@@ -1,5 +1,6 @@
 #include "about.hpp"
 #include "imgui.h"
+#include "version.hpp"
 
 using namespace UI;
 About::About(/* args */) : _is_open(false)
@@ -20,10 +21,11 @@ void About::draw()
     if (_is_open)
     {
         ImGui::Begin("About", &_is_open, window_flags);
-        ImGui::Text("About");
-        ImGui::Text("Version  : TODO");
-        ImGui::Text("Author   : TODO");
-        ImGui::Text("Repo     : TODO");
+        ImGui::Text("Простой календарик");
+        ImGui::Dummy(ImVec2(0.0f, 16.0f));
+        ImGui::Text("Version  : %s", PROJECT_VERSION);
+        ImGui::Text("Author   : sysdeep@yandex.ru");
+        // ImGui::Text("Repo     : TODO");
         ImGui::End();
     }
 }
