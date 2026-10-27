@@ -8,17 +8,17 @@
 
 using namespace UI;
 
-MainWindow::MainWindow()
+MainWindow::MainWindow(MainWindowGeometry geo)
 {
 
-    factory = new ImGuiFactory();
+    factory = new ImGuiFactory(geo);
     calendar = new CalendarWindow();
 }
 
 void MainWindow::loop()
 {
     // inti glfw and opengl context -------------------------
-    auto window = factory->init(640, 380, "ImCalendar");
+    auto window = factory->init("ImCalendar");
 
     // setup ------------------------------------------------
     this->_setup_configuration();

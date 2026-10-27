@@ -1,10 +1,11 @@
 #pragma once
 #include "ui/main_window/main_window.hpp"
+#include "ui/main_window/main_window_geometry.hpp"
 
 class Application
 {
 public:
-    Application();
+    Application(UI::MainWindowGeometry geo);
     void run();
 
 private:

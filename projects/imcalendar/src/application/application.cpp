@@ -1,10 +1,10 @@
-#include <iostream>
 #include "./application.hpp"
+#include <iostream>
 
-Application::Application()
+Application::Application(UI::MainWindowGeometry geo)
 {
 
-    _main_window = new UI::MainWindow();
+    _main_window = new UI::MainWindow(geo);
 }
 
 void Application::run()

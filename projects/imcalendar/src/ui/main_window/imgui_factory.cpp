@@ -6,8 +6,8 @@
 #include <iostream>
 
 using namespace UI;
-ImGuiFactory::ImGuiFactory() {};
-GLFWwindow *ImGuiFactory::init(int width, int height, const char *title)
+ImGuiFactory::ImGuiFactory(MainWindowGeometry geo) : _geo(geo) {};
+GLFWwindow *ImGuiFactory::init(const char *title)
 {
 
     GLFWwindow *window = nullptr;
@@ -51,9 +51,50 @@ GLFWwindow *ImGuiFactory::init(int width, int height, const char *title)
     // glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
 
     // Create window with graphics context
-    window = glfwCreateWindow(width, height, title, nullptr, nullptr);
+    window = glfwCreateWindow(_geo.width, _geo.height, title, nullptr, nullptr);
     if (window == nullptr)
         std::abort();
+
+    // move window
+    if (_geo.padx != 0 || _geo.pady != 0)
+    {
+
+        if (window)
+        {
+            // 2. Получаем монитор, на котором запущено приложение (обычно это основной)
+            GLFWmonitor *primary_monitor = glfwGetPrimaryMonitor();
+
+            if (primary_monitor)
+            {
+                // 3. Получаем размеры РАБОЧЕЙ ОБЛАСТИ экрана (Workarea)
+                // Это важно: функция учитывает размер панели задач Windows / дока macOS!
+                int monitor_x, monitor_y, monitor_width, monitor_height;
+                glfwGetMonitorWorkarea(primary_monitor, &monitor_x, &monitor_y, &monitor_width, &monitor_height);
+
+                // если отступ отрицательный - отсчёт от правого края
+                int target_x = 0;
+                if (_geo.padx < 0)
+                {
+                    target_x = monitor_x + monitor_width - _geo.width;
+                }
+
+                // если отступ отрицательный - отсчёт от нижнего края
+                int target_y = 0;
+                if (_geo.pady < 0)
+                {
+                    target_y = monitor_y + monitor_height - _geo.height;
+                }
+
+                // padding
+                target_x += _geo.padx;
+                target_y += _geo.pady;
+
+                // move
+                glfwSetWindowPos(window, target_x, target_y);
+            }
+        }
+    }
+
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1); // Enable vsync
 

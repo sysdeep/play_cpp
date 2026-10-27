@@ -1,6 +1,11 @@
 # ImCalendar
 
-- https://howardhinnant.github.io/date/date.html
+Маленький простой календарик для использования совместно с тайловыми VM как замена ушедшему gsimplecal.
+
+- отображение сетки на месяц
+- перемотка по месяцам и годам
+
+![v 1.0.0](https://github.com/sysdeep/play_cpp/tree/master/projects/imcalendar/img/imcalendar_v1.0.0.png)
 
 ## TODO
 
@@ -15,6 +20,8 @@
 - [x] дефект - разные месяцы содержат разное кол-во строк -> скачки то что ниже сетки
 
 ## Dev
+
+- https://howardhinnant.github.io/date/date.html
 
 ### argparse
 

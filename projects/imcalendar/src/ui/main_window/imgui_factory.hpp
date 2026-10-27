@@ -1,4 +1,5 @@
 #pragma once
+#include "./main_window_geometry.hpp"
 #include <GLFW/glfw3.h>
 
 namespace UI
@@ -6,9 +7,12 @@ namespace UI
     class ImGuiFactory
     {
     public:
-        ImGuiFactory();
+        ImGuiFactory(MainWindowGeometry geo);
 
-        GLFWwindow *init(int width, int height, const char *title);
+        GLFWwindow *init(const char *title);
         void shutdown(GLFWwindow *window);
+
+    private:
+        MainWindowGeometry _geo;
     };
 }
