@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
-project(imcalculator VERSION 0.0.2 LANGUAGES CXX)
+project(imcalendar VERSION 0.0.2 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(APP_VERSION_MAJOR 1)
 set(APP_VERSION_MINOR 0)
 
-set(APP_TARGET app)
+set(APP_TARGET imcalendar)
 
 # Указываем CMake сгенерировать реальный version.h из шаблона
 configure_file(
@@ -96,3 +96,11 @@ target_link_libraries(
   ${EXTRA_LIBS}
   # for error undefined reference to symbol 'dlclose@@GLIBC_2.2.5'
   ${CMAKE_DL_LIBS})
+
+
+
+# Указываем стандартную подпапку bin. 
+# Итоговый путь будет: CMAKE_INSTALL_PREFIX + DESTINATION
+install(TARGETS ${APP_TARGET}
+    RUNTIME DESTINATION bin
+)

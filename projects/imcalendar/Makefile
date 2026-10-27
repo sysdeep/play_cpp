@@ -1,5 +1,5 @@
 BUILD_DIR = build
-CMAKE_FLAGS = -DCMAKE_BUILD_TYPE=Debug
+CMAKE_FLAGS = -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=${HOME}/.local
 # вариант через nproc
 # THREADS ?= $$(nproc)
 
@@ -21,4 +21,8 @@ clean:
 rebuild: clean configure build
 
 run: build
-	./$(BUILD_DIR)/app
+	./$(BUILD_DIR)/imcalendar
+
+
+install: build
+	cmake --install $(BUILD_DIR) --config Release --strip
