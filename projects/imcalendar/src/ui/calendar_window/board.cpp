@@ -5,7 +5,18 @@
 #include <cmath>
 
 using namespace UI;
-Board::Board() {}
+Board::Board()
+{
+
+    // prepare data_model
+    for (int c = 0; c < 7; c++)
+    {
+        for (int r = 0; r < 6; r++)
+        {
+            this->data_model.push_back(Day{0, calendar::Weekday::Sunday}); // empty cell
+        }
+    }
+}
 
 void Board::draw(CalendarModel *model)
 {
@@ -13,7 +24,10 @@ void Board::draw(CalendarModel *model)
     // cache
     if (this->last_month != model->month || this->last_year != model->year)
     {
-        this->data_model = this->make_board(model);
+        // fill board model
+        _clear_data_model();
+        _fill_data_model(model);
+
         this->last_month = model->month;
         this->last_year = model->year;
     }
@@ -57,6 +71,7 @@ void Board::draw(CalendarModel *model)
                 if (day.day == 0)
                 {
                     // ImGui::Button("", ImVec2(-FLT_MIN, 0.0f));
+                    // ImGui::Text("null");
                     continue;
                 }
 
@@ -100,59 +115,6 @@ void Board::draw(CalendarModel *model)
     }
 }
 
-std::vector<Day> Board::make_board(CalendarModel *model)
-{
-
-    std::vector<Day> days;
-
-    // std::cout << "=====================================\n";
-
-    int month_day_index = 0;
-    for (;;)
-    {
-        for (int i = 0; i < 7; i++)
-        {
-            auto day = model->days[month_day_index];
-
-            // std::cout << "day: " << day.day
-            //           << ", wday: " << static_cast<std::size_t>(day.weekday)
-            //           << ", i: " << i
-            //           << ", iwd: " << static_cast<std::size_t>(weekdays[i]);
-            if (day.weekday == calendar::weekdays[i])
-            {
-                days.push_back(day);
-                month_day_index++;
-                // std::cout << " [OK]\n";
-            }
-            else
-            {
-                days.push_back(Day{0, calendar::Weekday::Sunday}); // empty cell
-                // std::cout << " [pass]\n";
-            }
-        }
-
-        if (month_day_index >= model->days.size())
-        {
-            break;
-        }
-    }
-
-    // std::cout << "-----------------------\n";
-    // for (const auto &d : days)
-    // {
-    //     std::cout << "day: " << d.day << ", wd: " << static_cast<std::size_t>(d.weekday) << std::endl;
-    // }
-
-    // for (int day = 0; day < model->days; day++)
-    // {
-    //     auto wd = cal::day_of_week(day + 1, model->month, model->year);
-
-    //     days.push_back({day, wd});
-    // }
-
-    return days;
-}
-
 bool Board::day_is_current(Day day, CalendarModel *model)
 {
     if (model->current_year != model->year)
@@ -162,4 +124,72 @@ bool Board::day_is_current(Day day, CalendarModel *model)
         return false;
 
     return model->current_day == day.day;
+}
+
+void Board::_clear_data_model()
+{
+    for (auto &day : data_model)
+    {
+        day.day = 0;
+        day.weekday = calendar::Weekday::Sunday;
+    }
+}
+
+void Board::_fill_data_model(CalendarModel *model)
+{
+
+    // std::cout << "board before:" << std::endl;
+    // _print_data_model();
+
+    // std::cout << "model before:" << std::endl;
+    // model->print();
+
+    int month_day_index = 0;
+    int data_model_index = 0;
+    for (int r = 0; r < 6; r++)
+    {
+
+        // надо найти куда его вставить на доске, перебираем дни недели
+        for (int i = 0; i < 7; i++)
+        {
+
+            // если не достигли конца модели
+            if (month_day_index < model->days.size())
+            {
+
+                // берём день из пула модели
+                auto day = model->days[month_day_index];
+
+                // если день недели совпал, значит день обработали, переходим к след. в модели
+                if (day.weekday == calendar::weekdays[i])
+                {
+                    data_model[data_model_index].day = day.day;
+                    data_model[data_model_index].weekday = day.weekday;
+                    month_day_index++;
+                }
+            }
+
+            // иначе просто смещаемся по доске
+            data_model_index++;
+        }
+    }
+
+    // std::cout << "board after:" << std::endl;
+    // _print_data_model();
+}
+
+void Board::_print_data_model()
+{
+    int gi = 0;
+    for (int r = 0; r < 6; r++)
+    {
+        for (int c = 0; c < 7; c++)
+        {
+            auto day = data_model[gi];
+            std::cout << " " << day.day << " ";
+            gi++;
+        }
+        std::cout << std::endl;
+    }
+    std::cout << std::endl;
 }
