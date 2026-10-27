@@ -30,6 +30,7 @@ namespace UI
         void go_prev_month();
         void go_next_year();
         void go_prev_year();
+        void go_now();
 
         void go_to(int year, int month);
 
