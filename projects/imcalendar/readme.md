@@ -5,7 +5,7 @@
 - отображение сетки на месяц
 - перемотка по месяцам и годам
 
-![v 1.0.0](https://github.com/sysdeep/play_cpp/tree/master/projects/imcalendar/img/imcalendar_v1.0.0.png)
+![v 1.0.0](https://github.com/sysdeep/play_cpp/raw/master/projects/imcalendar/img/imcalendar_v1.0.0.png)
 
 ## TODO
 
