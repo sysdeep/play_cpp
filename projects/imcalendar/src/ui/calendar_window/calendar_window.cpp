@@ -48,8 +48,6 @@ void CalendarWindow::draw()
 
     // info bar
     ImGui::Text("v %s", PROJECT_VERSION);
-    ImGui::SameLine();
-    ImGui::Text("About");
     if (ImGui::IsItemClicked())
     {
         this->about->show();

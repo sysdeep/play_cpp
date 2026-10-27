@@ -8,7 +8,7 @@ namespace UI
     public:
         ImGuiFactory();
 
-        GLFWwindow *init();
+        GLFWwindow *init(int width, int height, const char *title);
         void shutdown(GLFWwindow *window);
     };
 }

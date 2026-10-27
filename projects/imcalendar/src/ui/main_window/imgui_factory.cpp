@@ -1,13 +1,13 @@
-#include <iostream>
-#include <GLFW/glfw3.h>
+#include "imgui_factory.hpp"
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
-#include "imgui_factory.hpp"
+#include <GLFW/glfw3.h>
+#include <iostream>
 
 using namespace UI;
 ImGuiFactory::ImGuiFactory() {};
-GLFWwindow *ImGuiFactory::init()
+GLFWwindow *ImGuiFactory::init(int width, int height, const char *title)
 {
 
     GLFWwindow *window = nullptr;
@@ -51,7 +51,7 @@ GLFWwindow *ImGuiFactory::init()
     // glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
 
     // Create window with graphics context
-    window = glfwCreateWindow(640, 480, "ImCalendar", nullptr, nullptr);
+    window = glfwCreateWindow(width, height, title, nullptr, nullptr);
     if (window == nullptr)
         std::abort();
     glfwMakeContextCurrent(window);

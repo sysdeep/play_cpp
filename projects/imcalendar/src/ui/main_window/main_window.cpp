@@ -18,7 +18,7 @@ MainWindow::MainWindow()
 void MainWindow::loop()
 {
     // inti glfw and opengl context -------------------------
-    auto window = factory->init();
+    auto window = factory->init(640, 380, "ImCalendar");
 
     // setup ------------------------------------------------
     this->_setup_configuration();
@@ -34,6 +34,15 @@ void MainWindow::loop()
     {
 
         glfwPollEvents();
+
+        // exit by Esc
+        if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        {
+            if (!ImGui::GetIO().WantTextInput)
+            {
+                glfwSetWindowShouldClose(window, GLFW_TRUE); // Сигнал на выход из цикла
+            }
+        }
 
         // Start the Dear ImGui frame
         ImGui_ImplOpenGL3_NewFrame();
