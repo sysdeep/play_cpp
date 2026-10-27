@@ -48,9 +48,9 @@ void Board::draw(CalendarModel *model)
         }
 
         // body
-        const int rows = std::ceil(double(this->data_model.size()) / 7.f);
+        // const int rows = std::ceil(double(this->data_model.size()) / 7.f);
 
-        for (int row = 0; row < rows; row++)
+        for (int row = 0; row < 6; row++)
         {
 
             ImGui::TableNextRow();
@@ -67,11 +67,13 @@ void Board::draw(CalendarModel *model)
                 //     << "index: " << index
                 //     << std::endl;
 
-                // день недели не из тек. месяца
+                // день недели не из тек. месяца - пустая ячейка
                 if (day.day == 0)
                 {
-                    // ImGui::Button("", ImVec2(-FLT_MIN, 0.0f));
-                    // ImGui::Text("null");
+                    // подгоняем размер, чтобы пустая строка не схлопывалась
+                    ImVec2 rect = ImGui::GetItemRectSize();
+                    ImGui::Dummy(rect);
+
                     continue;
                 }
 
